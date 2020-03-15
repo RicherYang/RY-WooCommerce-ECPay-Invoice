@@ -12,8 +12,8 @@ final class RY_WEI_update {
 			return;
 		}
 
-		if( version_compare($now_version, '1.0.0', '<' ) ) {
-			RY_WEI::update_option('version', '1.0.0');
+		if( version_compare($now_version, '1.0.0.1', '<' ) ) {
+			RY_WEI::update_option('version', '1.0.0.1');
 		}
 	}
 }

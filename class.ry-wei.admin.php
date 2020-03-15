@@ -87,8 +87,8 @@ final class RY_WEI_admin {
 			} else {
 				if( is_array($json) && isset($json['data']) ) {
 					if( empty($json['data']) ) {
+						/* translators: %s: Error message */
 						WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
-                     /* translators: %s: Error message */
 							. sprintf(__('Verification error: %s', 'ry-woocommerce-ecpay-invoice'),
 							__($json['error'], 'ry-woocommerce-ecpay-invoice')
 						));
