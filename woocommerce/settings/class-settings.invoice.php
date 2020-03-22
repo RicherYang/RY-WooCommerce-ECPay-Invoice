@@ -44,52 +44,58 @@ final class RY_WEI_Invoice_setting {
 		$hide_save_button = true;
 
 		if( isset($_POST['ecpay_official_invoice_transfer']) && $_POST['ecpay_official_invoice_transfer'] == 'ecpay_official_invoice_transfer' ) {
-            self::invoice_transfer();
+            self::official_invoice_transfer();
 
-            echo '<div id="message" class="updated notice is-dismissible"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+            echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
-        
+
         if( isset($_POST['ecpay_official_invoice_transfer_delete']) && $_POST['ecpay_official_invoice_transfer_delete'] == 'ecpay_official_invoice_transfer_delete' ) {
-            self::invoice_transfer_delete();
-            
-            echo '<div id="message" class="updated notice is-dismissible"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+            self::official_invoice_transfer_delete();
+
+            echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+        }
+
+        if( isset($_POST['ecpay_official_invoice_delete']) && $_POST['ecpay_official_invoice_delete'] == 'ecpay_official_invoice_delete' ) {
+            self::official_invoice_delete();
+
+            echo '<div class="updated inline"><p>' . __('Data delete complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
 		}
 
 		include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-setting-tools.php';
     }
 
-    protected static function invoice_transfer() {
+    protected static function official_invoice_transfer() {
         global $wpdb;
 
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_type', 'personal' FROM $wpdb->postmeta WHERE meta_key = '_billing_invoice_type' AND meta_value = 'p'");
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_type', 'company' FROM $wpdb->postmeta WHERE meta_key = '_billing_invoice_type' AND meta_value = 'c'");
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_type', 'donate' FROM $wpdb->postmeta WHERE meta_key = '_billing_invoice_type' AND meta_value = 'd'");
 
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'none' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '0'");
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'ecpay_host' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '1'");
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'MOICA' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '2'");
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'phone_barcode' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '3'");
 
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_no', meta_value FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_num'");
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_no', meta_value FROM $wpdb->postmeta WHERE meta_key = '_billing_customer_identifier'");
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_donate_no', meta_value FROM $wpdb->postmeta WHERE meta_key = '_billing_love_code'");
 
-        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) 
+        $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_number', meta_value FROM $wpdb->postmeta WHERE `meta_key` = '_ecpay_invoice_number' and `meta_value` != ''
                 and post_id in (SELECT post_id FROM $wpdb->postmeta WHERE `meta_key` = '_ecpay_invoice_status' and `meta_value` = '1')");
     }
 
-    protected static function invoice_transfer_delete() {
+    protected static function official_invoice_transfer_delete() {
         global $wpdb;
 
         $key_transfer = [
@@ -141,6 +147,25 @@ final class RY_WEI_Invoice_setting {
             ], [
                 'meta_key' => '_invoice_carruer_type',
                 'meta_value' => $from
+            ]);
+        }
+    }
+
+    protected static function official_invoice_delete() {
+        global $wpdb;
+
+        $keys = [
+            '_billing_invoice_type',
+            '_billing_carruer_type',
+            '_billing_carruer_num',
+            '_billing_customer_identifier',
+            '_billing_love_code',
+            '_ecpay_invoice_number',
+            '_ecpay_invoice_status'
+        ];
+        foreach( $keys as $key ) {
+            $wpdb->delete($wpdb->postmeta, [
+                'meta_key' => $key
             ]);
         }
     }
