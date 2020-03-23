@@ -50,7 +50,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay
             'CarruerType' => '',
             'CarruerNum' => '',
             'TaxType' => 1,
-            'SalesAmount' => round($order->get_total(), 0),
+            'SalesAmount' => intval(round($order->get_total(), 0)),
             'InvoiceRemark' => $order_id,
             'ItemName' => [],
             'ItemCount' => [],
@@ -164,7 +164,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay
 
         if ($response['response']['code'] != '200') {
             RY_WEI_Invoice::log('Create failed. Http code: ' . $response['response']['code'], 'error');
-            return ;
+            //return ;
         }
 
         RY_WEI_Invoice::log('Create request result: ' . $response['body']);
