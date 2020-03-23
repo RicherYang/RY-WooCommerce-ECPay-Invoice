@@ -1,5 +1,5 @@
 <?php
-defined('RY_WEI_VERSION') OR exit('No direct script access allowed');
+defined('RY_WEI_VERSION') or exit('No direct script access allowed');
 
 return [
     [

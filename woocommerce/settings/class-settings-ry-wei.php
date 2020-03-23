@@ -1,17 +1,19 @@
 <?php
-defined('RY_WEI_VERSION') OR exit('No direct script access allowed');
+defined('RY_WEI_VERSION') or exit('No direct script access allowed');
 
-if( !class_exists('WC_Settings_RY_Wei', false) ) {
-
-    class WC_Settings_RY_Wei extends WC_Settings_Page {
-        public function __construct() {
+if (!class_exists('WC_Settings_RY_Wei', false)) {
+    class WC_Settings_RY_Wei extends WC_Settings_Page
+    {
+        public function __construct()
+        {
             $this->id = 'rytools';
             $this->label = __('RY Tools', 'ry-woocommerce-ecpay-invoice');
 
             parent::__construct();
         }
 
-        public function get_sections() {
+        public function get_sections()
+        {
             $sections = [
                 'ry_key' => __('License key', 'ry-woocommerce-ecpay-invoice')
             ];
@@ -19,14 +21,15 @@ if( !class_exists('WC_Settings_RY_Wei', false) ) {
             return apply_filters('woocommerce_get_sections_' . $this->id, $sections);
         }
 
-        public function output() {
+        public function output()
+        {
             global $current_section, $hide_save_button;
 
-            if( $current_section == '' ) {
+            if ($current_section == '') {
                 $current_section = 'ry_key';
             }
 
-            if( apply_filters('ry_setting_section_' . $current_section , true) ) {
+            if (apply_filters('ry_setting_section_' . $current_section, true)) {
                 $settings = $this->get_settings($current_section);
                 WC_Admin_Settings::output_fields($settings);
             } else {
@@ -34,27 +37,29 @@ if( !class_exists('WC_Settings_RY_Wei', false) ) {
             }
         }
 
-        public function save() {
+        public function save()
+        {
             global $current_section;
 
-            if( $current_section == '' ) {
+            if ($current_section == '') {
                 $current_section = 'ry_key';
             }
 
-            if( apply_filters('ry_setting_section_' . $current_section , true) ) {
+            if (apply_filters('ry_setting_section_' . $current_section, true)) {
                 $settings = $this->get_settings($current_section);
                 WC_Admin_Settings::save_fields($settings);
             }
 
-            if( $current_section ) {
+            if ($current_section) {
                 do_action('woocommerce_update_options_' . $this->id . '_' . $current_section);
             }
         }
 
-        public function get_settings($current_section = '') {
+        public function get_settings($current_section = '')
+        {
             $settings = [];
 
-            if( $current_section == '' ) {
+            if ($current_section == '') {
                 $current_section = 'ry_key';
             }
 

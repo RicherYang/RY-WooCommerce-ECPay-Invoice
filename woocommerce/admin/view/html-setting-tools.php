@@ -1,7 +1,9 @@
-<h2><?=__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') ?> <?=__('Tools', 'ry-woocommerce-ecpay-invoice') ?></h2>
+<h2>
+    <?=__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') ?> <?=__('Tools', 'ry-woocommerce-ecpay-invoice') ?>
+</h2>
 
 <p>將 <a href="https://tw.wordpress.org/plugins/ecpay-invoice-for-woocommerce/" target="_black">ECPay Invoice for WooCommerce</a>
-的發票資料轉變為本外掛的儲存格式。</p>
+    的發票資料轉變為本外掛的儲存格式。</p>
 
 <p>這會<strong>修改</strong>使用者的資料，進行資料轉換前請備份你的資料，以確保當發生任何意外之時你有辦法回復到原本的狀態。</p>
 

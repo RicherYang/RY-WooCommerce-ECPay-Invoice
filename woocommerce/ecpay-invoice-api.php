@@ -1,7 +1,8 @@
 <?php
-defined('RY_WEI_VERSION') OR exit('No direct script access allowed');
+defined('RY_WEI_VERSION') or exit('No direct script access allowed');
 
-class RY_WEI_Invoice_Api extends RY_ECPay {
+class RY_WEI_Invoice_Api extends RY_ECPay
+{
     public static $api_test_url = [
         'get' => 'https://einvoice-stage.ecpay.com.tw/Invoice/Issue',
         'invalid' => 'https://einvoice-stage.ecpay.com.tw/Invoice/IssueInvalid',
@@ -16,13 +17,14 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         'checkDonate' => 'https://einvoice.ecpay.com.tw/Query/CheckLoveCode'
     ];
 
-    public static function get($order_id) {
+    public static function get($order_id)
+    {
         $order = wc_get_order($order_id);
-        if ( !$order ) {
+        if (!$order) {
             return false;
         }
 
-        if( $order->get_meta('_invoice_number') ) {
+        if ($order->get_meta('_invoice_number')) {
             return false;
         }
 
@@ -31,7 +33,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         $country = $order->get_billing_country();
         $state = $order->get_billing_state();
         $states = WC()->countries->get_states($country);
-        $full_state = ( $state && isset($states[$state]) ) ? $states[$state] : $state;
+        $full_state = ($state && isset($states[$state])) ? $states[$state] : $state;
 
         $args = [
             'MerchantID' => $MerchantID,
@@ -61,9 +63,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         ];
         $args['TimeStamp'] = $args['TimeStamp']->format('U');
 
-        switch( $order->get_meta('_invoice_type') ) {
+        switch ($order->get_meta('_invoice_type')) {
             case 'personal':
-                switch( $order->get_meta('_invoice_carruer_type') ) {
+                switch ($order->get_meta('_invoice_carruer_type')) {
                     case 'none':
                         $args['Print'] = 1;
                         break;
@@ -84,7 +86,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
                 $args['Print'] = 1;
                 $args['CustomerIdentifier'] = $order->get_meta('_invoice_no');
                 $company = $order->get_billing_company();
-                if( $company ) {
+                if ($company) {
                     $args['CustomerName'] = $company;
                 }
                 break;
@@ -96,8 +98,8 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
 
         $total_amount = 0;
         $items = $order->get_items();
-        if( count($items) ) {
-            foreach( $items as $item ) {
+        if (count($items)) {
+            foreach ($items as $item) {
                 $args['ItemName'][] = $item->get_name();
                 $args['ItemCount'][] = $item->get_quantity();
                 $args['ItemWord'][] = __('item word', 'ry-woocommerce-ecpay-invoice');
@@ -109,7 +111,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         }
 
         $shipping_fee = $order->get_shipping_total();
-        if( $shipping_fee != 0 ) {
+        if ($shipping_fee != 0) {
             $args['ItemName'][] = __('shipping fee', 'ry-woocommerce-ecpay-invoice');
             $args['ItemCount'][] = 1;
             $args['ItemWord'][] = __('item word', 'ry-woocommerce-ecpay-invoice');
@@ -120,7 +122,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         }
 
         $total_fee = $order->get_total() - $total_amount;
-        if( $total_fee != 0 ) {
+        if ($total_fee != 0) {
             $args['ItemName'][] = __('fee', 'ry-woocommerce-ecpay-invoice');
             $args['ItemCount'][] = 1;
             $args['ItemWord'][] = __('item word', 'ry-woocommerce-ecpay-invoice');
@@ -129,8 +131,8 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
             $args['ItemAmount'][] = $total_fee;
         }
 
-        foreach( $args as &$value ) {
-            if( is_array($value)) {
+        foreach ($args as &$value) {
+            if (is_array($value)) {
                 $value = implode('|', $value);
             }
         }
@@ -138,13 +140,13 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
 
         $args['InvoiceRemark'] = apply_filters('ry_wei_invoice_remark', $args['InvoiceRemark'], $args, $order);
 
-        foreach( ['CustomerName', 'CustomerAddr', 'CustomerEmail', 'InvoiceRemark', 'ItemName', 'ItemWord', 'ItemRemark'] as $key ) {
-            if( isset($args[$key])) {
+        foreach (['CustomerName', 'CustomerAddr', 'CustomerEmail', 'InvoiceRemark', 'ItemName', 'ItemWord', 'ItemRemark'] as $key) {
+            if (isset($args[$key])) {
                 $args[$key] = self::urlencode($args[$key]);
             }
         }
 
-        if( 'yes' === RY_WEI::get_option('ecpay_testmode', 'yes') ) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
             $post_url = self::$api_test_url['get'];
         } else {
             $post_url = self::$api_url['get'];
@@ -155,12 +157,12 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
 
         do_action('ry_wei_get_invoice', $args, $order);
         $response = self::link_server($post_url, $args);
-        if( is_wp_error($response) ) {
+        if (is_wp_error($response)) {
             RY_WEI_Invoice::log('Create failed. POST error: ' . implode("\n", $response->get_error_messages()), 'error');
             return ;
         }
 
-        if( $response['response']['code'] != '200' ) {
+        if ($response['response']['code'] != '200') {
             RY_WEI_Invoice::log('Create failed. Http code: ' . $response['response']['code'], 'error');
             return ;
         }
@@ -168,19 +170,19 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         RY_WEI_Invoice::log('Create request result: ' . $response['body']);
         parse_str($response['body'], $result);
 
-        if( !is_array($result) ) {
+        if (!is_array($result)) {
             RY_WEI_Invoice::log('Create failed. Response parse failed.', 'error');
             return ;
         }
 
         $check_value = self::get_check_value($result);
         $tmp_check_value = self::generate_check_value($result, $HashKey, $HashIV, 'md5');
-        if( $check_value != $tmp_check_value ) {
+        if ($check_value != $tmp_check_value) {
             RY_WEI_Invoice::log('Create failed. Response check failed. Response:' . $check_value . ' Self:' . $tmp_check_value, 'error');
             return ;
         }
 
-        if( self::get_status($result) != 1 ) {
+        if (self::get_status($result) != 1) {
             $order->add_order_note(sprintf(
                 /* translators: %s Error messade */
                 __('Get invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
@@ -189,7 +191,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
             return;
         }
 
-        if( apply_filters('ry_wei_add_api_success_notice', true) ) {
+        if (apply_filters('ry_wei_add_api_success_notice', true)) {
             $order->add_order_note(
                 __('Invoice number', 'ry-woocommerce-ecpay-invoice') . ': ' . $result['InvoiceNumber'] . "\n"
                 . __('Invoice random number', 'ry-woocommerce-ecpay-invoice') . ': ' . $result['RandomNumber'] . "\n"
@@ -199,22 +201,23 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
 
         $order->update_meta_data('_invoice_number', $result['InvoiceNumber']);
         $order->update_meta_data('_invoice_random_number', $result['RandomNumber']);
-        $order->update_meta_data('_invoice_ecpay_MerchantTradeNo', $args['MerchantTradeNo']);
+        $order->update_meta_data('_invoice_ecpay_RelateNumber', $args['RelateNumber']);
         $order->save_meta_data();
 
         do_action('ry_wei_get_invoice_response', $result, $order);
     }
 
-    public static function invalid($order_id) {
+    public static function invalid($order_id)
+    {
         $order = wc_get_order($order_id);
-        if ( !$order ) {
+        if (!$order) {
             return false;
         }
 
         list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
         $invoice_number = $order->get_meta('_invoice_number');
 
-        if( !$invoice_number ) {
+        if (!$invoice_number) {
             return false;
         }
 
@@ -226,13 +229,13 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         ];
         $args['TimeStamp'] = $args['TimeStamp']->format('U');
 
-        foreach( ['Reason'] as $key ) {
-            if( isset($args[$key])) {
+        foreach (['Reason'] as $key) {
+            if (isset($args[$key])) {
                 $args[$key] = self::urlencode($args[$key]);
             }
         }
 
-        if( 'yes' === RY_WEI::get_option('ecpay_testmode', 'yes') ) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
             $post_url = self::$api_test_url['invalid'];
         } else {
             $post_url = self::$api_url['invalid'];
@@ -243,12 +246,12 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
 
         do_action('ry_wei_invalid_invoice', $args, $order);
         $response = self::link_server($post_url, $args);
-        if( is_wp_error($response) ) {
+        if (is_wp_error($response)) {
             RY_WEI_Invoice::log('Invalid failed. POST error: ' . implode("\n", $response->get_error_messages()), 'error');
             return ;
         }
 
-        if( $response['response']['code'] != '200' ) {
+        if ($response['response']['code'] != '200') {
             RY_WEI_Invoice::log('Invalid failed. Http code: ' . $response['response']['code'], 'error');
             return ;
         }
@@ -256,19 +259,19 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         RY_WEI_Invoice::log('Invalid request result: ' . $response['body']);
         parse_str($response['body'], $result);
 
-        if( !is_array($result) ) {
+        if (!is_array($result)) {
             RY_WEI_Invoice::log('Invalid failed. Response parse failed.', 'error');
             return ;
         }
 
         $check_value = self::get_check_value($result);
         $tmp_check_value = self::generate_check_value($result, $HashKey, $HashIV, 'md5');
-        if( $check_value != $tmp_check_value ) {
+        if ($check_value != $tmp_check_value) {
             RY_WEI_Invoice::log('Invalid failed. Response check failed. Response:' . $check_value . ' Self:' . $tmp_check_value, 'error');
             return ;
         }
 
-        if( self::get_status($result) != 1 ) {
+        if (self::get_status($result) != 1) {
             $order->add_order_note(sprintf(
                 /* translators: %s Error messade */
                 __('Invalid invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
@@ -277,7 +280,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
             return;
         }
 
-        if( apply_filters('ry_wei_add_api_success_notice', true) ) {
+        if (apply_filters('ry_wei_add_api_success_notice', true)) {
             $order->add_order_note(
                 __('Invalid invoice', 'ry-woocommerce-ecpay-invoice') . ': ' . $result['InvoiceNumber']
             );
@@ -291,7 +294,8 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         do_action('ry_wei_invalid_invoice_response', $result, $order);
     }
 
-    public static function check_mobile_code($code) {
+    public static function check_mobile_code($code)
+    {
         list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
 
         $args = [
@@ -301,7 +305,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         ];
         $args['TimeStamp'] = $args['TimeStamp']->format('U');
 
-        if( 'yes' === RY_WEI::get_option('ecpay_testmode', 'yes') ) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
             $post_url = self::$api_test_url['checkMobile'];
         } else {
             $post_url = self::$api_url['checkMobile'];
@@ -311,19 +315,19 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         RY_WEI_Invoice::log('Check mobile POST: ' . var_export($args, true));
 
         $response = self::link_server($post_url, $args);
-        if( is_wp_error($response) ) {
+        if (is_wp_error($response)) {
             RY_WEI_Invoice::log('Check mobile failed. POST error: ' . implode("\n", $response->get_error_messages()), 'error');
             return null;
         }
 
-        if( $response['response']['code'] != '200' ) {
+        if ($response['response']['code'] != '200') {
             RY_WEI_Invoice::log('Check mobile failed. Http code: ' . $response['response']['code'], 'error');
             return null;
         }
 
         RY_WEI_Invoice::log('Check mobile request result: ' . $response['body']);
         parse_str($response['body'], $result);
-        if( !is_array($result) ) {
+        if (!is_array($result)) {
             RY_WEI_Invoice::log('Check mobile failed. Parse result failed.', 'error');
             return null;
         }
@@ -331,7 +335,8 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         return self::get_status($result) == 1 && $result['IsExist'] == 'Y';
     }
 
-    public static function check_donate_no($code) {
+    public static function check_donate_no($code)
+    {
         list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
 
         $args = [
@@ -341,7 +346,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         ];
         $args['TimeStamp'] = $args['TimeStamp']->format('U');
 
-        if( 'yes' === RY_WEI::get_option('ecpay_testmode', 'yes') ) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
             $post_url = self::$api_test_url['checkDonate'];
         } else {
             $post_url = self::$api_url['checkDonate'];
@@ -351,19 +356,19 @@ class RY_WEI_Invoice_Api extends RY_ECPay {
         RY_WEI_Invoice::log('Check donate POST: ' . var_export($args, true));
 
         $response = self::link_server($post_url, $args);
-        if( is_wp_error($response) ) {
+        if (is_wp_error($response)) {
             RY_WEI_Invoice::log('Check donate failed. POST error: ' . implode("\n", $response->get_error_messages()), 'error');
             return null;
         }
 
-        if( $response['response']['code'] != '200' ) {
+        if ($response['response']['code'] != '200') {
             RY_WEI_Invoice::log('Check donate failed. Http code: ' . $response['response']['code'], 'error');
             return null;
         }
 
         RY_WEI_Invoice::log('Check donate request result: ' . $response['body']);
         parse_str($response['body'], $result);
-        if( !is_array($result) ) {
+        if (!is_array($result)) {
             RY_WEI_Invoice::log('Check donate failed. Parse result failed.', 'error');
             return null;
         }

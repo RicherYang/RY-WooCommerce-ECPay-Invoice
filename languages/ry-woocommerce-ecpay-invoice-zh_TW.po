@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: RY WooCommerce ECPay Invoice\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-"
 "ecpay-invoice\n"
-"POT-Creation-Date: 2020-03-22 23:25+0800\n"
-"PO-Revision-Date: 2020-03-22 23:25+0800\n"
+"POT-Creation-Date: 2020-03-23 11:22+0800\n"
+"PO-Revision-Date: 2020-03-23 11:22+0800\n"
 "Last-Translator: Richer Yang\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -167,19 +167,19 @@ msgstr "捐贈愛心碼"
 #: ../woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:68
 #: ../woocommerce/class.invoice.php:136 ../woocommerce/class.invoice.php:314
 #: ../woocommerce/class.invoice.php:367
-#: ../woocommerce/ecpay-invoice-api.php:192
+#: ../woocommerce/ecpay-invoice-api.php:194
 msgid "Invoice number"
 msgstr "發票號碼"
 
 #: ../woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:70
 #: ../woocommerce/class.invoice.php:319
-#: ../woocommerce/ecpay-invoice-api.php:193
+#: ../woocommerce/ecpay-invoice-api.php:195
 msgid "Invoice random number"
 msgstr "發票隨機碼"
 
 #: ../woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:96
-#: ../woocommerce/ecpay-invoice-api.php:222
-#: ../woocommerce/ecpay-invoice-api.php:280
+#: ../woocommerce/ecpay-invoice-api.php:224
+#: ../woocommerce/ecpay-invoice-api.php:282
 msgid "Invalid invoice"
 msgstr "作廢發票"
 
@@ -244,17 +244,17 @@ msgid "fee"
 msgstr "費用"
 
 #. translators: %s Error messade
-#: ../woocommerce/ecpay-invoice-api.php:184
+#: ../woocommerce/ecpay-invoice-api.php:186
 #, php-format
 msgid "Get invoice error: %s"
 msgstr "開立發票號碼失敗：%s"
 
-#: ../woocommerce/ecpay-invoice-api.php:194
+#: ../woocommerce/ecpay-invoice-api.php:196
 msgid "Invoice create time"
 msgstr "發票建立時間"
 
 #. translators: %s Error messade
-#: ../woocommerce/ecpay-invoice-api.php:272
+#: ../woocommerce/ecpay-invoice-api.php:274
 #, php-format
 msgid "Invalid invoice error: %s"
 msgstr "作廢發票號碼失敗：%s"
@@ -329,7 +329,7 @@ msgid "support paper type"
 msgstr "支援紙本發票"
 
 #: ../woocommerce/settings/settings-ecpay-invoice.php:57
-msgid "You need print all invoice and seed to orderer."
+msgid "You need print invoice and seed to orderer."
 msgstr "你必須列印出紙本發票並且寄送給購買人。"
 
 #: ../woocommerce/settings/settings-ecpay-invoice.php:60
@@ -346,43 +346,51 @@ msgctxt "get mode"
 msgid "auto ( when order paid )"
 msgstr "自動 (當訂單為完成付款)"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:70
+#: ../woocommerce/settings/settings-ecpay-invoice.php:67
+msgctxt "get mode"
+msgid "auto ( when order completed )"
+msgstr "自動 (當訂單狀態為完成)"
+
+#: ../woocommerce/settings/settings-ecpay-invoice.php:71
 msgid "Invalid mode"
 msgstr "作廢發票模式"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:75
+#: ../woocommerce/settings/settings-ecpay-invoice.php:76
 msgctxt "invalid mode"
 msgid "manual"
 msgstr "手動"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:76
+#: ../woocommerce/settings/settings-ecpay-invoice.php:77
 msgctxt "invalid mode"
 msgid "auto ( when order status cancelled OR refunded )"
 msgstr "自動 (當訂單狀態為取消或退費)"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:84
+#: ../woocommerce/settings/settings-ecpay-invoice.php:85
 msgid "API credentials"
 msgstr "API 憑證"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:89
+#: ../woocommerce/settings/settings-ecpay-invoice.php:90
 msgid "ECPay invoice sandbox"
 msgstr "綠界電子發票測試模式"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:93
+#: ../woocommerce/settings/settings-ecpay-invoice.php:94
 msgid "Enable ECPay invoice sandbox"
 msgstr "啟用綠界電子發票測試模式"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:96
+#: ../woocommerce/settings/settings-ecpay-invoice.php:97
 msgid "MerchantID"
 msgstr "商店代號"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:102
+#: ../woocommerce/settings/settings-ecpay-invoice.php:103
 msgid "HashKey"
 msgstr "HashKey"
 
-#: ../woocommerce/settings/settings-ecpay-invoice.php:108
+#: ../woocommerce/settings/settings-ecpay-invoice.php:109
 msgid "HashIV"
 msgstr "HashIV"
+
+#~ msgid "You need print all invoice and seed to orderer."
+#~ msgstr "你必須列印出紙本發票並且寄送給購買人。"
 
 #~ msgid "https://richer.tw/ry-woocommerce-ecpay-invoice/"
 #~ msgstr "https://richer.tw/ry-woocommerce-ecpay-invoice/"

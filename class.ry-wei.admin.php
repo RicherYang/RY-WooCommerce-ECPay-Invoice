@@ -1,14 +1,16 @@
 <?php
-defined('RY_WEI_VERSION') OR exit('No direct script access allowed');
+defined('RY_WEI_VERSION') or exit('No direct script access allowed');
 
-final class RY_WEI_admin {
+final class RY_WEI_admin
+{
     private static $initiated = false;
 
-    public static function init() {
-        if( !self::$initiated ) {
+    public static function init()
+    {
+        if (!self::$initiated) {
             self::$initiated = true;
 
-            if( !defined('RY_WT_VERSION') ) {
+            if (!defined('RY_WT_VERSION')) {
                 add_filter('woocommerce_get_settings_pages', [__CLASS__, 'get_settings_page']);
             }
             add_filter('woocommerce_get_sections_rytools', [__CLASS__, 'add_sections'], 12);
@@ -18,31 +20,34 @@ final class RY_WEI_admin {
         }
     }
 
-    public static function get_settings_page($settings) {
+    public static function get_settings_page($settings)
+    {
         $settings[] = include(RY_WEI_PLUGIN_DIR . 'woocommerce/settings/class-settings-ry-wei.php');
 
         return $settings;
     }
 
-    public static function add_sections($sections) {
+    public static function add_sections($sections)
+    {
         unset($sections['ry_key']);
         $sections['ry_key'] = __('License key', 'ry-woocommerce-ecpay-invoice');
 
         return $sections;
     }
 
-    public static function add_setting($settings, $current_section) {
-        if( $current_section == 'ry_key' ) {
+    public static function add_setting($settings, $current_section)
+    {
+        if ($current_section == 'ry_key') {
             add_action('woocommerce_admin_field_rywei_version_info', [__CLASS__, 'show_version_info']);
-            if( empty($settings)) {
+            if (empty($settings)) {
                 $settings = [];
             }
             $settings = array_merge($settings, include(RY_WEI_PLUGIN_DIR . 'woocommerce/settings/settings-ry-key.php'));
 
             $pro_data = RY_WEI::get_option('pro_Data');
-            if( is_array($pro_data) && isset($pro_data['expire']) ) {
-                foreach( $settings as $key => $setting ) {
-                    if( isset($setting['id']) && $setting['id'] == RY_WEI::$option_prefix . 'pro_Key') {
+            if (is_array($pro_data) && isset($pro_data['expire'])) {
+                foreach ($settings as $key => $setting) {
+                    if (isset($setting['id']) && $setting['id'] == RY_WEI::$option_prefix . 'pro_Key') {
                         $settings[$key]['desc'] = sprintf(
                             /* translators: %s: Expiration date of pro license */
                             __('License Expiration Date %s', 'ry-woocommerce-ecpay-invoice'),
@@ -55,43 +60,31 @@ final class RY_WEI_admin {
         return $settings;
     }
 
-    public static function show_version_info($value) {
+    public static function show_version_info($value)
+    {
         $version = RY_WEI::get_option('version');
         $version_info = RY_WEI_link_server::check_version();
-        ?>
-        <tr valign="top">
-            <th scope="row" class="titledesc">
-                <?php _e('version info', 'ry-woocommerce-ecpay-invoice'); ?>
-            </th>
-            <td class="forminp">
-                <?php _e( 'Now Version:', 'ry-woocommerce-ecpay-invoice' ) ?> <?=$version ?>
-                <?php if( $version_info && version_compare($version, $version_info['version'], '<') ) { ?>
-                    <?php set_site_transient('update_plugins', []); ?>
-                    <br><span style="color:blue"><?php _e( 'New Version:', 'ry-woocommerce-ecpay-invoice' ) ?></span> <?=$version_info['version'] ?>
-                    <a href="<?=wp_nonce_url(self_admin_url('update.php?action=upgrade-plugin&plugin=' . RY_WTP_PLUGIN_BASENAME), 'upgrade-plugin_' . RY_WTP_PLUGIN_BASENAME); ?>">
-                        <?php _e('update plugin', 'ry-woocommerce-ecpay-invoice') ?>
-                    </a>
-                <?php } ?>
-            </td>
-        </tr>
-        <?php
+
+        include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-version-info.php';
     }
 
-    public static function activate_key() {
-        if( !empty(RY_WEI::get_option('pro_Key')) ) {
+    public static function activate_key()
+    {
+        if (!empty(RY_WEI::get_option('pro_Key'))) {
             $json = RY_WEI_link_server::activate_key();
 
-            if( $json === false ) {
+            if ($json === false) {
                 WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
                     . __('Connect license server failed!', 'ry-woocommerce-ecpay-invoice'));
             } else {
-                if( is_array($json) && isset($json['data']) ) {
-                    if( empty($json['data']) ) {
+                if (is_array($json) && isset($json['data'])) {
+                    if (empty($json['data'])) {
                         /* translators: %s: Error message */
                         WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
-                            . sprintf(__('Verification error: %s', 'ry-woocommerce-ecpay-invoice'),
-                            __($json['error'], 'ry-woocommerce-ecpay-invoice')
-                        ));
+                            . sprintf(
+                                __('Verification error: %s', 'ry-woocommerce-ecpay-invoice'),
+                                __($json['error'], 'ry-woocommerce-ecpay-invoice')
+                            ));
 
                         /* Error message list. For make .pot */
                         __('Unknown key', 'ry-woocommerce-ecpay-invoice');
@@ -108,7 +101,6 @@ final class RY_WEI_admin {
                     . (__('Connect license server failed!', 'ry-woocommerce-ecpay-invoice'));
                 }
             }
-
         }
 
         RY_WEI::check_expire();

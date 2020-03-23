@@ -1,70 +1,76 @@
 <?php
-defined('RY_WEI_VERSION') OR exit('No direct script access allowed');
+defined('RY_WEI_VERSION') or exit('No direct script access allowed');
 
-final class RY_WEI_Invoice_setting {
-	private static $initiated = false;
+final class RY_WEI_Invoice_setting
+{
+    private static $initiated = false;
 
-	public static function init() {
-        if( !self::$initiated ) {
+    public static function init()
+    {
+        if (!self::$initiated) {
             self::$initiated = true;
         }
 
-        if( is_admin() ) {
+        if (is_admin()) {
             add_filter('woocommerce_get_sections_rytools', [__CLASS__, 'add_sections'], 11);
             add_filter('woocommerce_get_settings_rytools', [__CLASS__, 'add_setting'], 10, 2);
             add_filter('ry_setting_section_tools', '__return_false');
-			add_action('ry_setting_section_ouput_tools', [__CLASS__, 'output_tools'], 11);
+            add_action('ry_setting_section_ouput_tools', [__CLASS__, 'output_tools'], 11);
         }
     }
 
-    public static function add_sections($sections) {
-        if( isset($sections['tools'])) {
+    public static function add_sections($sections)
+    {
+        if (isset($sections['tools'])) {
             $add_idx = array_search('tools', array_keys($sections));
             $sections = array_slice($sections, 0, $add_idx) + [
-				'ecpay_invoice' => __('ECPay invoice', 'ry-woocommerce-ecpay-invoice')
+                'ecpay_invoice' => __('ECPay invoice', 'ry-woocommerce-ecpay-invoice')
             ] + array_slice($sections, $add_idx);
         } else {
             $sections['ecpay_invoice'] = __('ECPay invoice', 'ry-woocommerce-ecpay-invoice');
             $sections['tools'] = __('Tools', 'ry-woocommerce-ecpay-invoice');
         }
 
-		return $sections;
-	}
+        return $sections;
+    }
 
-	public static function add_setting($settings, $current_section) {
-		if( $current_section == 'ecpay_invoice' ) {
-			$settings = include(RY_WEI_PLUGIN_DIR . 'woocommerce/settings/settings-ecpay-invoice.php');
+    public static function add_setting($settings, $current_section)
+    {
+        if ($current_section == 'ecpay_invoice') {
+            $settings = include(RY_WEI_PLUGIN_DIR . 'woocommerce/settings/settings-ecpay-invoice.php');
         }
         return $settings;
     }
 
-    public static function output_tools() {
+    public static function output_tools()
+    {
         global $hide_save_button;
 
-		$hide_save_button = true;
+        $hide_save_button = true;
 
-		if( isset($_POST['ecpay_official_invoice_transfer']) && $_POST['ecpay_official_invoice_transfer'] == 'ecpay_official_invoice_transfer' ) {
+        if (isset($_POST['ecpay_official_invoice_transfer']) && $_POST['ecpay_official_invoice_transfer'] == 'ecpay_official_invoice_transfer') {
             self::official_invoice_transfer();
 
             echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
-        if( isset($_POST['ecpay_official_invoice_transfer_delete']) && $_POST['ecpay_official_invoice_transfer_delete'] == 'ecpay_official_invoice_transfer_delete' ) {
+        if (isset($_POST['ecpay_official_invoice_transfer_delete']) && $_POST['ecpay_official_invoice_transfer_delete'] == 'ecpay_official_invoice_transfer_delete') {
             self::official_invoice_transfer_delete();
 
             echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
-        if( isset($_POST['ecpay_official_invoice_delete']) && $_POST['ecpay_official_invoice_delete'] == 'ecpay_official_invoice_delete' ) {
+        if (isset($_POST['ecpay_official_invoice_delete']) && $_POST['ecpay_official_invoice_delete'] == 'ecpay_official_invoice_delete') {
             self::official_invoice_delete();
 
             echo '<div class="updated inline"><p>' . __('Data delete complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
-		}
+        }
 
-		include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-setting-tools.php';
+        include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-setting-tools.php';
     }
 
-    protected static function official_invoice_transfer() {
+    protected static function official_invoice_transfer()
+    {
         global $wpdb;
 
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
@@ -95,7 +101,8 @@ final class RY_WEI_Invoice_setting {
                 and post_id in (SELECT post_id FROM $wpdb->postmeta WHERE `meta_key` = '_ecpay_invoice_status' and `meta_value` = '1')");
     }
 
-    protected static function official_invoice_transfer_delete() {
+    protected static function official_invoice_transfer_delete()
+    {
         global $wpdb;
 
         $key_transfer = [
@@ -106,7 +113,7 @@ final class RY_WEI_Invoice_setting {
             '_billing_love_code' => '_invoice_donate_no',
             '_ecpay_invoice_number' => '_invoice_number'
         ];
-        foreach( $key_transfer as $from => $to ) {
+        foreach ($key_transfer as $from => $to) {
             $wpdb->update($wpdb->postmeta, [
                 'meta_key' => $to
             ], [
@@ -126,7 +133,7 @@ final class RY_WEI_Invoice_setting {
             'd' => 'company',
             'd' => 'donate'
         ];
-        foreach( $type_transfer as $from => $to ) {
+        foreach ($type_transfer as $from => $to) {
             $wpdb->update($wpdb->postmeta, [
                 'meta_value' => $to
             ], [
@@ -141,7 +148,7 @@ final class RY_WEI_Invoice_setting {
             '2' => 'MOICA',
             '3' => 'phone_barcode'
         ];
-        foreach( $carruer_type_transfer as $from => $to ) {
+        foreach ($carruer_type_transfer as $from => $to) {
             $wpdb->update($wpdb->postmeta, [
                 'meta_value' => $to
             ], [
@@ -151,7 +158,8 @@ final class RY_WEI_Invoice_setting {
         }
     }
 
-    protected static function official_invoice_delete() {
+    protected static function official_invoice_delete()
+    {
         global $wpdb;
 
         $keys = [
@@ -163,7 +171,7 @@ final class RY_WEI_Invoice_setting {
             '_ecpay_invoice_number',
             '_ecpay_invoice_status'
         ];
-        foreach( $keys as $key ) {
+        foreach ($keys as $key) {
             $wpdb->delete($wpdb->postmeta, [
                 'meta_key' => $key
             ]);

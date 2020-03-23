@@ -1,5 +1,5 @@
 <?php
-defined('RY_WEI_VERSION') OR exit('No direct script access allowed');
+defined('RY_WEI_VERSION') or exit('No direct script access allowed');
 
 return [
     [
@@ -54,7 +54,7 @@ return [
         'id' => RY_WEI::$option_prefix . 'support_carruer_type_none',
         'type' => 'checkbox',
         'default' => 'no',
-        'desc' => __('You need print all invoice and seed to orderer.', 'ry-woocommerce-ecpay-invoice')
+        'desc' => __('You need print invoice and seed to orderer.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('Get mode', 'ry-woocommerce-ecpay-invoice'),
@@ -63,7 +63,8 @@ return [
         'default' => 'manual',
         'options' => [
             'manual' => _x('manual', 'get mode', 'ry-woocommerce-ecpay-invoice'),
-            'auto_paid' => _x('auto ( when order paid )', 'get mode', 'ry-woocommerce-ecpay-invoice')
+            'auto_paid' => _x('auto ( when order paid )', 'get mode', 'ry-woocommerce-ecpay-invoice'),
+            'auto_completed' => _x('auto ( when order completed )', 'get mode', 'ry-woocommerce-ecpay-invoice')
         ]
     ],
     [
