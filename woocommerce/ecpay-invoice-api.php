@@ -31,6 +31,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay
         list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
 
         $country = $order->get_billing_country();
+        $countries = WC()->countries->get_countries();
+        $full_country = ($country && isset($countries[$country])) ? $countries[$country] : $country;
+
         $state = $order->get_billing_state();
         $states = WC()->countries->get_states($country);
         $full_state = ($state && isset($states[$state])) ? $states[$state] : $state;
@@ -41,7 +44,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay
             'CustomerID' => '',
             'CustomerIdentifier' => '',
             'CustomerName' => $order->get_billing_last_name() . $order->get_billing_first_name(),
-            'CustomerAddr' => $full_state . $order->get_billing_city() . $order->get_billing_address_1() . $order->get_billing_address_2(),
+            'CustomerAddr' => $full_country . $full_state . $order->get_billing_city() . $order->get_billing_address_1() . $order->get_billing_address_2(),
             'CustomerPhone' => '',
             'CustomerEmail' => $order->get_billing_email(),
             'Print' => 0,
@@ -100,13 +103,14 @@ class RY_WEI_Invoice_Api extends RY_ECPay
         $items = $order->get_items();
         if (count($items)) {
             foreach ($items as $item) {
+                $item_total = intval(round($item->get_total()));
                 $args['ItemName'][] = $item->get_name();
                 $args['ItemCount'][] = $item->get_quantity();
                 $args['ItemWord'][] = __('item word', 'ry-woocommerce-ecpay-invoice');
-                $args['ItemPrice'][] = round($item->get_total() / $item->get_quantity(), 2);
+                $args['ItemPrice'][] = round($item_total / $item->get_quantity(), 2);
                 $args['ItemTaxType'][] = 1;
-                $args['ItemAmount'][] = $item->get_total();
-                $total_amount += $item->get_total();
+                $args['ItemAmount'][] = $item_total;
+                $total_amount += $item_total;
             }
         }
 
@@ -121,7 +125,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay
             $total_amount += $shipping_fee;
         }
 
-        $total_fee = $order->get_total() - $total_amount;
+        $total_fee = $args['SalesAmount'] - $total_amount;
         if ($total_fee != 0) {
             $args['ItemName'][] = __('fee', 'ry-woocommerce-ecpay-invoice');
             $args['ItemCount'][] = 1;
@@ -163,7 +167,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay
         }
 
         if ($response['response']['code'] != '200') {
-            RY_WEI_Invoice::log('Create failed. Http code: ' . $response['response']['code'], 'error');
+            RY_WEI_Invoice::log('Create failed. Http code: ' . $response['response']['code'] . "\n" . 'url: ' . $post_url, 'error');
             return ;
         }
 
