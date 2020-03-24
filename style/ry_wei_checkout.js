@@ -6,18 +6,21 @@ jQuery(function ($) {
                 $('#invoice_carruer_type_field').show();
                 $('#invoice_no_field').hide();
                 $('#invoice_donate_no_field').hide();
+                $('#invoice_company_name_field').hide();
                 $('#invoice_carruer_type').trigger('change');
                 break;
             case 'company':
                 $('#invoice_carruer_type_field').hide();
                 $('#invoice_carruer_no_field').hide();
                 $('#invoice_no_field').show();
+                $('#invoice_company_name_field').show();
                 $('#invoice_donate_no_field').hide();
                 break;
             case 'donate':
                 $('#invoice_carruer_type_field').hide();
                 $('#invoice_carruer_no_field').hide();
                 $('#invoice_no_field').hide();
+                $('#invoice_company_name_field').hide();
                 $('#invoice_donate_no_field').show();
                 break;
         }

@@ -41,6 +41,13 @@ return [
         'desc' => __('Show invoice number in Frontend order list', 'ry-woocommerce-ecpay-invoice')
     ],
     [
+        'title' => __('Move billing company', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'move_billing_company',
+        'type' => 'checkbox',
+        'default' => 'no',
+        'desc' => __('Move billing company to invoice area', 'ry-woocommerce-ecpay-invoice')
+    ],
+    [
         'id' => 'base_options',
         'type' => 'sectionend'
     ],

@@ -52,6 +52,7 @@ final class RY_WEI_Invoice
                 add_action('wp_ajax_RY_WEI_get', [__CLASS__, 'get_invoice']);
                 add_action('wp_ajax_RY_WEI_invalid', [__CLASS__, 'invalid_invoice']);
             } else {
+                add_filter('default_checkout_invoice_company_name', [__CLASS__, 'set_billing_company']);
                 add_action('woocommerce_after_checkout_billing_form', [__CLASS__, 'show_invoice_form']);
                 add_action('woocommerce_checkout_process', [__CLASS__, 'checkout_fields_change']);
                 add_action('woocommerce_after_checkout_validation', [__CLASS__, 'invoice_checkout_validation'], 10, 2);
@@ -113,6 +114,15 @@ final class RY_WEI_Invoice
 
         if ('no' == RY_WEI::get_option('support_carruer_type_none', 'no')) {
             unset($fields['invoice']['invoice_carruer_type']['options']['none']);
+        }
+
+        if ('yes' == RY_WEI::get_option('move_billing_company', 'no')) {
+            unset($fields['billing']['billing_company']);
+            $fields['invoice']['invoice_company_name'] = [
+                'label' => __('Company name', 'ry-woocommerce-ecpay-invoice'),
+                'required' => true,
+                'priority' => 30
+            ];
         }
 
         // default donate no - 財團法人台灣兒童暨家庭扶助基金會 ( CCF )
@@ -196,19 +206,23 @@ final class RY_WEI_Invoice
                     case 'none':
                         $fields['invoice']['invoice_carruer_no']['required'] = false;
                         $fields['invoice']['invoice_no']['required'] = false;
+                        $fields['invoice']['invoice_company_name']['required'] = false;
                         $fields['invoice']['invoice_donate_no']['required'] = false;
                         break;
                     case 'ecpay_host':
                         $fields['invoice']['invoice_carruer_no']['required'] = false;
                         $fields['invoice']['invoice_no']['required'] = false;
+                        $fields['invoice']['invoice_company_name']['required'] = false;
                         $fields['invoice']['invoice_donate_no']['required'] = false;
                         break;
                     case 'MOICA':
                         $fields['invoice']['invoice_no']['required'] = false;
+                        $fields['invoice']['invoice_company_name']['required'] = false;
                         $fields['invoice']['invoice_donate_no']['required'] = false;
                         break;
                     case 'phone_barcode':
                         $fields['invoice']['invoice_no']['required'] = false;
+                        $fields['invoice']['invoice_company_name']['required'] = false;
                         $fields['invoice']['invoice_donate_no']['required'] = false;
                         break;
                 }
@@ -220,6 +234,7 @@ final class RY_WEI_Invoice
             case 'donate':
                 $fields['invoice']['invoice_carruer_no']['required'] = false;
                 $fields['invoice']['invoice_no']['required'] = false;
+                $fields['invoice']['invoice_company_name']['required'] = false;
                 break;
         }
 
@@ -292,6 +307,17 @@ final class RY_WEI_Invoice
         }
     }
 
+    public static function set_billing_company()
+    {
+        if (is_user_logged_in()) {
+            $customer_object = new WC_Customer(get_current_user_id(), true);
+
+            return $customer_object->get_billing_company();
+        }
+
+        return '';
+    }
+
     public static function show_invoice_form($checkout)
     {
         wp_enqueue_script('ry-wei-checkout', RY_WEI_PLUGIN_URL . 'style/ry_wei_checkout.js', ['jquery'], RY_WEI_VERSION, true);
@@ -308,6 +334,9 @@ final class RY_WEI_Invoice
         $order->update_meta_data('_invoice_carruer_no', isset($data['invoice_carruer_no']) ? $data['invoice_carruer_no'] : '');
         $order->update_meta_data('_invoice_no', isset($data['invoice_no']) ? $data['invoice_no'] : '');
         $order->update_meta_data('_invoice_donate_no', isset($data['invoice_donate_no']) ? $data['invoice_donate_no'] : '');
+        if ('yes' == RY_WEI::get_option('move_billing_company', 'no')) {
+            $order->set_billing_company(isset($data['invoice_company_name']) ? $data['invoice_company_name'] : '');
+        }
     }
 
     public static function save_order_update($order_id)

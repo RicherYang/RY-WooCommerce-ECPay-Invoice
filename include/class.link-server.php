@@ -1,11 +1,13 @@
 <?php
-defined('RY_WEI_VERSION') OR exit('No direct script access allowed');
+defined('RY_WEI_VERSION') or exit('No direct script access allowed');
 
-final class RY_WEI_link_server {
+final class RY_WEI_link_server
+{
     private static $api_url = 'https://store.richer.tw/wp-admin/admin-ajax.php';
     private static $plugin_type = 'ry-woocommerce-ecpay-invoice';
 
-    public static function check_version() {
+    public static function check_version()
+    {
         $response = wp_remote_post(self::$api_url, [
             'timeout' => 10,
             'body' => [
@@ -14,8 +16,8 @@ final class RY_WEI_link_server {
             ]
         ]);
 
-        if( !is_wp_error($response) ) {
-            if( $response['response']['code'] == '200' && isset($response['body']) ) {
+        if (!is_wp_error($response)) {
+            if ($response['response']['code'] == '200' && isset($response['body'])) {
                 return json_decode($response['body'], true);
             }
         }
@@ -23,7 +25,8 @@ final class RY_WEI_link_server {
         return false;
     }
 
-    public static function activate_key() {
+    public static function activate_key()
+    {
         $response = wp_remote_post(self::$api_url, [
             'timeout' => 10,
             'body' => [
@@ -34,8 +37,8 @@ final class RY_WEI_link_server {
             ]
         ]);
 
-        if( !is_wp_error($response) ) {
-            if( $response['response']['code'] == '200' && isset($response['body']) ) {
+        if (!is_wp_error($response)) {
+            if ($response['response']['code'] == '200' && isset($response['body'])) {
                 return json_decode($response['body'], true);
             }
         }
@@ -43,7 +46,8 @@ final class RY_WEI_link_server {
         return false;
     }
 
-    public static function expire_data() {
+    public static function expire_data()
+    {
         $response = wp_remote_post(self::$api_url, [
             'timeout' => 10,
             'body' => [
@@ -53,8 +57,8 @@ final class RY_WEI_link_server {
             ]
         ]);
 
-        if( !is_wp_error($response) ) {
-            if( $response['response']['code'] == '200' && isset($response['body']) ) {
+        if (!is_wp_error($response)) {
+            if ($response['response']['code'] == '200' && isset($response['body'])) {
                 return json_decode($response['body'], true);
             }
         }

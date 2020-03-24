@@ -50,7 +50,6 @@ final class RY_WEI
             self::update_option('pro_Data', $json['data']);
         } else {
             wp_unschedule_hook(self::$option_prefix . 'check_expire');
-            wp_unschedule_hook(self::$option_prefix . 'check_update');
         }
     }
 

@@ -11,13 +11,14 @@
  * @version 1.0.0
  */
 ?>
-    </div>
+</div>
 <div class="woocommerce-invoice-fields">
-    <h3><?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?></h3>
+    <h3><?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?>
+    </h3>
     <div class="woocommerce-invoice-fields__field-wrapper">
         <?php
         $fields = $checkout->get_checkout_fields('invoice');
-        foreach ( $fields as $key => $field ) {
+        foreach ($fields as $key => $field) {
             woocommerce_form_field($key, $field, $checkout->get_value($key));
         }
         ?>
