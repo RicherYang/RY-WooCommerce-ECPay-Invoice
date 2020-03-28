@@ -9,15 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-03-24T18:54:03+08:00\n"
+"POT-Creation-Date: 2020-03-28T10:56:14+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ry-woocommerce-ecpay-invoice\n"
 
 #. Plugin Name of the plugin
-#. translators: %s: Error message
 #: class.ry-wei.admin.php:77
-#: class.ry-wei.admin.php:83
+#: class.ry-wei.admin.php:82
 #: woocommerce/admin/view/html-setting-tools.php:2
 #: woocommerce/settings/settings-ry-key.php:6
 msgid "RY WooCommerce ECPay Invoice"
@@ -51,6 +50,7 @@ msgstr ""
 msgid "Connect license server failed!"
 msgstr ""
 
+#. translators: %s: Error message
 #: class.ry-wei.admin.php:85
 msgid "Verification error: %s"
 msgstr ""
@@ -248,7 +248,7 @@ msgstr ""
 #: woocommerce/ecpay-invoice-api.php:109
 #: woocommerce/ecpay-invoice-api.php:121
 #: woocommerce/ecpay-invoice-api.php:132
-msgid "item word"
+msgid "parcel"
 msgstr ""
 
 #: woocommerce/ecpay-invoice-api.php:119

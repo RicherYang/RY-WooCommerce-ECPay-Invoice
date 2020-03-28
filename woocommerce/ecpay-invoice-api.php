@@ -104,9 +104,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay
         if (count($items)) {
             foreach ($items as $item) {
                 $item_total = intval(round($item->get_total()));
-                $args['ItemName'][] = $item->get_name();
+                $args['ItemName'][] = mb_substr($item->get_name(), 0, 100);
                 $args['ItemCount'][] = $item->get_quantity();
-                $args['ItemWord'][] = __('item word', 'ry-woocommerce-ecpay-invoice');
+                $args['ItemWord'][] = __('parcel', 'ry-woocommerce-ecpay-invoice');
                 $args['ItemPrice'][] = round($item_total / $item->get_quantity(), 2);
                 $args['ItemTaxType'][] = 1;
                 $args['ItemAmount'][] = $item_total;
@@ -118,7 +118,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay
         if ($shipping_fee != 0) {
             $args['ItemName'][] = __('shipping fee', 'ry-woocommerce-ecpay-invoice');
             $args['ItemCount'][] = 1;
-            $args['ItemWord'][] = __('item word', 'ry-woocommerce-ecpay-invoice');
+            $args['ItemWord'][] = __('parcel', 'ry-woocommerce-ecpay-invoice');
             $args['ItemPrice'][] = $shipping_fee;
             $args['ItemTaxType'][] = 1;
             $args['ItemAmount'][] = $shipping_fee;
@@ -129,7 +129,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay
         if ($total_fee != 0) {
             $args['ItemName'][] = __('fee', 'ry-woocommerce-ecpay-invoice');
             $args['ItemCount'][] = 1;
-            $args['ItemWord'][] = __('item word', 'ry-woocommerce-ecpay-invoice');
+            $args['ItemWord'][] = __('parcel', 'ry-woocommerce-ecpay-invoice');
             $args['ItemPrice'][] = $total_fee;
             $args['ItemTaxType'][] = 1;
             $args['ItemAmount'][] = $total_fee;

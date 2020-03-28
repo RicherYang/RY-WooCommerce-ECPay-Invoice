@@ -52,7 +52,7 @@ final class RY_WEI_Invoice
                 add_action('wp_ajax_RY_WEI_get', [__CLASS__, 'get_invoice']);
                 add_action('wp_ajax_RY_WEI_invalid', [__CLASS__, 'invalid_invoice']);
             } else {
-                add_filter('default_checkout_invoice_company_name', [__CLASS__, 'set_billing_company']);
+                add_filter('default_checkout_invoice_company_name', [__CLASS__, 'set_default_invoice_company_name']);
                 add_action('woocommerce_after_checkout_billing_form', [__CLASS__, 'show_invoice_form']);
                 add_action('woocommerce_checkout_process', [__CLASS__, 'checkout_fields_change']);
                 add_action('woocommerce_after_checkout_validation', [__CLASS__, 'invoice_checkout_validation'], 10, 2);
@@ -307,12 +307,12 @@ final class RY_WEI_Invoice
         }
     }
 
-    public static function set_billing_company()
+    public static function set_default_invoice_company_name()
     {
         if (is_user_logged_in()) {
-            $customer_object = new WC_Customer(get_current_user_id(), true);
+            $customer = new WC_Customer(get_current_user_id(), true);
 
-            return $customer_object->get_billing_company();
+            return $customer->get_billing_company();
         }
 
         return '';
