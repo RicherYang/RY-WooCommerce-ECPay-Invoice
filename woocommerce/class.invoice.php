@@ -342,12 +342,14 @@ final class RY_WEI_Invoice
     public static function save_order_update($order_id)
     {
         if ($order = wc_get_order($order_id)) {
-            $order->update_meta_data('_invoice_type', isset($_POST['_invoice_type']) ? wc_clean(wp_unslash($_POST['_invoice_type'])) : 'personal');
-            $order->update_meta_data('_invoice_carruer_type', isset($_POST['_invoice_carruer_type']) ? wc_clean(wp_unslash($_POST['_invoice_carruer_type'])) : 'ecpay_host');
-            $order->update_meta_data('_invoice_carruer_no', wc_clean(wp_unslash($_POST['_invoice_carruer_no'])));
-            $order->update_meta_data('_invoice_no', wc_clean(wp_unslash($_POST['_invoice_no'])));
-            $order->update_meta_data('_invoice_donate_no', wc_clean(wp_unslash($_POST['_invoice_donate_no'])));
-            $order->save_meta_data();
+            if (isset($_POST['_invoice_type'])) {
+                $order->update_meta_data('_invoice_type', wc_clean(wp_unslash($_POST['_invoice_type'])));
+                $order->update_meta_data('_invoice_carruer_type', wc_clean(wp_unslash($_POST['_invoice_carruer_type'])));
+                $order->update_meta_data('_invoice_carruer_no', wc_clean(wp_unslash($_POST['_invoice_carruer_no'])));
+                $order->update_meta_data('_invoice_no', wc_clean(wp_unslash($_POST['_invoice_no'])));
+                $order->update_meta_data('_invoice_donate_no', wc_clean(wp_unslash($_POST['_invoice_donate_no'])));
+                $order->save_meta_data();
+            }
         }
     }
 
