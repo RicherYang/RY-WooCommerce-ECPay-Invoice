@@ -61,35 +61,35 @@ class WC_Meta_Box_Invoice_Data
         $invoice_type = $order->get_meta('_invoice_type');
         $carruer_type = $order->get_meta('_invoice_carruer_type'); ?>
 
-<h3 style="clear:both"><?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?>
+<h3 style="clear:both">
+    <?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?>
 </h3>
 <?php if (!empty($invoice_type)) { ?>
 <div class="ivoice <?=$invoice_number ? '' : 'address' ?>">
     <div class="ivoice_data_column">
         <p>
             <?php if ($invoice_number) { ?>
-            <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong>
-            <?=$invoice_number ?><br>
-            <strong><?=__('Invoice random number', 'ry-woocommerce-ecpay-invoice') ?>:</strong>
-            <?=$order->get_meta('_invoice_random_number') ?><br>
+            <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$invoice_number ?><br>
+            <strong><?=__('Invoice random number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_random_number') ?><br>
+            <strong><?=__('Invoice date', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_date') ?><br>
             <?php } ?>
-            <strong><?=__('Invoice type', 'ry-woocommerce-ecpay-invoice') ?>:</strong>
-            <?php echo _x($invoice_type, 'invoice type', 'ry-woocommerce-ecpay-invoice'); ?><br>
+
+            <strong><?=__('Invoice type', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=_x($invoice_type, 'invoice type', 'ry-woocommerce-ecpay-invoice'); ?><br>
+
             <?php if ($invoice_type == 'personal') { ?>
-            <strong><?=__('Carruer type', 'ry-woocommerce-ecpay-invoice') ?>:</strong>
-            <?php echo _x($carruer_type, 'carruer type', 'ry-woocommerce-ecpay-invoice'); ?><br>
+            <strong><?=__('Carruer type', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=_x($carruer_type, 'carruer type', 'ry-woocommerce-ecpay-invoice'); ?><br>
+
             <?php if (in_array($carruer_type, ['MOICA', 'phone_barcode'])) { ?>
-            <strong><?=__('Carruer number', 'ry-woocommerce-ecpay-invoice') ?>:</strong>
-            <?php echo $order->get_meta('_invoice_carruer_no'); ?><br>
+            <strong><?=__('Carruer number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_carruer_no'); ?><br>
             <?php } ?>
             <?php } ?>
+
             <?php if ($invoice_type == 'company') { ?>
-            <strong><?=__('Tax ID number', 'ry-woocommerce-ecpay-invoice') ?>:</strong>
-            <?php echo $order->get_meta('_invoice_no'); ?><br>
+            <strong><?=__('Tax ID number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_no'); ?><br>
             <?php } ?>
+
             <?php if ($invoice_type == 'donate') { ?>
-            <strong><?=__('Donate number', 'ry-woocommerce-ecpay-invoice') ?>:</strong>
-            <?php echo $order->get_meta('_invoice_donate_no'); ?><br>
+            <strong><?=__('Donate number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_donate_no'); ?><br>
             <?php } ?>
         </p>
     </div>

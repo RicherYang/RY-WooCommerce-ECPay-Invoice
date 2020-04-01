@@ -17,6 +17,7 @@ final class RY_WEI_admin
 
             add_filter('woocommerce_get_settings_rytools', [__CLASS__, 'add_setting'], 10, 2);
             add_action('woocommerce_update_options_rytools_ry_key', [__CLASS__, 'activate_key']);
+            add_action('woocommerce_update_options_rytools_ecpay_invoice', [__CLASS__, 'check_option']);
         }
     }
 
@@ -105,6 +106,29 @@ final class RY_WEI_admin
 
         RY_WEI::check_expire();
         RY_WEI::update_option('pro_Key', '');
+    }
+
+    public static function check_option()
+    {
+        if ('yes' == RY_WEI::get_option('enabled_invoice', 'no')) {
+            if ('yes' != RY_WEI::get_option('ecpay_testmode', 'yes')) {
+                if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
+                    WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));
+                    RY_WEI::update_option('enabled_invoice', 'no');
+                }
+            }
+
+            if (!is_callable('openssl_encrypt') || !is_callable('openssl_decrypt')) {
+                WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice')
+                    . __('Required PHP function openssl_encrypt and openssl_decrypt.', 'ry-woocommerce-ecpay-invoice'));
+                RY_WEI::update_option('enabled_invoice', 'no');
+            }
+        }
+
+        if (!preg_match('/^[a-z0-9]*$/i', RY_WEI::get_option('order_prefix'))) {
+            WC_Admin_Settings::add_error(__('Order no prefix only letters and numbers allowed allowed', 'ry-woocommerce-ecpay-invoice'));
+            RY_WEI::update_option('order_prefix', '');
+        }
     }
 }
 

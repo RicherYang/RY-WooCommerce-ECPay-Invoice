@@ -9,11 +9,11 @@
 
 #order_data .ivoice_data_column {
     float: left;
-    width: 48%;
+    width: 63%;
     padding-right: 2%;
 }
 
 #order_data .ivoice_action_column {
     float: left;
-    width: 48%;
+    width: 35%;
 }
