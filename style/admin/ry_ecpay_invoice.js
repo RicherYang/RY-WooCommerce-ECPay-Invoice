@@ -59,4 +59,14 @@ jQuery(function ($) {
             location.reload();
         });
     });
+
+    $('#clean_delay_ecpay_invoice').click(function () {
+        $.blockUI({ message: ry_wei_script.clean_delay_loading_text });
+        $.post(ajaxurl, {
+            action: 'RY_WEI_clean_delay',
+            id: $(this).data('orderid'),
+        }, function () {
+            location.reload();
+        });
+    });
 });

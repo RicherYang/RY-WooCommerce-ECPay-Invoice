@@ -168,4 +168,27 @@ abstract class RY_ECPay_Invoice
 
         return $result;
     }
+
+    protected static function get_order_id($ipn_info, $order_prefix = '')
+    {
+        if (isset($ipn_info['od_sob'])) {
+            $order_id = $ipn_info['od_sob'];
+            $order_id = substr($order_id, strlen($order_prefix), strrpos($order_id, 'TS'));
+            $order_id = (int) $order_id;
+            if ($order_id > 0) {
+                return $order_id;
+            }
+        }
+        return false;
+    }
+
+    protected static function die_success()
+    {
+        die('1|OK');
+    }
+
+    protected static function die_error()
+    {
+        die('0|');
+    }
 }

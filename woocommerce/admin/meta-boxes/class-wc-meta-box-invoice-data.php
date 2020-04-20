@@ -68,7 +68,9 @@ class WC_Meta_Box_Invoice_Data
 <div class="ivoice <?=$invoice_number ? '' : 'address' ?>">
     <div class="ivoice_data_column">
         <p>
-            <?php if ($invoice_number) { ?>
+            <?php if ($invoice_number == 'delay') { ?>
+            <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=__('Delay get invoice', 'ry-woocommerce-ecpay-invoice') ?><br>
+            <?php } elseif ($invoice_number) { ?>
             <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$invoice_number ?><br>
             <strong><?=__('Invoice random number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_random_number') ?><br>
             <strong><?=__('Invoice date', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_date') ?><br>
@@ -94,13 +96,24 @@ class WC_Meta_Box_Invoice_Data
         </p>
     </div>
     <div class="ivoice_action_column">
-        <?php if ($invoice_number) { ?>
-        <button id="invalid_ecpay_invoice" type="button" class="button" data-orderid="<?=$order->get_id() ?>">
-            <?=__('Invalid invoice', 'ry-woocommerce-ecpay-invoice') ?></button>
-        <?php } elseif ($order->is_paid()) { ?>
-        <button id="get_ecpay_invoice" type="button" class="button" data-orderid="<?=$order->get_id() ?>">
-            <?=__('Get invoice', 'ry-woocommerce-ecpay-invoice') ?></button>
-        <?php } ?>
+        <?php
+        if ($invoice_number) {
+            if ($invoice_number == 'delay') {
+                echo '<button id="clean_delay_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
+                    . __('Clean invoice', 'ry-woocommerce-ecpay-invoice')
+                    . '</button>' . '<br>'
+                    . __('Only clean order recode. You need go to ECPay real invalid it.', 'ry-woocommerce-ecpay-invoice');
+            } else {
+                echo '<button id="invalid_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
+                    . __('Invalid invoice', 'ry-woocommerce-ecpay-invoice')
+                    . '</button>';
+            }
+        } elseif ($order->is_paid()) {
+            echo '<button id="get_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
+                    . __('Get invoice', 'ry-woocommerce-ecpay-invoice')
+                    . '</button>';
+        }
+        ?>
     </div>
 </div>
 <?php } ?>

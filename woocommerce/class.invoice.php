@@ -15,23 +15,30 @@ final class RY_WEI_Invoice
 
             include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/abstracts/abstract-ecpay.php');
             include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/ecpay-invoice-api.php');
+            include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/ecpay-invoice-response.php');
             include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php');
 
             self::$log_enabled = 'yes' === RY_WEI::get_option('invoice_log', 'no');
 
             add_filter('woocommerce_checkout_fields', [__CLASS__, 'add_invoice_info'], 9999);
 
+            RY_WEI_Invoice_Response::init();
+
+            //$delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
+            //$get_mode = ($delay_days == 0) ? 'get' : 'get_delay';
+            $get_mode = 'get';
+
             switch (RY_WEI::get_option('get_mode')) {
                 case 'auto_paid':
                     $paid_statuses = wc_get_is_paid_statuses();
                     foreach ($paid_statuses as $status) {
-                        add_action('woocommerce_order_status_' . $status, ['RY_WEI_Invoice_Api', 'get']);
+                        add_action('woocommerce_order_status_' . $status, ['RY_WEI_Invoice_Api', $get_mode]);
                     }
                     break;
                 case 'auto_completed':
                     $completed_statuses = ['completed'];
                     foreach ($completed_statuses as $status) {
-                        add_action('woocommerce_order_status_' . $status, ['RY_WEI_Invoice_Api', 'get']);
+                        add_action('woocommerce_order_status_' . $status, ['RY_WEI_Invoice_Api', $get_mode]);
                     }
                     break;
             }
@@ -51,6 +58,7 @@ final class RY_WEI_Invoice
 
                 add_action('wp_ajax_RY_WEI_get', [__CLASS__, 'get_invoice']);
                 add_action('wp_ajax_RY_WEI_invalid', [__CLASS__, 'invalid_invoice']);
+                add_action('wp_ajax_RY_WEI_clean_delay', [__CLASS__, 'clean_delay_invoice']);
             } else {
                 add_filter('default_checkout_invoice_company_name', [__CLASS__, 'set_default_invoice_company_name']);
                 add_action('woocommerce_after_checkout_billing_form', [__CLASS__, 'show_invoice_form']);
@@ -146,7 +154,8 @@ final class RY_WEI_Invoice
 
             wp_localize_script('ry-wei-admin-script', 'ry_wei_script', [
                 'get_loading_text'=> __('Get invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
-                'invalid_loading_text'=> __('Invalid invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice')
+                'invalid_loading_text'=> __('Invalid invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
+                'clean_delay_loading_text'=> __('Clean order invoice data.<br>Please wait.', 'ry-woocommerce-ecpay-invoice')
             ]);
         }
     }
@@ -165,7 +174,13 @@ final class RY_WEI_Invoice
     {
         if ($column == 'invoice-number') {
             global $the_order;
-            echo $the_order->get_meta('_invoice_number');
+
+            $invoice_number = $the_order->get_meta('_invoice_number');
+            if ($invoice_number == 'delay') {
+                echo __('Delay get invoice', 'ry-woocommerce-ecpay-invoice');
+            } else {
+                echo $the_order->get_meta('_invoice_number');
+            }
         }
     }
 
@@ -178,7 +193,7 @@ final class RY_WEI_Invoice
             return;
         }
 
-        RY_WEI_Invoice_Api::get($order);
+        RY_WEI_Invoice_Api::get_delay($order);
     }
 
     public static function invalid_invoice()
@@ -191,6 +206,20 @@ final class RY_WEI_Invoice
         }
 
         RY_WEI_Invoice_Api::invalid($order);
+    }
+
+    public static function clean_delay_invoice()
+    {
+        $order_ID = (int) $_POST['id'];
+
+        $order = wc_get_order($order_ID);
+        if (!$order) {
+            return;
+        }
+
+        $order->delete_meta_data('_invoice_number');
+        $order->delete_meta_data('_invoice_random_number');
+        $order->save_meta_data();
     }
 
     public static function checkout_fields_change()
@@ -365,16 +394,18 @@ final class RY_WEI_Invoice
 
         $invoice_info = [];
         if ($invoice_number) {
-            $invoice_info[] = [
-                'key' => 'invoice-number',
-                'name' => __('Invoice number', 'ry-woocommerce-ecpay-invoice'),
-                'value' => $invoice_number
-            ];
-            $invoice_info[] = [
-                'key' => 'invoice-random-number',
-                'name' => __('Invoice random number', 'ry-woocommerce-ecpay-invoice'),
-                'value' => $order->get_meta('_invoice_random_number')
-            ];
+            if ($invoice_number != 'delay') {
+                $invoice_info[] = [
+                    'key' => 'invoice-number',
+                    'name' => __('Invoice number', 'ry-woocommerce-ecpay-invoice'),
+                    'value' => $invoice_number
+                ];
+                $invoice_info[] = [
+                    'key' => 'invoice-random-number',
+                    'name' => __('Invoice random number', 'ry-woocommerce-ecpay-invoice'),
+                    'value' => $order->get_meta('_invoice_random_number')
+                ];
+            }
         }
 
         $invoice_info[] = [
@@ -428,7 +459,10 @@ final class RY_WEI_Invoice
 
     public static function show_invoice_column($order)
     {
-        echo $order->get_meta('_invoice_number');
+        $invoice_number = $order->get_meta('_invoice_number');
+        if ($invoice_number != 'delay') {
+            echo $invoice_number;
+        }
     }
 }
 
