@@ -24,9 +24,8 @@ final class RY_WEI_Invoice
 
             RY_WEI_Invoice_Response::init();
 
-            //$delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
-            //$get_mode = ($delay_days == 0) ? 'get' : 'get_delay';
-            $get_mode = 'get';
+            $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
+            $get_mode = ($delay_days == 0) ? 'get' : 'get_delay';
 
             switch (RY_WEI::get_option('get_mode')) {
                 case 'auto_paid':
@@ -148,9 +147,10 @@ final class RY_WEI_Invoice
         $screen = get_current_screen();
         $screen_id = $screen ? $screen->id : '';
 
+        wp_enqueue_script('ry-wei-admin-script', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.js', ['jquery'], RY_WEI_VERSION);
+
         if (in_array($screen_id, ['shop_order', 'edit-shop_order'])) {
             wp_enqueue_style('ry-wei-admin-style', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.css', [], RY_WEI_VERSION);
-            wp_enqueue_script('ry-wei-admin-script', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.js', ['jquery'], RY_WEI_VERSION);
 
             wp_localize_script('ry-wei-admin-script', 'ry_wei_script', [
                 'get_loading_text'=> __('Get invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
