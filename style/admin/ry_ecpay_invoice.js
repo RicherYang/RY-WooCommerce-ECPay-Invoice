@@ -55,35 +55,35 @@ jQuery(function ($) {
             }
         });
         $('#_invoice_type').trigger('change');
-
-        $('#get_ecpay_invoice').click(function () {
-            $.blockUI({ message: ry_wei_script.get_loading_text });
-            $.post(ajaxurl, {
-                action: 'RY_WEI_get',
-                id: $(this).data('orderid'),
-            }, function () {
-                location.reload();
-            });
-        });
-
-        $('#invalid_ecpay_invoice').click(function () {
-            $.blockUI({ message: ry_wei_script.invalid_loading_text });
-            $.post(ajaxurl, {
-                action: 'RY_WEI_invalid',
-                id: $(this).data('orderid'),
-            }, function () {
-                location.reload();
-            });
-        });
-
-        $('#clean_delay_ecpay_invoice').click(function () {
-            $.blockUI({ message: ry_wei_script.clean_delay_loading_text });
-            $.post(ajaxurl, {
-                action: 'RY_WEI_clean_delay',
-                id: $(this).data('orderid'),
-            }, function () {
-                location.reload();
-            });
-        });
     }
+
+    $('#get_ecpay_invoice').click(function () {
+        $.blockUI({ message: ry_wei_script.get_loading_text });
+        $.post(ajaxurl, {
+            action: 'RY_WEI_get',
+            id: $(this).data('orderid'),
+        }, function () {
+            location.reload();
+        });
+    });
+
+    $('#invalid_ecpay_invoice').click(function () {
+        $.blockUI({ message: ry_wei_script.invalid_loading_text });
+        $.post(ajaxurl, {
+            action: 'RY_WEI_invalid',
+            id: $(this).data('orderid'),
+        }, function () {
+            location.reload();
+        });
+    });
+
+    $('#clean_delay_ecpay_invoice').click(function () {
+        $.blockUI({ message: ry_wei_script.clean_delay_loading_text });
+        $.post(ajaxurl, {
+            action: 'RY_WEI_clean_delay',
+            id: $(this).data('orderid'),
+        }, function () {
+            location.reload();
+        });
+    });
 });

@@ -147,9 +147,8 @@ final class RY_WEI_Invoice
         $screen = get_current_screen();
         $screen_id = $screen ? $screen->id : '';
 
-        wp_enqueue_script('ry-wei-admin-script', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.js', ['jquery'], RY_WEI_VERSION);
-
-        if (in_array($screen_id, ['shop_order', 'edit-shop_order'])) {
+        if (in_array($screen_id, ['shop_order', 'edit-shop_order', 'woocommerce_page_wc-settings'])) {
+            wp_enqueue_script('ry-wei-admin-script', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.js', ['jquery'], RY_WEI_VERSION);
             wp_enqueue_style('ry-wei-admin-style', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.css', [], RY_WEI_VERSION);
 
             wp_localize_script('ry-wei-admin-script', 'ry_wei_script', [
