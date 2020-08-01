@@ -61,7 +61,6 @@ final class RY_WEI_Invoice
             } else {
                 add_filter('default_checkout_invoice_company_name', [__CLASS__, 'set_default_invoice_company_name']);
                 add_action('woocommerce_after_checkout_billing_form', [__CLASS__, 'show_invoice_form']);
-                add_action('woocommerce_checkout_process', [__CLASS__, 'checkout_fields_change']);
                 add_action('woocommerce_after_checkout_validation', [__CLASS__, 'invoice_checkout_validation'], 10, 2);
                 add_action('woocommerce_checkout_create_order', [__CLASS__, 'save_order_invoice'], 10, 2);
 
@@ -138,6 +137,49 @@ final class RY_WEI_Invoice
             $donate_no = $donate_no[time() / 86400 % count($donate_no)];
         }
         $fields['invoice']['invoice_donate_no']['default'] = $donate_no;
+
+        if (did_action('woocommerce_checkout_process')) {
+            $invoice_type = isset($_POST['invoice_type']) ? wc_clean($_POST['invoice_type']) : '';
+            $invoice_carruer_type = isset($_POST['invoice_carruer_type']) ? wc_clean($_POST['invoice_carruer_type']) : '';
+
+            switch ($invoice_type) {
+                case 'personal':
+                    switch ($invoice_carruer_type) {
+                        case 'none':
+                            $fields['invoice']['invoice_carruer_no']['required'] = false;
+                            $fields['invoice']['invoice_no']['required'] = false;
+                            $fields['invoice']['invoice_company_name']['required'] = false;
+                            $fields['invoice']['invoice_donate_no']['required'] = false;
+                            break;
+                        case 'ecpay_host':
+                            $fields['invoice']['invoice_carruer_no']['required'] = false;
+                            $fields['invoice']['invoice_no']['required'] = false;
+                            $fields['invoice']['invoice_company_name']['required'] = false;
+                            $fields['invoice']['invoice_donate_no']['required'] = false;
+                            break;
+                        case 'MOICA':
+                            $fields['invoice']['invoice_no']['required'] = false;
+                            $fields['invoice']['invoice_company_name']['required'] = false;
+                            $fields['invoice']['invoice_donate_no']['required'] = false;
+                            break;
+                        case 'phone_barcode':
+                            $fields['invoice']['invoice_no']['required'] = false;
+                            $fields['invoice']['invoice_company_name']['required'] = false;
+                            $fields['invoice']['invoice_donate_no']['required'] = false;
+                            break;
+                    }
+                    break;
+                case 'company':
+                    $fields['invoice']['invoice_carruer_no']['required'] = false;
+                    $fields['invoice']['invoice_donate_no']['required'] = false;
+                break;
+                case 'donate':
+                    $fields['invoice']['invoice_carruer_no']['required'] = false;
+                    $fields['invoice']['invoice_no']['required'] = false;
+                    $fields['invoice']['invoice_company_name']['required'] = false;
+                break;
+            }
+        }
 
         return $fields;
     }
@@ -219,54 +261,6 @@ final class RY_WEI_Invoice
         $order->delete_meta_data('_invoice_number');
         $order->delete_meta_data('_invoice_random_number');
         $order->save_meta_data();
-    }
-
-    public static function checkout_fields_change()
-    {
-        add_filter('woocommerce_checkout_fields', [__CLASS__, 'do_checkout_fields_change'], 9999);
-    }
-
-    public static function do_checkout_fields_change($fields)
-    {
-        switch ($_POST['invoice_type']) {
-            case 'personal':
-                switch ($_POST['invoice_carruer_type']) {
-                    case 'none':
-                        $fields['invoice']['invoice_carruer_no']['required'] = false;
-                        $fields['invoice']['invoice_no']['required'] = false;
-                        $fields['invoice']['invoice_company_name']['required'] = false;
-                        $fields['invoice']['invoice_donate_no']['required'] = false;
-                        break;
-                    case 'ecpay_host':
-                        $fields['invoice']['invoice_carruer_no']['required'] = false;
-                        $fields['invoice']['invoice_no']['required'] = false;
-                        $fields['invoice']['invoice_company_name']['required'] = false;
-                        $fields['invoice']['invoice_donate_no']['required'] = false;
-                        break;
-                    case 'MOICA':
-                        $fields['invoice']['invoice_no']['required'] = false;
-                        $fields['invoice']['invoice_company_name']['required'] = false;
-                        $fields['invoice']['invoice_donate_no']['required'] = false;
-                        break;
-                    case 'phone_barcode':
-                        $fields['invoice']['invoice_no']['required'] = false;
-                        $fields['invoice']['invoice_company_name']['required'] = false;
-                        $fields['invoice']['invoice_donate_no']['required'] = false;
-                        break;
-                }
-                break;
-            case 'company':
-                $fields['invoice']['invoice_carruer_no']['required'] = false;
-                $fields['invoice']['invoice_donate_no']['required'] = false;
-                break;
-            case 'donate':
-                $fields['invoice']['invoice_carruer_no']['required'] = false;
-                $fields['invoice']['invoice_no']['required'] = false;
-                $fields['invoice']['invoice_company_name']['required'] = false;
-                break;
-        }
-
-        return $fields;
     }
 
     public static function invoice_checkout_validation($data, $errors)
