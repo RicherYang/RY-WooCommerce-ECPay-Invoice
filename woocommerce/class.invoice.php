@@ -24,20 +24,17 @@ final class RY_WEI_Invoice
 
             RY_WEI_Invoice_Response::init();
 
-            $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
-            $get_mode = ($delay_days == 0) ? 'get' : 'get_delay';
-
             switch (RY_WEI::get_option('get_mode')) {
                 case 'auto_paid':
                     $paid_statuses = wc_get_is_paid_statuses();
                     foreach ($paid_statuses as $status) {
-                        add_action('woocommerce_order_status_' . $status, ['RY_WEI_Invoice_Api', $get_mode]);
+                        add_action('woocommerce_order_status_' . $status, [__CLASS__, 'auto_get_invoice']);
                     }
                     break;
                 case 'auto_completed':
                     $completed_statuses = ['completed'];
                     foreach ($completed_statuses as $status) {
-                        add_action('woocommerce_order_status_' . $status, ['RY_WEI_Invoice_Api', $get_mode]);
+                        add_action('woocommerce_order_status_' . $status, [__CLASS__, 'auto_get_invoice']);
                     }
                     break;
             }
@@ -182,6 +179,31 @@ final class RY_WEI_Invoice
         }
 
         return $fields;
+    }
+
+    public static function auto_get_invoice($order_id)
+    {
+        $order = wc_get_order($order_id);
+        if (!$order) {
+            return false;
+        }
+
+        $skip_shipping = apply_filters('ry_wei_skip_autoget_invoice_shipping', []);
+
+        if (!empty($skip_shipping)) {
+            foreach ($order->get_items('shipping') as $item_id => $item) {
+                if (in_array($item->get_method_id(), $skip_shipping)) {
+                    return false;
+                }
+            }
+        }
+
+        $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
+        if ($delay_days == 0) {
+            RY_WEI_Invoice_Api::get($order);
+        } else {
+            RY_WEI_Invoice_Api::get_delay($order);
+        }
     }
 
     public static function add_scripts()
