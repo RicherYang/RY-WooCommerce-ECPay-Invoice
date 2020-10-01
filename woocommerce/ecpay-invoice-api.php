@@ -207,27 +207,23 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 break;
         }
 
-        $total_amount = 0;
         $items = $order->get_items();
         if (count($items)) {
             foreach ($items as $item) {
-                $item_total = floor($item->get_total() * 100) / 100;
                 $data['Items'][] = [
                     'ItemSeq' => count($data['Items']) + 1,
                     'ItemName' => mb_substr($item->get_name(), 0, 100),
                     'ItemCount' => $item->get_quantity(),
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemPrice' => round($item_total / $item->get_quantity(), 2),
+                    'ItemPrice' => round($item->get_total() / $item->get_quantity(), 4),
                     'ItemTaxType' => '1',
-                    'ItemAmount' => $item_total
+                    'ItemAmount' => round($item->get_total(), 2)
                 ];
-                $total_amount += $item_total;
             }
         }
 
         $shipping_fee = $order->get_shipping_total();
         if ($shipping_fee != 0) {
-            $item_total = floor($shipping_fee * 100) / 100;
             $data['Items'][] = [
                 'ItemSeq' => count($data['Items']) + 1,
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
@@ -237,46 +233,10 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 'ItemTaxType' => '1',
                 'ItemAmount' => $shipping_fee
             ];
-            $total_amount += $shipping_fee;
-        }
-
-        $total_fee = $data['SalesAmount'] - $total_amount;
-        if ($total_fee != 0) {
-            $data['Items'][] = [
-                'ItemSeq' => count($data['Items']) + 1,
-                'ItemName' => __('fee', 'ry-woocommerce-ecpay-invoice'),
-                'ItemCount' => 1,
-                'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                'ItemPrice' => $total_fee,
-                'ItemTaxType' => '1',
-                'ItemAmount' => $total_fee
-            ];
         }
 
         $data['InvoiceRemark'] = apply_filters('ry_wei_invoice_remark', $data['InvoiceRemark'], $data, $order);
         $data['InvoiceRemark'] = mb_substr($data['InvoiceRemark'], 0, 200);
-
-        return $data;
-    }
-
-    protected static function item_to_old($data)
-    {
-        foreach ($data['Items'] as $item) {
-            $data['ItemName'][] = $item['ItemName'];
-            $data['ItemCount'][] = $item['ItemCount'];
-            $data['ItemWord'][] = $item['ItemWord'];
-            $data['ItemPrice'][] = $item['ItemPrice'];
-            $data['ItemTaxType'][] = $item['ItemTaxType'];
-            $data['ItemAmount'][] = $item['ItemAmount'];
-        }
-        $data['ItemName'] = implode('|', $data['ItemName']);
-        $data['ItemCount'] = implode('|', $data['ItemCount']);
-        $data['ItemWord'] = implode('|', $data['ItemWord']);
-        $data['ItemPrice'] = implode('|', $data['ItemPrice']);
-        $data['ItemTaxType'] = implode('|', $data['ItemTaxType']);
-        $data['ItemAmount'] = implode('|', $data['ItemAmount']);
-
-        unset($data['Items']);
 
         return $data;
     }

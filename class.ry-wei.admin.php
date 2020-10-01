@@ -78,7 +78,7 @@ final class RY_WEI_admin
                 WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
                     . __('Connect license server failed!', 'ry-woocommerce-ecpay-invoice'));
             } else {
-                if (is_array($json) && isset($json['data'])) {
+                if (is_array($json)) {
                     if (empty($json['data'])) {
                         WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
                             . sprintf(
@@ -98,8 +98,8 @@ final class RY_WEI_admin
                         return true;
                     }
                 } else {
-                    WC_Admin_Settings::add_error__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
-                    . (__('Connect license server failed!', 'ry-woocommerce-ecpay-invoice'));
+                    WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
+                    . __('Connect license server failed!', 'ry-woocommerce-ecpay-invoice'));
                 }
             }
         }
