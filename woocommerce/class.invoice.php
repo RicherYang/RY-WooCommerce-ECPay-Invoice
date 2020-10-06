@@ -38,6 +38,8 @@ final class RY_WEI_Invoice
                     }
                     break;
             }
+            add_action('ry_wei_auto_get_invoice', ['RY_WEI_Invoice_Api', 'get'], 10, 2);
+            add_action('ry_wei_auto_get_delay_invoice', ['RY_WEI_Invoice_Api', 'get_delay'], 10, 2);
 
             if ('auto_cancell' == RY_WEI::get_option('invalid_mode')) {
                 add_action('woocommerce_order_status_cancelled', ['RY_WEI_Invoice_Api', 'invalid']);
@@ -200,9 +202,9 @@ final class RY_WEI_Invoice
 
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
         if ($delay_days == 0) {
-            RY_WEI_Invoice_Api::get($order);
+            WC()->queue()->schedule_single(time() + 3, 'ry_wei_auto_get_invoice', [$order_id], '');
         } else {
-            RY_WEI_Invoice_Api::get_delay($order);
+            WC()->queue()->schedule_single(time() + 3, 'ry_wei_auto_get_delay_invoice', [$order_id], '');
         }
     }
 
