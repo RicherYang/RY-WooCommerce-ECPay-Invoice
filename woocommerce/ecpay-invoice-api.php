@@ -189,7 +189,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                         break;
                     case 'phone_barcode':
                         $data['CarrierType'] = '3';
-                        $data['CarrierNum'] = str_replace('+', ' ', $order->get_meta('_invoice_carruer_no'));
+                        $data['CarrierNum'] = $order->get_meta('_invoice_carruer_no');
                         break;
                 }
                 break;
@@ -363,7 +363,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $data = [
             'MerchantID' => $MerchantID,
-            'BarCode' => str_replace('+', ' ', $code)
+            'BarCode' => $code
         ];
         $args = self::build_args($data, $MerchantID);
 
