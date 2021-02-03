@@ -207,7 +207,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 break;
         }
 
-        $items = $order->get_items();
+        $items = $order->get_items(['line_item', 'fee']);
         if (count($items)) {
             foreach ($items as $item) {
                 $data['Items'][] = [
