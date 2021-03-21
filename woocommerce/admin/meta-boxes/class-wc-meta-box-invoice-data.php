@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 class WC_Meta_Box_Invoice_Data
 {
     protected static $fields;

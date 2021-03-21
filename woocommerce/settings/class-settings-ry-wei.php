@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 if (!class_exists('WC_Settings_RY_Wei', false)) {
     class WC_Settings_RY_Wei extends WC_Settings_Page
     {

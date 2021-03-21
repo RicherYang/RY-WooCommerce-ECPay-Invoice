@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 final class RY_WEI_link_server
 {
     private static $api_url = 'https://store.richer.tw/wp-json/ry/';

@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 abstract class RY_ECPay_Invoice
 {
     protected static $encrypt_method = 'aes-128-cbc';

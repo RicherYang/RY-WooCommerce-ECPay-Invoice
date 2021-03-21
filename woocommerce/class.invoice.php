@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 final class RY_WEI_Invoice
 {
     public static $log_enabled = false;
@@ -13,10 +11,10 @@ final class RY_WEI_Invoice
         if (!self::$initiated) {
             self::$initiated = true;
 
-            include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/abstracts/abstract-ecpay.php');
-            include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/ecpay-invoice-api.php');
-            include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/ecpay-invoice-response.php');
-            include_once(RY_WEI_PLUGIN_DIR . 'woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php');
+            include_once RY_WEI_PLUGIN_DIR . 'woocommerce/abstracts/abstract-ecpay.php';
+            include_once RY_WEI_PLUGIN_DIR . 'woocommerce/ecpay-invoice-api.php';
+            include_once RY_WEI_PLUGIN_DIR . 'woocommerce/ecpay-invoice-response.php';
+            include_once RY_WEI_PLUGIN_DIR . 'woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php';
 
             self::$log_enabled = 'yes' === RY_WEI::get_option('invoice_log', 'no');
 
@@ -47,6 +45,7 @@ final class RY_WEI_Invoice
             }
 
             if (is_admin()) {
+                add_filter('enable_ry_invoice', [__CLASS__, 'add_enable_ry_invoice']);
                 add_action('admin_enqueue_scripts', [__CLASS__, 'add_scripts']);
 
                 add_filter('manage_shop_order_posts_columns', [__CLASS__, 'add_admin_invoice_column'], 11);
@@ -206,6 +205,13 @@ final class RY_WEI_Invoice
         } else {
             WC()->queue()->schedule_single(time() + 3, 'ry_wei_auto_get_delay_invoice', [$order_id], '');
         }
+    }
+
+    public static function add_enable_ry_invoice($enable)
+    {
+        $enable[] = 'ecpay';
+
+        return $enable;
     }
 
     public static function add_scripts()

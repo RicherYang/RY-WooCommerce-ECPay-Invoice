@@ -1,5 +1,10 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
+$order_statuses = wc_get_order_statuses();
+$paid_status = [];
+foreach (wc_get_is_paid_statuses() as $status) {
+    $paid_status[] = $order_statuses['wc-' . $status];
+}
+$paid_status = implode(', ', $paid_status);
 
 return [
     [
@@ -8,18 +13,18 @@ return [
         'type' => 'title',
     ],
     [
-        'title' => __('Enable/Disable', 'woocommerce'),
+        'title' => __('Enable/Disable', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'enabled_invoice',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Enable ECPay invoice method', 'ry-woocommerce-ecpay-invoice')
     ],
     [
-        'title' => __('Debug log', 'woocommerce'),
+        'title' => __('Debug log', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'invoice_log',
         'type' => 'checkbox',
         'default' => 'no',
-        'desc' => __('Enable logging', 'woocommerce') . '<br>'
+        'desc' => __('Enable logging', 'ry-woocommerce-ecpay-invoice') . '<br>'
             . sprintf(
                 /* translators: %s: Path of log file */
                 __('Log ECPay invoice events/message, inside %s', 'ry-woocommerce-ecpay-invoice'),
@@ -72,7 +77,9 @@ return [
             'manual' => _x('manual', 'get mode', 'ry-woocommerce-ecpay-invoice'),
             'auto_paid' => _x('auto ( when order paid )', 'get mode', 'ry-woocommerce-ecpay-invoice'),
             'auto_completed' => _x('auto ( when order completed )', 'get mode', 'ry-woocommerce-ecpay-invoice')
-        ]
+        ],
+        /* translators: %s: paid status */
+        'desc' => sprintf(__('Order paid status: %s', 'ry-woocommerce-ecpay-invoice'), $paid_status)
     ],
     [
         'title' => __('Delay get days', 'ry-woocommerce-ecpay-invoice'),

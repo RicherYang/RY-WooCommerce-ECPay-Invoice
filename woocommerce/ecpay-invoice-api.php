@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 {
     public static $api_test_url = [
@@ -9,7 +7,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         'invalid' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/Invalid',
         'checkMobile' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckBarcode',
         'checkDonate' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckLoveCode',
-        'oldInvalid' => 'https://einvoice-stage.ecpay.com.tw/Invoice/IssueInvalid',
     ];
 
     public static $api_url = [
@@ -18,7 +15,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         'invalid' => 'https://einvoice.ecpay.com.tw/B2CInvoice/Invalid',
         'checkMobile' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CheckBarcode',
         'checkDonate' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CheckLoveCode',
-        'oldInvalid' => 'https://einvoice.ecpay.com.tw/Invoice/IssueInvalid',
     ];
 
     public static function get($order_id)
@@ -262,11 +258,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             'Reason' => __('Invalid invoice', 'ry-woocommerce-ecpay-invoice'),
         ];
 
-        if (empty($data['InvoiceDate'])) {
-            self::old_invalid($order);
-            return;
-        }
-
         $args = self::build_args($data, $MerchantID);
         do_action('ry_wei_invalid_invoice', $args, $order);
 
@@ -301,57 +292,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $order->delete_meta_data('_invoice_number');
         $order->delete_meta_data('_invoice_random_number');
         $order->delete_meta_data('_invoice_ecpay_RelateNumber');
-        $order->save_meta_data();
-
-        do_action('ry_wei_invalid_invoice_response', $result, $order);
-    }
-
-    protected static function old_invalid($order)
-    {
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
-
-        $args = [
-            'MerchantID' => $MerchantID,
-            'InvoiceNumber' => $order->get_meta('_invoice_number'),
-            'Reason' => self::urlencode(__('Invalid invoice', 'ry-woocommerce-ecpay-invoice')),
-            'TimeStamp' => new DateTime('', new DateTimeZone('Asia/Taipei')),
-        ];
-        $args['TimeStamp'] = $args['TimeStamp']->format('U');
-
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
-            $post_url = self::$api_test_url['oldInvalid'];
-        } else {
-            $post_url = self::$api_url['oldInvalid'];
-        }
-
-        $args = self::add_check_value($args, $HashKey, $HashIV, 'md5', ['Reason']);
-        RY_WEI_Invoice::log('Invalid POST old: ' . var_export($args, true));
-
-        do_action('ry_wei_invalid_invoice', $args, $order);
-        $result = self::old_link_server($post_url, $args, $HashKey, $HashIV);
-
-        if ($result == '') {
-            return;
-        }
-
-        if ($result['RtnCode'] != 1) {
-            $order->add_order_note(sprintf(
-                /* translators: %s Error messade */
-                __('Invalid invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
-                $result['RtnMsg']
-            ));
-            return;
-        }
-
-        if (apply_filters('ry_wei_add_api_success_notice', true)) {
-            $order->add_order_note(
-                __('Invalid invoice', 'ry-woocommerce-ecpay-invoice') . ': ' . $result['InvoiceNumber']
-            );
-        }
-
-        $order->delete_meta_data('_invoice_number');
-        $order->delete_meta_data('_invoice_random_number');
-        $order->delete_meta_data('_Invoice_date');
         $order->save_meta_data();
 
         do_action('ry_wei_invalid_invoice_response', $result, $order);

@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 final class RY_WEI_Invoice_setting
 {
     private static $initiated = false;
@@ -14,6 +12,7 @@ final class RY_WEI_Invoice_setting
         if (is_admin()) {
             add_filter('woocommerce_get_sections_rytools', [__CLASS__, 'add_sections'], 11);
             add_filter('woocommerce_get_settings_rytools', [__CLASS__, 'add_setting'], 10, 2);
+            add_action('woocommerce_update_options_rytools_ecpay_invoice', [__CLASS__, 'check_option']);
             add_filter('ry_setting_section_tools', '__return_false');
             add_action('ry_setting_section_ouput_tools', [__CLASS__, 'output_tools'], 11);
         }
@@ -37,9 +36,47 @@ final class RY_WEI_Invoice_setting
     public static function add_setting($settings, $current_section)
     {
         if ($current_section == 'ecpay_invoice') {
-            $settings = include(RY_WEI_PLUGIN_DIR . 'woocommerce/settings/settings-ecpay-invoice.php');
+            $settings = include RY_WEI_PLUGIN_DIR . 'woocommerce/settings/settings-ecpay-invoice.php';
         }
         return $settings;
+    }
+
+    public static function check_option()
+    {
+        if ('yes' == RY_WEI::get_option('enabled_invoice', 'no')) {
+            $enable_list = apply_filters('enable_ry_invoice', []);
+            if (count($enable_list) == 1) {
+                if ($enable_list != ['ecpay']) {
+                    WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
+                }
+            } elseif (count($enable_list) > 1) {
+                WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
+            }
+
+            if ('yes' != RY_WEI::get_option('ecpay_testmode', 'yes')) {
+                if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
+                    WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));
+                    RY_WEI::update_option('enabled_invoice', 'no');
+                }
+            }
+
+            if (!is_callable('openssl_encrypt') || !is_callable('openssl_decrypt')) {
+                WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice')
+                    . __('Required PHP function openssl_encrypt and openssl_decrypt.', 'ry-woocommerce-ecpay-invoice'));
+                RY_WEI::update_option('enabled_invoice', 'no');
+            }
+        }
+
+        if (!preg_match('/^[a-z0-9]*$/i', RY_WEI::get_option('order_prefix'))) {
+            WC_Admin_Settings::add_error(__('Order no prefix only letters and numbers allowed allowed', 'ry-woocommerce-ecpay-invoice'));
+            RY_WEI::update_option('order_prefix', '');
+        }
+
+        $delay_days = RY_WEI::get_option('get_delay_days', 0);
+        if ($delay_days < 0 || $delay_days > 15) {
+            WC_Admin_Settings::add_error(__('Delay day only can between 0 and 15 days.', 'ry-woocommerce-ecpay-invoice'));
+            RY_WEI::update_option('get_delay_days', 0);
+        }
     }
 
     public static function output_tools()

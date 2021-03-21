@@ -1,6 +1,4 @@
 <?php
-defined('RY_WEI_VERSION') or exit('No direct script access allowed');
-
 class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
 {
     public static function init()

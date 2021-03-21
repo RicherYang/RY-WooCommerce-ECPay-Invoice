@@ -12,15 +12,21 @@
  */
 ?>
 
-<h2 class="woocommerce-column__title"><?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?></h2>
+<h2 class="woocommerce-column__title">
+    <?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?>
+</h2>
 
 <table class="woocommerce-table woocommerce-table--invoice-info shop_table invoice-info">
-	<tbody>
-        <?php foreach( $invoice_info as $info ) { ?>
-            <tr>
-                <td class="woocommerce-table__<?=$info['key'] ?> <?=$info['key'] ?>"><?=$info['name'] ?></td>
-                <td class="woocommerce-table__<?=$info['key'] ?> <?=$info['key'] ?>"><?=$info['value'] ?></td>
-            </tr>
+    <tbody>
+        <?php foreach ($invoice_info as $info) { ?>
+        <tr>
+            <td class="woocommerce-table__<?=$info['key'] ?> <?=$info['key'] ?>">
+                <?=$info['name'] ?>
+            </td>
+            <td class="woocommerce-table__<?=$info['key'] ?> <?=$info['key'] ?>">
+                <?=$info['value'] ?>
+            </td>
+        </tr>
         <?php } ?>
-	</tbody>
+    </tbody>
 </table>
