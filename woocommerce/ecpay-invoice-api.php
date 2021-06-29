@@ -31,6 +31,13 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
 
         $data = self::make_get_data($order, $MerchantID);
+        if ($data['SalesAmount'] == 0) {
+            $order->update_meta_data('_invoice_number', 'zero');
+            $order->save_meta_data();
+            $order->add_order_note(__('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'));
+            return;
+        }
+
         $args = self::build_args($data, $MerchantID);
         do_action('ry_wei_get_invoice', $args, $order);
 
@@ -92,6 +99,13 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
 
         $data = self::make_get_data($order, $MerchantID);
+        if ($data['SalesAmount'] == 0) {
+            $order->update_meta_data('_invoice_number', 'zero');
+            $order->save_meta_data();
+            $order->add_order_note(__('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'));
+            return;
+        }
+
         $data['DelayFlag'] = '1';
         $data['DelayDay'] = $delay_days;
         $data['Tsr'] = $data['RelateNumber'];
@@ -245,6 +259,12 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
 
         $invoice_number = $order->get_meta('_invoice_number');
+
+        if ($invoice_number == 'zero') {
+            $order->delete_meta_data('_invoice_number');
+            $order->save_meta_data();
+            return;
+        }
 
         if (!$invoice_number) {
             return false;

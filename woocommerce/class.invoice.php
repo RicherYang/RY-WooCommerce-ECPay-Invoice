@@ -247,7 +247,9 @@ final class RY_WEI_Invoice
             global $the_order;
 
             $invoice_number = $the_order->get_meta('_invoice_number');
-            if ($invoice_number == 'delay') {
+            if ($invoice_number == 'zero') {
+                echo __('Zero no invoice', 'ry-woocommerce-ecpay-invoice');
+            } elseif ($invoice_number == 'delay') {
                 echo __('Delay get invoice', 'ry-woocommerce-ecpay-invoice');
             } else {
                 echo $the_order->get_meta('_invoice_number');
@@ -417,7 +419,13 @@ final class RY_WEI_Invoice
 
         $invoice_info = [];
         if ($invoice_number) {
-            if ($invoice_number != 'delay') {
+            if ($invoice_number == 'zero') {
+                $invoice_info[] = [
+                    'key' => 'zero-info',
+                    'name' => __('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'),
+                    'value' => ''
+                ];
+            } elseif ($invoice_number != 'delay') {
                 $invoice_info[] = [
                     'key' => 'invoice-number',
                     'name' => __('Invoice number', 'ry-woocommerce-ecpay-invoice'),
@@ -483,7 +491,7 @@ final class RY_WEI_Invoice
     public static function show_invoice_column($order)
     {
         $invoice_number = $order->get_meta('_invoice_number');
-        if ($invoice_number != 'delay') {
+        if (!in_array($invoice_number, ['delay', 'zero'])) {
             echo $invoice_number;
         }
     }

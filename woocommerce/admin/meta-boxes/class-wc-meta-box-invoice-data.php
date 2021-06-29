@@ -66,7 +66,9 @@ class WC_Meta_Box_Invoice_Data
 <div class="ivoice <?=$invoice_number ? '' : 'address' ?>">
     <div class="ivoice_data_column">
         <p>
-            <?php if ($invoice_number == 'delay') { ?>
+            <?php if ($invoice_number == 'zero') { ?>
+            <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=__('Zero no invoice', 'ry-woocommerce-ecpay-invoice') ?><br>
+            <?php } elseif ($invoice_number == 'delay') { ?>
             <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=__('Delay get invoice', 'ry-woocommerce-ecpay-invoice') ?><br>
             <?php } elseif ($invoice_number) { ?>
             <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$invoice_number ?><br>
