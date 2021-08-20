@@ -1,25 +1,25 @@
-# Copyright (C) 2020 Richer Yang
+# Copyright (C) 2021 Richer Yang
 # This file is distributed under the same license as the RY WooCommerce ECPay Invoice plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: RY WooCommerce ECPay Invoice 1.1.8\n"
+"Project-Id-Version: RY WooCommerce ECPay Invoice 1.1.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-ecpay-invoice\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-09T10:46:10+08:00\n"
+"POT-Creation-Date: 2021-08-20T11:20:07+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: ry-woocommerce-ecpay-invoice\n"
 
 #. Plugin Name of the plugin
-#: class.ry-wei.admin.php:78
-#: class.ry-wei.admin.php:83
-#: class.ry-wei.admin.php:101
+#: class.ry-wei.admin.php:75
+#: class.ry-wei.admin.php:80
+#: class.ry-wei.admin.php:98
 #: woocommerce/admin/view/html-setting-tools.php:2
-#: woocommerce/settings/settings-ry-key.php:6
+#: woocommerce/settings/settings-ry-key.php:4
 msgid "RY WooCommerce ECPay Invoice"
 msgstr ""
 
@@ -35,166 +35,164 @@ msgstr ""
 msgid "https://richer.tw/"
 msgstr ""
 
-#: class.ry-wei.admin.php:34
-#: woocommerce/settings/class-settings-ry-wei.php:18
-#: woocommerce/settings/settings-ry-key.php:11
+#: class.ry-wei.admin.php:31
+#: woocommerce/settings/class-settings-ry-wei.php:16
+#: woocommerce/settings/settings-ry-key.php:9
 msgid "License key"
 msgstr ""
 
 #. translators: %s: Expiration date of pro license
-#: class.ry-wei.admin.php:54
+#: class.ry-wei.admin.php:51
 msgid "License Expiration Date %s"
 msgstr ""
 
-#: class.ry-wei.admin.php:79
-#: class.ry-wei.admin.php:102
+#: class.ry-wei.admin.php:76
+#: class.ry-wei.admin.php:99
 msgid "Connect license server failed!"
 msgstr ""
 
 #. translators: %s: Error message
-#: class.ry-wei.admin.php:86
+#: class.ry-wei.admin.php:83
 msgid "Verification error: %s"
 msgstr ""
 
-#: class.ry-wei.admin.php:91
+#: class.ry-wei.admin.php:88
 msgid "Unknown key"
 msgstr ""
 
-#: class.ry-wei.admin.php:92
+#: class.ry-wei.admin.php:89
 msgid "Locked key"
 msgstr ""
 
-#: class.ry-wei.admin.php:93
+#: class.ry-wei.admin.php:90
 msgid "Unknown target url"
 msgstr ""
 
-#: class.ry-wei.admin.php:94
+#: class.ry-wei.admin.php:91
 msgid "Used key"
 msgstr ""
 
-#: class.ry-wei.admin.php:95
+#: class.ry-wei.admin.php:92
 msgid "Is tried"
 msgstr ""
 
-#: class.ry-wei.admin.php:116
-#: class.ry-wei.admin.php:122
-#: class.ry-wei.update.php:25
+#: class.ry-wei.update.php:23
+#: woocommerce/settings/class-settings.invoice.php:58
+#: woocommerce/settings/class-settings.invoice.php:64
 msgid "ECPay invoice method failed to enable!"
 msgstr ""
 
-#: class.ry-wei.admin.php:123
-#: class.ry-wei.update.php:26
+#: class.ry-wei.update.php:24
+#: woocommerce/settings/class-settings.invoice.php:65
 msgid "Required PHP function openssl_encrypt and openssl_decrypt."
 msgstr ""
 
-#: class.ry-wei.admin.php:129
-msgid "Order no prefix only letters and numbers allowed allowed"
-msgstr ""
-
-#: class.ry-wei.admin.php:135
-msgid "Delay day only can between 0 and 15 days."
-msgstr ""
-
 #: templates/checkout/form-invoice.php:16
-#: templates/order/order-invoice-info.php:15
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:65
+#: templates/order/order-invoice-info.php:16
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:63
 msgid "Invoice info"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:12
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:10
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:79
-#: woocommerce/class.invoice.php:80
-#: woocommerce/class.invoice.php:430
+#: woocommerce/class.invoice.php:79
+#: woocommerce/class.invoice.php:444
 msgid "Invoice type"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:17
-#: woocommerce/class.invoice.php:82
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:15
+#: woocommerce/class.invoice.php:81
 msgctxt "invoice type"
 msgid "personal"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:18
-#: woocommerce/class.invoice.php:83
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:16
+#: woocommerce/class.invoice.php:82
 msgctxt "invoice type"
 msgid "company"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:19
-#: woocommerce/class.invoice.php:84
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:17
+#: woocommerce/class.invoice.php:83
 msgctxt "invoice type"
 msgid "donate"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:23
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:21
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:82
-#: woocommerce/class.invoice.php:92
+#: woocommerce/class.invoice.php:91
 msgid "Carruer type"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:28
-#: woocommerce/class.invoice.php:94
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:26
+#: woocommerce/class.invoice.php:93
 msgctxt "carruer type"
 msgid "none"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:29
-#: woocommerce/class.invoice.php:95
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:27
+#: woocommerce/class.invoice.php:94
 msgctxt "carruer type"
 msgid "ecpay_host"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:30
-#: woocommerce/class.invoice.php:96
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:28
+#: woocommerce/class.invoice.php:95
 msgctxt "carruer type"
 msgid "MOICA"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:31
-#: woocommerce/class.invoice.php:97
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:29
+#: woocommerce/class.invoice.php:96
 msgctxt "carruer type"
 msgid "phone_barcode"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:35
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:33
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:85
-#: woocommerce/class.invoice.php:104
-#: woocommerce/class.invoice.php:440
+#: woocommerce/class.invoice.php:103
+#: woocommerce/class.invoice.php:454
 msgid "Carruer number"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:40
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:38
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:90
-#: woocommerce/class.invoice.php:109
-#: woocommerce/class.invoice.php:448
+#: woocommerce/class.invoice.php:108
+#: woocommerce/class.invoice.php:462
 msgid "Tax ID number"
 msgstr ""
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:45
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:43
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:94
-#: woocommerce/class.invoice.php:114
-#: woocommerce/class.invoice.php:455
+#: woocommerce/class.invoice.php:113
+#: woocommerce/class.invoice.php:469
 msgid "Donate number"
 msgstr ""
 
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:70
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:72
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:74
-#: woocommerce/class.invoice.php:233
-#: woocommerce/class.invoice.php:417
-#: woocommerce/class.invoice.php:472
-#: woocommerce/ecpay-invoice-api.php:65
+#: woocommerce/class.invoice.php:239
+#: woocommerce/class.invoice.php:431
+#: woocommerce/class.invoice.php:486
+#: woocommerce/ecpay-invoice-api.php:68
 msgid "Invoice number"
 msgstr ""
 
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:70
+#: woocommerce/class.invoice.php:251
+msgid "Zero no invoice"
+msgstr ""
+
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:72
-#: woocommerce/class.invoice.php:245
-#: woocommerce/ecpay-invoice-api.php:134
+#: woocommerce/class.invoice.php:253
+#: woocommerce/ecpay-invoice-api.php:144
 msgid "Delay get invoice"
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:75
-#: woocommerce/class.invoice.php:422
-#: woocommerce/ecpay-invoice-api.php:66
+#: woocommerce/class.invoice.php:436
+#: woocommerce/ecpay-invoice-api.php:69
 msgid "Invoice random number"
 msgstr ""
 
@@ -211,10 +209,8 @@ msgid "Only clean order recode. You need go to ECPay real invalid it."
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:108
-#: woocommerce/ecpay-invoice-api.php:262
-#: woocommerce/ecpay-invoice-api.php:297
-#: woocommerce/ecpay-invoice-api.php:316
-#: woocommerce/ecpay-invoice-api.php:348
+#: woocommerce/ecpay-invoice-api.php:289
+#: woocommerce/ecpay-invoice-api.php:319
 msgid "Invalid invoice"
 msgstr ""
 
@@ -223,7 +219,7 @@ msgid "Get invoice"
 msgstr ""
 
 #: woocommerce/admin/view/html-setting-tools.php:2
-#: woocommerce/settings/class-settings.invoice.php:31
+#: woocommerce/settings/class-settings.invoice.php:30
 msgid "Tools"
 msgstr ""
 
@@ -255,190 +251,233 @@ msgstr ""
 msgid "update plugin"
 msgstr ""
 
-#: woocommerce/class.invoice.php:95
+#: woocommerce/class.invoice.php:94
 msgid " (send paper when win)"
 msgstr ""
 
-#: woocommerce/class.invoice.php:127
+#: woocommerce/class.invoice.php:126
 msgid "Company name"
 msgstr ""
 
-#: woocommerce/class.invoice.php:221
+#: woocommerce/class.invoice.php:227
 msgid "Get invoice.<br>Please wait."
 msgstr ""
 
-#: woocommerce/class.invoice.php:222
+#: woocommerce/class.invoice.php:228
 msgid "Invalid invoice.<br>Please wait."
 msgstr ""
 
-#: woocommerce/class.invoice.php:223
+#: woocommerce/class.invoice.php:229
 msgid "Clean order invoice data.<br>Please wait."
 msgstr ""
 
-#: woocommerce/class.invoice.php:296
 #: woocommerce/class.invoice.php:304
-#: woocommerce/class.invoice.php:306
+#: woocommerce/class.invoice.php:312
+#: woocommerce/class.invoice.php:314
 msgid "Invalid carruer number"
 msgstr ""
 
-#: woocommerce/class.invoice.php:313
+#: woocommerce/class.invoice.php:321
 msgid "Invalid tax ID number"
 msgstr ""
 
-#: woocommerce/class.invoice.php:320
-#: woocommerce/class.invoice.php:322
+#: woocommerce/class.invoice.php:328
+#: woocommerce/class.invoice.php:330
 msgid "Invalid donate number"
 msgstr ""
 
+#: woocommerce/class.invoice.php:425
+#: woocommerce/ecpay-invoice-api.php:37
+#: woocommerce/ecpay-invoice-api.php:105
+msgid "Zero total fee without invoice"
+msgstr ""
+
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:57
-#: woocommerce/ecpay-invoice-api.php:126
+#: woocommerce/ecpay-invoice-api.php:60
+#: woocommerce/ecpay-invoice-api.php:136
 msgid "Get invoice error: %s"
 msgstr ""
 
-#: woocommerce/ecpay-invoice-api.php:67
+#: woocommerce/ecpay-invoice-api.php:70
 msgid "Invoice create time"
 msgstr ""
 
-#: woocommerce/ecpay-invoice-api.php:217
-#: woocommerce/ecpay-invoice-api.php:231
+#: woocommerce/ecpay-invoice-api.php:227
+#: woocommerce/ecpay-invoice-api.php:247
 msgid "parcel"
 msgstr ""
 
-#: woocommerce/ecpay-invoice-api.php:229
+#: woocommerce/ecpay-invoice-api.php:245
 msgid "shipping fee"
 msgstr ""
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:289
-#: woocommerce/ecpay-invoice-api.php:340
+#: woocommerce/ecpay-invoice-api.php:311
 msgid "Invalid invoice error: %s"
 msgstr ""
 
-#: woocommerce/settings/class-settings-ry-wei.php:10
+#: woocommerce/settings/class-settings-ry-wei.php:8
 msgid "RY Tools"
 msgstr ""
 
-#: woocommerce/settings/class-settings.invoice.php:27
-#: woocommerce/settings/class-settings.invoice.php:30
+#: woocommerce/settings/class-settings.invoice.php:26
+#: woocommerce/settings/class-settings.invoice.php:29
 msgid "ECPay invoice"
 msgstr ""
 
-#: woocommerce/settings/class-settings.invoice.php:54
-#: woocommerce/settings/class-settings.invoice.php:60
+#: woocommerce/settings/class-settings.invoice.php:50
+#: woocommerce/settings/class-settings.invoice.php:53
+msgid "Not recommended enable two invoice module/plugin at the same time!"
+msgstr ""
+
+#: woocommerce/settings/class-settings.invoice.php:71
+msgid "Order no prefix only letters and numbers allowed allowed"
+msgstr ""
+
+#: woocommerce/settings/class-settings.invoice.php:77
+msgid "Delay day only can between 0 and 15 days."
+msgstr ""
+
+#: woocommerce/settings/class-settings.invoice.php:91
+#: woocommerce/settings/class-settings.invoice.php:97
 msgid "Data transfer complated."
 msgstr ""
 
-#: woocommerce/settings/class-settings.invoice.php:66
+#: woocommerce/settings/class-settings.invoice.php:103
 msgid "Data delete complated."
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:6
+#: woocommerce/settings/settings-ecpay-invoice.php:11
 msgid "Base options"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:15
+#: woocommerce/settings/settings-ecpay-invoice.php:16
+msgid "Enable/Disable"
+msgstr ""
+
+#: woocommerce/settings/settings-ecpay-invoice.php:20
 msgid "Enable ECPay invoice method"
 msgstr ""
 
+#: woocommerce/settings/settings-ecpay-invoice.php:23
+msgid "Debug log"
+msgstr ""
+
+#: woocommerce/settings/settings-ecpay-invoice.php:27
+msgid "Enable logging"
+msgstr ""
+
 #. translators: %s: Path of log file
-#: woocommerce/settings/settings-ecpay-invoice.php:25
+#: woocommerce/settings/settings-ecpay-invoice.php:30
 msgid "Log ECPay invoice events/message, inside %s"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:30
+#: woocommerce/settings/settings-ecpay-invoice.php:35
 msgid "Order no prefix"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:33
+#: woocommerce/settings/settings-ecpay-invoice.php:38
 msgid "The prefix string of order no. Only letters and numbers allowed allowed."
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:37
+#: woocommerce/settings/settings-ecpay-invoice.php:42
 msgid "Show invoice number"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:41
+#: woocommerce/settings/settings-ecpay-invoice.php:46
 msgid "Show invoice number in Frontend order list"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:44
+#: woocommerce/settings/settings-ecpay-invoice.php:49
 msgid "Move billing company"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:48
+#: woocommerce/settings/settings-ecpay-invoice.php:53
 msgid "Move billing company to invoice area"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:55
+#: woocommerce/settings/settings-ecpay-invoice.php:60
 msgid "Invoice options"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:60
+#: woocommerce/settings/settings-ecpay-invoice.php:65
 msgid "support paper type"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:64
+#: woocommerce/settings/settings-ecpay-invoice.php:69
 msgid "You need print invoice and seed to orderer."
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:67
+#: woocommerce/settings/settings-ecpay-invoice.php:72
+msgid "user SKU as product name"
+msgstr ""
+
+#: woocommerce/settings/settings-ecpay-invoice.php:76
+msgid "If product no SKU, back to use product name"
+msgstr ""
+
+#: woocommerce/settings/settings-ecpay-invoice.php:79
 msgid "Get mode"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:72
+#: woocommerce/settings/settings-ecpay-invoice.php:84
 msgctxt "get mode"
 msgid "manual"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:73
+#: woocommerce/settings/settings-ecpay-invoice.php:85
 msgctxt "get mode"
 msgid "auto ( when order paid )"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:74
+#: woocommerce/settings/settings-ecpay-invoice.php:86
 msgctxt "get mode"
 msgid "auto ( when order completed )"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:78
-msgid "Delay get days"
-msgstr ""
-
-#: woocommerce/settings/settings-ecpay-invoice.php:87
-msgid "Invalid mode"
+#. translators: %s: paid status
+#: woocommerce/settings/settings-ecpay-invoice.php:89
+msgid "Order paid status: %s"
 msgstr ""
 
 #: woocommerce/settings/settings-ecpay-invoice.php:92
+msgid "Delay get days"
+msgstr ""
+
+#: woocommerce/settings/settings-ecpay-invoice.php:101
+msgid "Invalid mode"
+msgstr ""
+
+#: woocommerce/settings/settings-ecpay-invoice.php:106
 msgctxt "invalid mode"
 msgid "manual"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:93
+#: woocommerce/settings/settings-ecpay-invoice.php:107
 msgctxt "invalid mode"
 msgid "auto ( when order status cancelled OR refunded )"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:101
+#: woocommerce/settings/settings-ecpay-invoice.php:115
 msgid "API credentials"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:106
+#: woocommerce/settings/settings-ecpay-invoice.php:120
 msgid "ECPay invoice sandbox"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:110
+#: woocommerce/settings/settings-ecpay-invoice.php:124
 msgid "Enable ECPay invoice sandbox"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:113
+#: woocommerce/settings/settings-ecpay-invoice.php:127
 msgid "MerchantID"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:119
+#: woocommerce/settings/settings-ecpay-invoice.php:133
 msgid "HashKey"
 msgstr ""
 
-#: woocommerce/settings/settings-ecpay-invoice.php:125
+#: woocommerce/settings/settings-ecpay-invoice.php:139
 msgid "HashIV"
 msgstr ""

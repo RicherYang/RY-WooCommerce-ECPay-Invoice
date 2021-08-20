@@ -69,6 +69,13 @@ return [
         'desc' => __('You need print invoice and seed to orderer.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
+        'title' => __('user SKU as product name', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'use_sku_as_name',
+        'type' => 'checkbox',
+        'default' => 'no',
+        'desc' => __('If product no SKU, back to use product name', 'ry-woocommerce-ecpay-invoice')
+    ],
+    [
         'title' => __('Get mode', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'get_mode',
         'type' => 'select',

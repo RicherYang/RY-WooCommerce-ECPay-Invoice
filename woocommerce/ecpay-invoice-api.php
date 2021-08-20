@@ -178,7 +178,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             'CarrierNum' => '',
             'TaxType' => '1',
             'SalesAmount' => intval(round($order->get_total(), 0)),
-            'InvoiceRemark' => $order->get_id(),
+            'InvoiceRemark' => '#' . $order->get_order_number(),
             'Items' => [],
             'InvType' => '07',
             'vat' => '1',
@@ -217,25 +217,31 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 break;
         }
 
+        $use_sku = 'yes' == RY_WEI::get_option('use_sku_as_name', 'no');
         $items = $order->get_items(['line_item', 'fee']);
         if (count($items)) {
             foreach ($items as $item) {
-                $data['Items'][] = [
-                    'ItemSeq' => count($data['Items']) + 1,
-                    'ItemName' => mb_substr($item->get_name(), 0, 100),
+                $data_item = [
+                    'ItemName' => '',
                     'ItemCount' => $item->get_quantity(),
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                     'ItemPrice' => round($item->get_total() / $item->get_quantity(), 4),
                     'ItemTaxType' => '1',
                     'ItemAmount' => round($item->get_total(), 2)
                 ];
+                if ($use_sku && method_exists($item, 'get_product')) {
+                    $data_item['ItemName'] = $item->get_product()->get_sku();
+                }
+                if (empty($data_item['ItemName'])) {
+                    $data_item['ItemName'] = $item->get_name();
+                }
+                $data['Items'][] = $data_item;
             }
         }
 
         $shipping_fee = $order->get_shipping_total();
         if ($shipping_fee != 0) {
             $data['Items'][] = [
-                'ItemSeq' => count($data['Items']) + 1,
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
                 'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
@@ -243,6 +249,11 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 'ItemTaxType' => '1',
                 'ItemAmount' => $shipping_fee
             ];
+        }
+
+        foreach ($data['Items'] as $key => $item) {
+            $data['Items'][$key]['ItemSeq'] = $key + 1;
+            $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 100);
         }
 
         $data['InvoiceRemark'] = apply_filters('ry_wei_invoice_remark', $data['InvoiceRemark'], $data, $order);
