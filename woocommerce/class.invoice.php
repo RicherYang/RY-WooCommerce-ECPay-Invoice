@@ -80,7 +80,7 @@ final class RY_WEI_Invoice
                 'options' => [
                     'personal' => _x('personal', 'invoice type', 'ry-woocommerce-ecpay-invoice'),
                     'company' => _x('company', 'invoice type', 'ry-woocommerce-ecpay-invoice'),
-                       'donate' => _x('donate', 'invoice type', 'ry-woocommerce-ecpay-invoice')
+                    'donate' => _x('donate', 'invoice type', 'ry-woocommerce-ecpay-invoice')
                 ],
                 'default' => 'personal',
                 'required' => true,
@@ -178,7 +178,6 @@ final class RY_WEI_Invoice
                 break;
             }
         }
-
         return $fields;
     }
 

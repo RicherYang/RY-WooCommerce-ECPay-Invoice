@@ -177,7 +177,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             'CarrierType' => '',
             'CarrierNum' => '',
             'TaxType' => '1',
-            'SalesAmount' => intval(round($order->get_total(), 0)),
+            'SalesAmount' => sprintf('%d', $order->get_total()),
             'InvoiceRemark' => '#' . $order->get_order_number(),
             'Items' => [],
             'InvType' => '07',
@@ -225,9 +225,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                     'ItemName' => '',
                     'ItemCount' => $item->get_quantity(),
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemPrice' => round($item->get_total() / $item->get_quantity(), 4),
+                    'ItemPrice' => sprintf('%.4f', $item->get_total() / $item->get_quantity()),
                     'ItemTaxType' => '1',
-                    'ItemAmount' => round($item->get_total(), 2)
+                    'ItemAmount' => sprintf('%.2f', $item->get_total())
                 ];
                 if ($use_sku && method_exists($item, 'get_product')) {
                     $data_item['ItemName'] = $item->get_product()->get_sku();
