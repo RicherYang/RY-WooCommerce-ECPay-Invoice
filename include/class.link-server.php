@@ -1,7 +1,7 @@
 <?php
 final class RY_WEI_link_server
 {
-    private static $api_url = 'https://store.richer.tw/wp-json/ry/';
+    private static $api_url = 'https://ry-plugin.com/wp-json/ry/';
     private static $plugin_type = 'ry-woocommerce-ecpay-invoice';
 
     public static function check_version()
