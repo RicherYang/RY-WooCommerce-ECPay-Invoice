@@ -20,8 +20,8 @@ final class RY_WEI
 
             self::$activate_status = self::valid_key();
 
-            include_once RY_WEI_PLUGIN_DIR . 'include/class.updater.php';
-            include_once RY_WEI_PLUGIN_DIR . 'include/class.link-server.php';
+            include_once RY_WEI_PLUGIN_DIR . 'include/updater.php';
+            include_once RY_WEI_PLUGIN_DIR . 'include/link-server.php';
 
             include_once RY_WEI_PLUGIN_DIR . 'class.ry-wei.update.php';
             RY_WEI_update::update();
@@ -31,7 +31,7 @@ final class RY_WEI
             }
 
             if (self::$activate_status) {
-                include_once RY_WEI_PLUGIN_DIR . 'include/class.cron.php';
+                include_once RY_WEI_PLUGIN_DIR . 'include/cron.php';
                 include_once RY_WEI_PLUGIN_DIR . 'woocommerce/settings/class-settings.invoice.php';
 
                 if ('yes' == self::get_option('enabled_invoice', 'no')) {
@@ -47,6 +47,7 @@ final class RY_WEI
         if (is_array($json) && isset($json['data'])) {
             self::update_option('pro_Data', $json['data']);
         } else {
+            self::delete_option('pro_Data');
             wp_unschedule_hook(self::$option_prefix . 'check_expire');
         }
     }
