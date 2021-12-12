@@ -18,10 +18,11 @@ final class RY_WEI
                 return;
             }
 
-            self::$activate_status = self::valid_key();
-
-            include_once RY_WEI_PLUGIN_DIR . 'include/updater.php';
+            include_once RY_WEI_PLUGIN_DIR . 'include/license.php';
             include_once RY_WEI_PLUGIN_DIR . 'include/link-server.php';
+            include_once RY_WEI_PLUGIN_DIR . 'include/updater.php';
+
+            self::$activate_status = RY_WEI_License::valid_key();
 
             include_once RY_WEI_PLUGIN_DIR . 'class.ry-wei.update.php';
             RY_WEI_update::update();
@@ -39,28 +40,6 @@ final class RY_WEI
                 }
             }
         }
-    }
-
-    public static function check_expire()
-    {
-        $json = RY_WEI_link_server::expire_data();
-        if (is_array($json) && isset($json['data'])) {
-            self::update_option('pro_Data', $json['data']);
-        } else {
-            self::delete_option('pro_Data');
-            wp_unschedule_hook(self::$option_prefix . 'check_expire');
-        }
-    }
-
-    private static function valid_key()
-    {
-        $pro_data = self::get_option('pro_Data');
-        if (is_array($pro_data) && isset($pro_data['secret'])) {
-            if (hash_equals($pro_data['secret'], hash($pro_data['type'], $pro_data['expire']))) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static function get_option($option, $default = false)

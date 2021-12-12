@@ -1,5 +1,5 @@
 <?php
-final class RY_WEI_updater
+final class RY_WEI_Updater
 {
     private static $initiated = false;
 
@@ -23,7 +23,7 @@ final class RY_WEI_updater
 
     public static function transient_update_plugins($transient)
     {
-        $json = RY_WEI_link_server::check_version();
+        $json = RY_WEI_LinkServer::check_version();
 
         if (is_array($json) && isset($json['version'])) {
             set_site_transient(RY_WEI::$option_prefix . 'checktime', time());
@@ -51,4 +51,4 @@ final class RY_WEI_updater
     }
 }
 
-RY_WEI_updater::init();
+RY_WEI_Updater::init();

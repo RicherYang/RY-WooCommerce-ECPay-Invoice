@@ -7,7 +7,7 @@ return [
     ],
     [
         'title' => __('License key', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'pro_Key',
+        'id' => RY_WEI::$option_prefix . 'license_key',
         'type' => 'text',
         'default' => ''
     ],

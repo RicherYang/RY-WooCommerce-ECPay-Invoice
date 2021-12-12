@@ -42,14 +42,14 @@ final class RY_WEI_admin
             }
             $settings = array_merge($settings, include RY_WEI_PLUGIN_DIR . 'woocommerce/settings/settings-ry-key.php');
 
-            $pro_data = RY_WEI::get_option('pro_Data');
-            if (is_array($pro_data) && isset($pro_data['expire'])) {
+            $expire = RY_WEI_License::get_expire();
+            if (!empty($expire)) {
                 foreach ($settings as $key => $setting) {
-                    if (isset($setting['id']) && $setting['id'] == RY_WEI::$option_prefix . 'pro_Key') {
+                    if (isset($setting['id']) && $setting['id'] == RY_WEI::$option_prefix . 'license_key') {
                         $settings[$key]['desc'] = sprintf(
                             /* translators: %s: Expiration date of pro license */
                             __('License Expiration Date %s', 'ry-woocommerce-ecpay-invoice'),
-                            date_i18n(get_option('date_format'), $pro_data['expire'])
+                            date_i18n(get_option('date_format'), $expire)
                         );
                     }
                 }
@@ -61,15 +61,15 @@ final class RY_WEI_admin
     public static function show_version_info($value)
     {
         $version = RY_WEI::get_option('version');
-        $version_info = RY_WEI_link_server::check_version();
+        $version_info = RY_WEI_LinkServer::check_version();
 
         include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-version-info.php';
     }
 
     public static function activate_key()
     {
-        if (!empty(RY_WEI::get_option('pro_Key'))) {
-            $json = RY_WEI_link_server::activate_key();
+        if (!empty(RY_WEI_License::get_license_key())) {
+            $json = RY_WEI_LinkServer::activate_key();
 
             if ($json === false) {
                 WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
@@ -91,7 +91,7 @@ final class RY_WEI_admin
                         __('Used key', 'ry-woocommerce-ecpay-invoice');
                         __('Is tried', 'ry-woocommerce-ecpay-invoice');
                     } else {
-                        RY_WEI::update_option('pro_Data', $json['data']);
+                        RY_WEI_License::set_license_data($json['data']);
                         return true;
                     }
                 } else {
@@ -101,8 +101,7 @@ final class RY_WEI_admin
             }
         }
 
-        RY_WEI::check_expire();
-        RY_WEI::update_option('pro_Key', '');
+        RY_WEI_License::delete_license_key();
     }
 }
 
