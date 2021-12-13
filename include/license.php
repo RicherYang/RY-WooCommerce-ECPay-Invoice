@@ -65,8 +65,6 @@ final class RY_WEI_License
     public static function delete_license()
     {
         RY_WEI::delete_option('license_data');
-        RY_WEI::delete_option('pro_Data');
-        RY_WEI::delete_option('pro_Key');
         wp_unschedule_hook(RY_WEI::$option_prefix . 'check_expire');
         wp_unschedule_hook(RY_WEI::$option_prefix . 'check_update');
     }
