@@ -51,6 +51,7 @@ final class RY_WEI_admin
                             __('License Expiration Date %s', 'ry-woocommerce-ecpay-invoice'),
                             date_i18n(get_option('date_format'), $expire)
                         );
+                        break;
                     }
                 }
             }
@@ -58,10 +59,16 @@ final class RY_WEI_admin
         return $settings;
     }
 
-    public static function show_version_info($value)
+    public static function show_version_info()
     {
         $version = RY_WEI::get_option('version');
-        $version_info = RY_WEI_LinkServer::check_version();
+        $version_info = RY_WEI::get_transient('version_info');
+        if (empty($version_info)) {
+            $version_info = RY_WEI_LinkServer::check_version();
+            if ($version_info) {
+                RY_WEI::set_transient('version_info', $version_info, HOUR_IN_SECONDS);
+            }
+        }
 
         include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-version-info.php';
     }
