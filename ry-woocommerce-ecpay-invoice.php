@@ -2,7 +2,7 @@
 /**
  * Plugin Name: RY WooCommerce ECPay Invoice
  * Plugin URI: https://richer.tw/ry-woocommerce-ecpay-invoice/
- * Version: 1.3.5
+ * Version: 1.3.2
  * Requires at least: 5.6
  * Requires PHP: 7.3
  * Author: Richer Yang
