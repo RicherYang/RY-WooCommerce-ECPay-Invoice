@@ -333,7 +333,7 @@ final class RY_WEI_Invoice
 
     public static function get_ecpay_api_info()
     {
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
             $MerchantID = '2000132';
             $HashKey = 'ejCk326UnaZWKisg';
             $HashIV = 'q9jcZX8Ib9LM8wYk';

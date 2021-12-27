@@ -53,7 +53,7 @@ final class RY_WEI_Invoice_setting
                 WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
             }
 
-            if ('yes' != RY_WEI::get_option('ecpay_testmode', 'yes')) {
+            if ('yes' != RY_WEI::get_option('ecpay_testmode', 'no')) {
                 if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
                     WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));
                     RY_WEI::update_option('enabled_invoice', 'no');

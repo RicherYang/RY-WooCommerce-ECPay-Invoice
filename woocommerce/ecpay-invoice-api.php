@@ -43,7 +43,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         RY_WEI_Invoice::log('Create POST: ' . var_export($args, true));
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
             $post_url = self::$api_test_url['get'];
         } else {
             $post_url = self::$api_url['get'];
@@ -119,7 +119,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         RY_WEI_Invoice::log('Create POST: ' . var_export($args, true));
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
             $post_url = self::$api_test_url['getDelay'];
         } else {
             $post_url = self::$api_url['getDelay'];
@@ -294,7 +294,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         RY_WEI_Invoice::log('Invalid POST: ' . var_export($args, true));
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
             $post_url = self::$api_test_url['invalid'];
         } else {
             $post_url = self::$api_url['invalid'];
@@ -340,7 +340,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         RY_WEI_Invoice::log('Check mobile POST: ' . var_export($args, true));
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
             $post_url = self::$api_test_url['checkMobile'];
         } else {
             $post_url = self::$api_url['checkMobile'];
@@ -367,7 +367,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         RY_WEI_Invoice::log('Check donate POST: ' . var_export($args, true));
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'yes')) {
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
             $post_url = self::$api_test_url['checkDonate'];
         } else {
             $post_url = self::$api_url['checkDonate'];

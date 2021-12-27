@@ -27,9 +27,10 @@ return [
         'desc' => __('Enable logging', 'ry-woocommerce-ecpay-invoice') . '<br>'
             . sprintf(
                 /* translators: %s: Path of log file */
-                __('Log ECPay invoice events/message, inside %s', 'ry-woocommerce-ecpay-invoice'),
+                __('Log API / IPN information, inside %s', 'ry-woocommerce-ecpay-invoice'),
                 '<code>' . WC_Log_Handler_File::get_log_file_path('ry_ecpay_invoice') . '</code>'
             )
+            . '<br>' . __('Note: this may log personal information.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('Order no prefix', 'ry-woocommerce-ecpay-invoice'),
@@ -120,8 +121,9 @@ return [
         'title' => __('ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'ecpay_testmode',
         'type' => 'checkbox',
-        'default' => 'yes',
+        'default' => 'no',
         'desc' => __('Enable ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice')
+            . '<br>' . __('Note: Recommend using this for development purposes only.', 'ry-woocommerce-tools')
     ],
     [
         'title' => __('MerchantID', 'ry-woocommerce-ecpay-invoice'),
