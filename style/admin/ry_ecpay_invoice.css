@@ -1,7 +1,17 @@
-#order_data .order_data_column ._invoice_carruer_type_field {
+#order_data .order_data_column ._invoice_carruer_type_field,
+#order_data .order_data_column ._invoice_random_number_field {
     float: right;
     clear: right;
 }
+#order_data .order_data_column ._invoice_date_field .date-picker {
+    width: 7.5em;
+}
+#order_data .order_data_column ._invoice_date_field .hour,
+#order_data .order_data_column ._invoice_date_field .minute,
+#order_data .order_data_column ._invoice_date_field .second {
+    width: 4em;
+}
+
 
 #order_data .order_data_column .address.ivoice strong {
     display: inline-block;

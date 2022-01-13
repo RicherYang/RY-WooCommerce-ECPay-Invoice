@@ -112,7 +112,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $data['PayType'] = '2';
         $data['PayAct'] = 'ECPAY';
         $data['NotifyURL'] = WC()->api_request_url('ry_wei_delay_callback', true);
-        unset($data['vat']);
 
         $args = self::build_args($data, $MerchantID);
         do_action('ry_wei_get_invoice', $args, $order);

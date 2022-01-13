@@ -74,7 +74,7 @@ final class RY_WEI_Invoice_setting
 
         $delay_days = RY_WEI::get_option('get_delay_days', 0);
         if ($delay_days < 0 || $delay_days > 15) {
-            WC_Admin_Settings::add_error(__('Delay day only can between 0 and 15 days.', 'ry-woocommerce-ecpay-invoice'));
+            WC_Admin_Settings::add_error(__('Delay day only can between 1 and 15 days.', 'ry-woocommerce-ecpay-invoice'));
             RY_WEI::update_option('get_delay_days', 0);
         }
     }

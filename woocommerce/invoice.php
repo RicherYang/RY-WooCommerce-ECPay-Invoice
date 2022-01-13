@@ -226,6 +226,14 @@ final class RY_WEI_Invoice
                 $order->update_meta_data('_invoice_carruer_no', wc_clean(wp_unslash($_POST['_invoice_carruer_no'])));
                 $order->update_meta_data('_invoice_no', wc_clean(wp_unslash($_POST['_invoice_no'])));
                 $order->update_meta_data('_invoice_donate_no', wc_clean(wp_unslash($_POST['_invoice_donate_no'])));
+
+                $invoice_number = wc_clean(wp_unslash($_POST['_invoice_number']));
+                if (!empty($invoice_number)) {
+                    $order->update_meta_data('_invoice_number', $invoice_number);
+                    $order->update_meta_data('_invoice_random_number', wc_clean(wp_unslash($_POST['_invoice_random_number'])));
+                    $date = gmdate('Y-m-d H:i:s', strtotime($_POST['_invoice_date'] . ' ' . (int) $_POST['_invoice_date_hour'] . ':' . (int) $_POST['_invoice_date_minute'] . ':' . (int) $_POST['_invoice_date_second']));
+                    $order->update_meta_data('_invoice_date', $date);
+                }
                 $order->save_meta_data();
             }
         }

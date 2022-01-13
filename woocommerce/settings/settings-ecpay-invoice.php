@@ -123,7 +123,7 @@ return [
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Enable ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice')
-            . '<br>' . __('Note: Recommend using this for development purposes only.', 'ry-woocommerce-tools')
+            . '<br>' . __('Note: Recommend using this for development purposes only.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('MerchantID', 'ry-woocommerce-ecpay-invoice'),
