@@ -28,7 +28,7 @@ final class RY_WEI_LinkServer
             ],
             'body' => wp_json_encode([
                 'license_key' => RY_WEI_License::get_license_key(),
-                'domain' => get_site_url()
+                'domain' => get_option('siteurl')
             ])
         ]);
 
@@ -45,7 +45,7 @@ final class RY_WEI_LinkServer
                 'Content-Type' => 'application/json;charset=' . get_bloginfo('charset'),
             ],
             'body' => wp_json_encode([
-                'domain' => get_site_url()
+                'domain' => get_option('siteurl')
             ])
         ]);
 
