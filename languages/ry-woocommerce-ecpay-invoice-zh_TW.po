@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: RY WooCommerce ECPay Invoice\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-"
 "ecpay-invoice\n"
-"POT-Creation-Date: 2022-01-13T21:16:55+08:00\n"
-"PO-Revision-Date: 2022-01-13 21:17+0800\n"
+"POT-Creation-Date: 2022-02-06T12:47:18+08:00\n"
+"PO-Revision-Date: 2022-02-06 12:47+0800\n"
 "Last-Translator: Richer Yang\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -30,8 +30,8 @@ msgid "RY WooCommerce ECPay Invoice"
 msgstr "RY WooCommerce ECPay Invoice"
 
 #. Plugin URI of the plugin
-msgid "https://richer.tw/ry-woocommerce-ecpay-invoice/"
-msgstr "https://richer.tw/ry-woocommerce-ecpay-invoice/"
+msgid "https://ry-plugin.com/ry-woocommerce-ecpay-invoice"
+msgstr "https://ry-plugin.com/ry-woocommerce-ecpay-invoice"
 
 #. Author of the plugin
 msgid "Richer Yang"
@@ -173,14 +173,14 @@ msgstr "捐贈愛心碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:86
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:88
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:90
-#: woocommerce/ecpay-invoice-api.php:68 woocommerce/invoice-basic.php:210
-#: woocommerce/invoice.php:121 woocommerce/invoice.php:247
+#: woocommerce/ecpay-invoice-api.php:70 woocommerce/invoice-basic.php:210
+#: woocommerce/invoice.php:121 woocommerce/invoice.php:245
 msgid "Invoice number"
 msgstr "發票號碼"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:59
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:91
-#: woocommerce/ecpay-invoice-api.php:69 woocommerce/invoice-basic.php:215
+#: woocommerce/ecpay-invoice-api.php:71 woocommerce/invoice-basic.php:215
 msgid "Invoice random number"
 msgstr "發票隨機碼"
 
@@ -195,36 +195,32 @@ msgid "Zero no invoice"
 msgstr "零元不開立"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:88
-#: woocommerce/ecpay-invoice-api.php:143 woocommerce/invoice.php:135
+#: woocommerce/ecpay-invoice-api.php:145 woocommerce/invoice.php:135
 msgid "Delay get invoice"
 msgstr "延遲開立發票"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:119
-msgid "Clean invoice"
-msgstr "清除發票"
+msgid "Cancel invoice"
+msgstr "取消發票"
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:121
-msgid "Only clean order recode. You need go to ECPay real invalid it."
-msgstr "只清除訂單紀錄。你需要前往綠界完成刪除的動作。"
-
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:124
-#: woocommerce/ecpay-invoice-api.php:288 woocommerce/ecpay-invoice-api.php:318
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:123
+#: woocommerce/ecpay-invoice-api.php:348 woocommerce/ecpay-invoice-api.php:378
 msgid "Invalid invoice"
 msgstr "作廢發票"
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:129
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:128
 msgid "Get invoice"
 msgstr "開立發票"
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:156
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:155
 msgid "h"
 msgstr "時"
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:157
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:156
 msgid "m"
 msgstr "分"
 
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:158
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:157
 msgid "s"
 msgstr "秒"
 
@@ -261,30 +257,39 @@ msgstr "最新版本"
 msgid "update plugin"
 msgstr "升級外掛"
 
-#: woocommerce/ecpay-invoice-api.php:37 woocommerce/ecpay-invoice-api.php:105
+#: woocommerce/ecpay-invoice-api.php:39 woocommerce/ecpay-invoice-api.php:107
 #: woocommerce/invoice-basic.php:204
 msgid "Zero total fee without invoice"
 msgstr "總額零元不開立發票"
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:60 woocommerce/ecpay-invoice-api.php:135
+#: woocommerce/ecpay-invoice-api.php:62 woocommerce/ecpay-invoice-api.php:137
 msgid "Get invoice error: %s"
 msgstr "開立發票號碼失敗：%s"
 
-#: woocommerce/ecpay-invoice-api.php:70
+#: woocommerce/ecpay-invoice-api.php:72
 msgid "Invoice create time"
 msgstr "發票建立時間"
 
-#: woocommerce/ecpay-invoice-api.php:226 woocommerce/ecpay-invoice-api.php:246
+#: woocommerce/ecpay-invoice-api.php:228 woocommerce/ecpay-invoice-api.php:248
 msgid "parcel"
 msgstr "批"
 
-#: woocommerce/ecpay-invoice-api.php:244
+#: woocommerce/ecpay-invoice-api.php:246
 msgid "shipping fee"
 msgstr "運費"
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:310
+#: woocommerce/ecpay-invoice-api.php:304
+msgid "Cancel delay invoice error: %s"
+msgstr "取消延遲開立發票失敗：%s"
+
+#: woocommerce/ecpay-invoice-api.php:312
+msgid "Cancel delay invoice"
+msgstr "取消延遲開立"
+
+#. translators: %s Error messade
+#: woocommerce/ecpay-invoice-api.php:370
 msgid "Invalid invoice error: %s"
 msgstr "作廢發票號碼失敗：%s"
 
@@ -318,8 +323,8 @@ msgid "Invalid invoice.<br>Please wait."
 msgstr "作廢發票中。<br>請耐心等待。"
 
 #: woocommerce/invoice.php:111
-msgid "Clean order invoice data.<br>Please wait."
-msgstr "清除訂單發票資訊。<br>請耐心等待。"
+msgid "Cancel delay invoice data.<br>Please wait."
+msgstr "取消延遲開立發票資訊。<br>請耐心等待。"
 
 #: woocommerce/settings/class-settings-ry-wei.php:8
 msgid "RY Tools"
@@ -495,6 +500,18 @@ msgstr "HashKey"
 #: woocommerce/settings/settings-ecpay-invoice.php:141
 msgid "HashIV"
 msgstr "HashIV"
+
+#~ msgid "https://richer.tw/ry-woocommerce-ecpay-invoice/"
+#~ msgstr "https://richer.tw/ry-woocommerce-ecpay-invoice/"
+
+#~ msgid "Clean invoice"
+#~ msgstr "清除發票"
+
+#~ msgid "Only clean order recode. You need go to ECPay real invalid it."
+#~ msgstr "只清除訂單紀錄。你需要前往綠界完成刪除的動作。"
+
+#~ msgid "Clean order invoice data.<br>Please wait."
+#~ msgstr "清除訂單發票資訊。<br>請耐心等待。"
 
 #~ msgid "Delay day only can between 0 and 15 days."
 #~ msgstr "延遲天數只可以在 0 到 15 天。"

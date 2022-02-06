@@ -77,10 +77,10 @@ jQuery(function ($) {
         });
     });
 
-    $('#clean_delay_ecpay_invoice').click(function () {
-        $.blockUI({ message: ry_wei_script.clean_delay_loading_text });
+    $('#cancel_delay_ecpay_invoice').click(function () {
+        $.blockUI({ message: ry_wei_script.cancel_delay_loading_text });
         $.post(ajaxurl, {
-            action: 'RY_WEI_clean_delay',
+            action: 'RY_WEI_cancel_delay',
             id: $(this).data('orderid'),
         }, function () {
             location.reload();

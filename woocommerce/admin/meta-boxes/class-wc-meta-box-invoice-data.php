@@ -115,10 +115,9 @@ class WC_Meta_Box_Invoice_Data
         <?php
         if ($invoice_number) {
             if ($invoice_number == 'delay') {
-                echo '<button id="clean_delay_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
-                    . __('Clean invoice', 'ry-woocommerce-ecpay-invoice')
-                    . '</button>' . '<br>'
-                    . __('Only clean order recode. You need go to ECPay real invalid it.', 'ry-woocommerce-ecpay-invoice');
+                echo '<button id="cancel_delay_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
+                    . __('Cancel invoice', 'ry-woocommerce-ecpay-invoice')
+                    . '</button>';
             } else {
                 echo '<button id="invalid_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
                     . __('Invalid invoice', 'ry-woocommerce-ecpay-invoice')

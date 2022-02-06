@@ -4,6 +4,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
     public static $api_test_url = [
         'get' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/Issue',
         'getDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/DelayIssue',
+        'cancelDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CancelDelayIssue',
         'invalid' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/Invalid',
         'checkMobile' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckBarcode',
         'checkDonate' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckLoveCode',
@@ -12,6 +13,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
     public static $api_url = [
         'get' => 'https://einvoice.ecpay.com.tw/B2CInvoice/Issue',
         'getDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/DelayIssue',
+        'cancelDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CancelDelayIssue',
         'invalid' => 'https://einvoice.ecpay.com.tw/B2CInvoice/Invalid',
         'checkMobile' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CheckBarcode',
         'checkDonate' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CheckLoveCode',
@@ -259,6 +261,64 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $data['InvoiceRemark'] = mb_substr($data['InvoiceRemark'], 0, 200);
 
         return $data;
+    }
+
+    public static function cancel_delay($order_id)
+    {
+        $order = wc_get_order($order_id);
+        if (!$order) {
+            return false;
+        }
+
+        $ecpay_RelateNumber = $order->get_meta('_invoice_ecpay_RelateNumber');
+
+        if (!$ecpay_RelateNumber) {
+            return false;
+        }
+
+        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+        $data = [
+            'MerchantID' => $MerchantID,
+            'Tsr' => $ecpay_RelateNumber
+        ];
+
+        $args = self::build_args($data, $MerchantID);
+        do_action('ry_wei_cancel_delay_invoice', $args, $order);
+
+        RY_WEI_Invoice::log('Cancel POST: ' . var_export($args, true));
+
+        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
+            $post_url = self::$api_test_url['cancelDelay'];
+        } else {
+            $post_url = self::$api_url['cancelDelay'];
+        }
+        $result = self::link_server($post_url, $args, $HashKey, $HashIV);
+
+        if ($result == '') {
+            return;
+        }
+
+        if ($result->RtnCode != 1) {
+            $order->add_order_note(sprintf(
+                /* translators: %s Error messade */
+                __('Cancel delay invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
+                $result->RtnMsg
+            ));
+            return;
+        }
+
+        if (apply_filters('ry_wei_add_api_success_notice', true)) {
+            $order->add_order_note(
+                __('Cancel delay invoice', 'ry-woocommerce-ecpay-invoice')
+            );
+        }
+
+        $order->delete_meta_data('_invoice_number');
+        $order->delete_meta_data('_invoice_random_number');
+        $order->delete_meta_data('_invoice_ecpay_RelateNumber');
+        $order->save_meta_data();
+
+        do_action('ry_wei_cancel_delay_invoice_response', $result, $order);
     }
 
     public static function invalid($order_id)

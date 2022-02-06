@@ -53,7 +53,7 @@ final class RY_WEI_Invoice
 
                 add_action('wp_ajax_RY_WEI_get', [__CLASS__, 'get_invoice']);
                 add_action('wp_ajax_RY_WEI_invalid', [__CLASS__, 'invalid_invoice']);
-                add_action('wp_ajax_RY_WEI_clean_delay', [__CLASS__, 'clean_delay_invoice']);
+                add_action('wp_ajax_RY_WEI_cancel_delay', [__CLASS__, 'cancel_delay_invoice']);
             } else {
                 add_filter('default_checkout_invoice_company_name', [__CLASS__, 'set_default_invoice_company_name']);
                 if ('yes' == RY_WEI::get_option('show_invoice_number', 'no')) {
@@ -108,7 +108,7 @@ final class RY_WEI_Invoice
             wp_localize_script('ry-wei-admin-script', 'ry_wei_script', [
                 'get_loading_text'=> __('Get invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
                 'invalid_loading_text'=> __('Invalid invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
-                'clean_delay_loading_text'=> __('Clean order invoice data.<br>Please wait.', 'ry-woocommerce-ecpay-invoice')
+                'cancel_delay_loading_text'=> __('Cancel delay invoice data.<br>Please wait.', 'ry-woocommerce-ecpay-invoice')
             ]);
         }
     }
@@ -148,7 +148,7 @@ final class RY_WEI_Invoice
             return;
         }
 
-        RY_WEI_Invoice_Api::get_delay($order);
+        RY_WEI_Invoice_Api::get($order);
     }
 
     public static function invalid_invoice()
@@ -163,7 +163,7 @@ final class RY_WEI_Invoice
         RY_WEI_Invoice_Api::invalid($order);
     }
 
-    public static function clean_delay_invoice()
+    public static function cancel_delay_invoice()
     {
         $order_ID = (int) $_POST['id'];
 
@@ -172,9 +172,7 @@ final class RY_WEI_Invoice
             return;
         }
 
-        $order->delete_meta_data('_invoice_number');
-        $order->delete_meta_data('_invoice_random_number');
-        $order->save_meta_data();
+        RY_WEI_Invoice_Api::cancel_delay($order);
     }
 
     public static function get_ecpay_api_info()
