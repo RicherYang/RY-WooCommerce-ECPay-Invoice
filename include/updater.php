@@ -32,6 +32,7 @@ final class RY_WEI_Updater
                 unset($json['version']);
                 unset($json['url']);
                 $json['slug'] = 'ry-woocommerce-tools-pro';
+                $json['plugin'] = RY_WEI_PLUGIN_BASENAME;
 
                 if (empty($transient)) {
                     $transient = new stdClass;
