@@ -13,7 +13,7 @@
 ?>
 
 <h2 class="woocommerce-column__title">
-    <?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?>
+    <?php esc_html_e('Invoice info', 'ry-woocommerce-ecpay-invoice'); ?>
 </h2>
 
 <table class="woocommerce-table woocommerce-table--invoice-info shop_table invoice-info">

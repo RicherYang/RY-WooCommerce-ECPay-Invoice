@@ -1,5 +1,5 @@
 <h2>
-    <?=__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') ?> <?=__('Tools', 'ry-woocommerce-ecpay-invoice') ?>
+    <?php esc_html_e('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice'); ?> <?php esc_html_e('Tools', 'ry-woocommerce-ecpay-invoice'); ?>
 </h2>
 
 <p>將 <a href="https://tw.wordpress.org/plugins/ecpay-invoice-for-woocommerce/" target="_black">ECPay Invoice for WooCommerce</a>

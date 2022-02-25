@@ -13,7 +13,7 @@
 ?>
 </div>
 <div class="woocommerce-invoice-fields">
-    <h3><?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?>
+    <h3><?php esc_html_e('Invoice info', 'ry-woocommerce-ecpay-invoice'); ?>
     </h3>
     <div class="woocommerce-invoice-fields__field-wrapper">
         <?php

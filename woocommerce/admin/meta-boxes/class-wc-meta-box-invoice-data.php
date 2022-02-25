@@ -76,38 +76,38 @@ class WC_Meta_Box_Invoice_Data
         $carruer_type = $order->get_meta('_invoice_carruer_type'); ?>
 
 <h3 style="clear:both">
-    <?=__('Invoice info', 'ry-woocommerce-ecpay-invoice') ?>
+    <?php esc_html_e('Invoice info', 'ry-woocommerce-ecpay-invoice'); ?>
 </h3>
 <?php if (!empty($invoice_type)) { ?>
 <div class="ivoice <?=$invoice_number ? '' : 'address' ?>">
     <div class="ivoice_data_column">
         <p>
             <?php if ($invoice_number == 'zero') { ?>
-            <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=__('Zero no invoice', 'ry-woocommerce-ecpay-invoice') ?><br>
+            <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Zero no invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
             <?php } elseif ($invoice_number == 'delay') { ?>
-            <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=__('Delay get invoice', 'ry-woocommerce-ecpay-invoice') ?><br>
+            <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Delay get invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
             <?php } elseif ($invoice_number) { ?>
-            <strong><?=__('Invoice number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$invoice_number ?><br>
-            <strong><?=__('Invoice random number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_random_number') ?><br>
-            <strong><?=__('Invoice date', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_date') ?><br>
+            <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?=$invoice_number ?><br>
+            <strong><?php esc_html_e('Invoice random number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_random_number')); ?><br>
+            <strong><?php esc_html_e('Invoice date', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_date')); ?><br>
             <?php } ?>
 
-            <strong><?=__('Invoice type', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=_x($invoice_type, 'invoice type', 'ry-woocommerce-ecpay-invoice'); ?><br>
+            <strong><?php esc_html_e('Invoice type', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html_x($invoice_type, 'invoice type', 'ry-woocommerce-ecpay-invoice'); ?><br>
 
             <?php if ($invoice_type == 'personal') { ?>
-            <strong><?=__('Carruer type', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=_x($carruer_type, 'carruer type', 'ry-woocommerce-ecpay-invoice'); ?><br>
+            <strong><?php esc_html_e('Carruer type', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html_x($carruer_type, 'carruer type', 'ry-woocommerce-ecpay-invoice'); ?><br>
 
             <?php if (in_array($carruer_type, ['MOICA', 'phone_barcode'])) { ?>
-            <strong><?=__('Carruer number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_carruer_no'); ?><br>
+            <strong><?php esc_html_e('Carruer number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_carruer_no')); ?><br>
             <?php } ?>
             <?php } ?>
 
             <?php if ($invoice_type == 'company') { ?>
-            <strong><?=__('Tax ID number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_no'); ?><br>
+            <strong><?php esc_html_e('Tax ID number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_no')); ?><br>
             <?php } ?>
 
             <?php if ($invoice_type == 'donate') { ?>
-            <strong><?=__('Donate number', 'ry-woocommerce-ecpay-invoice') ?>:</strong> <?=$order->get_meta('_invoice_donate_no'); ?><br>
+            <strong><?php esc_html_e('Donate number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_donate_no')); ?><br>
             <?php } ?>
         </p>
     </div>
@@ -148,13 +148,13 @@ class WC_Meta_Box_Invoice_Data
                     break;
                 case 'date':
                     ?>
-    <p class="form-field form-field-wide <?=$field['id'] ?>_field">
-        <label for="<?=esc_attr($field['id']) ?>"><?=esc_attr($field['label']) ?></label>
-        <input type="text" class="date-picker" id="<?=$field['id'] ?>" name="<?=$field['id'] ?>" maxlength="10" value="" pattern="<?php echo esc_attr(apply_filters('woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])')); ?>" />@
+    <p class="form-field form-field-wide <?php echo esc_attr($field['id']) ?>_field">
+        <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
+        <input type="text" class="date-picker" id="<?php echo esc_attr($field['id']); ?>" name="<?php echo esc_attr($field['id']); ?>" maxlength="10" value="" pattern="<?php echo esc_attr(apply_filters('woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])')); ?>" />@
         &lrm;
-        <input type="number" class="hour" placeholder="<?php esc_attr_e('h', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']) ?>_hour" min="0" max="23" step="1" value="" pattern="([01]?[0-9]{1}|2[0-3]{1})" />:
-        <input type="number" class="minute" placeholder="<?php esc_attr_e('m', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']) ?>_minute" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />:
-        <input type="number" class="second" placeholder="<?php esc_attr_e('s', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']) ?>_second" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />
+        <input type="number" class="hour" placeholder="<?php esc_attr_e('h', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']); ?>_hour" min="0" max="23" step="1" value="" pattern="([01]?[0-9]{1}|2[0-3]{1})" />:
+        <input type="number" class="minute" placeholder="<?php esc_attr_e('m', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']); ?>_minute" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />:
+        <input type="number" class="second" placeholder="<?php esc_attr_e('s', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']); ?>_second" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />
     </p>
     <?php
                     break;
