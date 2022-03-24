@@ -86,6 +86,7 @@ final class RY_WEI_admin
             } else {
                 if (is_array($json)) {
                     if (empty($json['data'])) {
+                        RY_WEI_License::delete_license();
                         WC_Admin_Settings::add_error(__('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice') . ': '
                             . sprintf(
                                 /* translators: %s: Error message */
