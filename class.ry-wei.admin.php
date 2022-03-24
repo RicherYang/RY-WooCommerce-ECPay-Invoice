@@ -76,6 +76,8 @@ final class RY_WEI_admin
     public static function activate_key()
     {
         if (!empty(RY_WEI_License::get_license_key())) {
+            RY_WEI::delete_transient('version_info');
+
             $json = RY_WEI_LinkServer::activate_key();
 
             if ($json === false) {
