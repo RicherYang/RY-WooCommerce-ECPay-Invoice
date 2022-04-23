@@ -171,8 +171,8 @@ abstract class RY_ECPay_Invoice
     {
         if (isset($ipn_info['od_sob'])) {
             $order_id = $ipn_info['od_sob'];
-            $order_id = substr($order_id, strlen($order_prefix), strrpos($order_id, 'TS'));
-            $order_id = (int) $order_id;
+            $order_id = (int) substr($order_id, strlen($order_prefix), strrpos($order_id, 'TS'));
+            $order_id = apply_filters('ry_ecpay_trade_no_to_order_id', $order_id, $ipn_info['od_sob']);
             if ($order_id > 0) {
                 return $order_id;
             }
