@@ -39,6 +39,12 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             $order->add_order_note(__('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'));
             return;
         }
+        if ($data['SalesAmount'] < 0) {
+            $order->update_meta_data('_invoice_number', 'negative');
+            $order->save_meta_data();
+            $order->add_order_note(__('Negative total fee can\'t invoice', 'ry-woocommerce-ecpay-invoice'));
+            return;
+        }
 
         $args = self::build_args($data, $MerchantID);
         do_action('ry_wei_get_invoice', $args, $order);
@@ -107,6 +113,12 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             $order->add_order_note(__('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'));
             return;
         }
+        if ($data['SalesAmount'] < 0) {
+            $order->update_meta_data('_invoice_number', 'negative');
+            $order->save_meta_data();
+            $order->add_order_note(__('Negative total fee can\'t invoice', 'ry-woocommerce-ecpay-invoice'));
+            return;
+        }
 
         $data['DelayFlag'] = '1';
         $data['DelayDay'] = $delay_days;
@@ -163,6 +175,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $states = WC()->countries->get_states($country);
         $full_state = ($state && isset($states[$state])) ? $states[$state] : $state;
 
+        $total_refunded = $order->get_total_refunded();
         $data = [
             'MerchantID' => $MerchantID,
             'RelateNumber' => self::generate_trade_no($order->get_id(), RY_WEI::get_option('order_prefix')),
@@ -178,7 +191,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             'CarrierType' => '',
             'CarrierNum' => '',
             'TaxType' => '1',
-            'SalesAmount' => sprintf('%d', $order->get_total()),
+            'SalesAmount' => sprintf('%d', $order->get_total() - $total_refunded),
             'InvoiceRemark' => '#' . $order->get_order_number(),
             'Items' => [],
             'InvType' => '07',
@@ -219,28 +232,37 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
 
         $use_sku = 'yes' == RY_WEI::get_option('use_sku_as_name', 'no');
-        $items = $order->get_items(['line_item', 'fee']);
-        if (count($items)) {
-            foreach ($items as $item) {
+        $order_items = $order->get_items(['line_item', 'fee']);
+        if (count($order_items)) {
+            foreach ($order_items as $order_item) {
+                $total_refunded -= $order->get_total_refunded_for_item($order_item->get_id(), $order_item->get_type());
+                $item_total = $order_item->get_total() - $order->get_total_refunded_for_item($order_item->get_id(), $order_item->get_type());
+                $item_qty = $order_item->get_quantity() + $order->get_qty_refunded_for_item($order_item->get_id(), $order_item->get_type());
+
+                if ($item_total == 0 && $item_qty == 0) {
+                    continue;
+                }
+
                 $data_item = [
                     'ItemName' => '',
-                    'ItemCount' => $item->get_quantity(),
+                    'ItemCount' => $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemPrice' => sprintf('%.4f', $item->get_total() / $item->get_quantity()),
+                    'ItemPrice' => sprintf('%.4f', $item_total / $item_qty),
                     'ItemTaxType' => '1',
-                    'ItemAmount' => sprintf('%.2f', $item->get_total())
+                    'ItemAmount' => sprintf('%.2f', $item_total)
                 ];
-                if ($use_sku && method_exists($item, 'get_product')) {
-                    $data_item['ItemName'] = $item->get_product()->get_sku();
+                if ($use_sku && method_exists($order_item, 'get_product')) {
+                    $data_item['ItemName'] = $order_item->get_product()->get_sku();
                 }
                 if (empty($data_item['ItemName'])) {
-                    $data_item['ItemName'] = $item->get_name();
+                    $data_item['ItemName'] = $order_item->get_name();
                 }
                 $data['Items'][] = $data_item;
             }
         }
 
-        $shipping_fee = $order->get_shipping_total();
+        $total_refunded -= $order->get_total_shipping_refunded();
+        $shipping_fee = $order->get_shipping_total() - $order->get_total_shipping_refunded();
         if ($shipping_fee != 0) {
             $data['Items'][] = [
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
@@ -249,6 +271,17 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 'ItemPrice' => $shipping_fee,
                 'ItemTaxType' => '1',
                 'ItemAmount' => $shipping_fee
+            ];
+        }
+
+        if ($total_refunded != 0) {
+            $data['Items'][] = [
+                'ItemName' => __('refund fee', 'ry-woocommerce-ecpay-invoice'),
+                'ItemCount' => 1,
+                'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
+                'ItemPrice' => -$total_refunded,
+                'ItemTaxType' => '1',
+                'ItemAmount' => -$total_refunded
             ];
         }
 
@@ -330,7 +363,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $invoice_number = $order->get_meta('_invoice_number');
 
-        if ($invoice_number == 'zero') {
+        if ($invoice_number == 'zero' || $invoice_number == 'negative') {
             $order->delete_meta_data('_invoice_number');
             $order->save_meta_data();
             return;

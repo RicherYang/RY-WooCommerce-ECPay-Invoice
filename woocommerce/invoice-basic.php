@@ -204,6 +204,12 @@ final class RY_WEI_Invoice_Basic
                     'name' => __('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'),
                     'value' => ''
                 ];
+            } elseif ($invoice_number == 'negative') {
+                $invoice_info[] = [
+                    'key' => 'negative-info',
+                    'name' => __('Negative total fee can\'t invoice', 'ry-woocommerce-ecpay-invoice'),
+                    'value' => ''
+                ];
             } elseif ($invoice_number != 'delay') {
                 $invoice_info[] = [
                     'key' => 'invoice-number',

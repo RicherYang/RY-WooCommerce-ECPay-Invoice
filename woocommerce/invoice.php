@@ -131,6 +131,8 @@ final class RY_WEI_Invoice
             $invoice_number = $the_order->get_meta('_invoice_number');
             if ($invoice_number == 'zero') {
                 echo __('Zero no invoice', 'ry-woocommerce-ecpay-invoice');
+            } elseif ($invoice_number == 'negative') {
+                echo __('Negative no invoice', 'ry-woocommerce-ecpay-invoice');
             } elseif ($invoice_number == 'delay') {
                 echo __('Delay get invoice', 'ry-woocommerce-ecpay-invoice');
             } else {
@@ -250,7 +252,7 @@ final class RY_WEI_Invoice
     public static function show_invoice_column($order)
     {
         $invoice_number = $order->get_meta('_invoice_number');
-        if (!in_array($invoice_number, ['delay', 'zero'])) {
+        if (!in_array($invoice_number, ['delay', 'zero', 'negative'])) {
             echo $invoice_number;
         }
     }

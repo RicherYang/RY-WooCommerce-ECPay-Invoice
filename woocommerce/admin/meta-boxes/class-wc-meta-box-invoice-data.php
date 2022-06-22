@@ -84,6 +84,8 @@ class WC_Meta_Box_Invoice_Data
         <p>
             <?php if ($invoice_number == 'zero') { ?>
             <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Zero no invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
+            <?php } elseif ($invoice_number == 'negative') { ?>
+            <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Negative no invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
             <?php } elseif ($invoice_number == 'delay') { ?>
             <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Delay get invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
             <?php } elseif ($invoice_number) { ?>
