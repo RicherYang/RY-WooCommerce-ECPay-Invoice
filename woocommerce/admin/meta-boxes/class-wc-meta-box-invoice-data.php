@@ -130,7 +130,7 @@ class WC_Meta_Box_Invoice_Data
                     . __('Get invoice', 'ry-woocommerce-ecpay-invoice')
                     . '</button>';
         }
-        ?>
+    ?>
     </div>
 </div>
 <?php } ?>

@@ -117,12 +117,12 @@ final class RY_WEI_Invoice_Basic
                 case 'company':
                     $fields['invoice']['invoice_carruer_no']['required'] = false;
                     $fields['invoice']['invoice_donate_no']['required'] = false;
-                break;
+                    break;
                 case 'donate':
                     $fields['invoice']['invoice_carruer_no']['required'] = false;
                     $fields['invoice']['invoice_no']['required'] = false;
                     $fields['invoice']['invoice_company_name']['required'] = false;
-                break;
+                    break;
             }
         }
         return $fields;
