@@ -30,7 +30,7 @@ return [
                 __('Log API / IPN information, inside %s', 'ry-woocommerce-ecpay-invoice'),
                 '<code>' . WC_Log_Handler_File::get_log_file_path('ry_ecpay_invoice') . '</code>'
             )
-            . '<br>' . __('Note: this may log personal information.', 'ry-woocommerce-ecpay-invoice')
+            . '<p class="description" style="margin-bottom:2px">' . __('Note: this may log personal information.', 'ry-woocommerce-ecpay-invoice') . '</p>'
     ],
     [
         'title' => __('Order no prefix', 'ry-woocommerce-ecpay-invoice'),
@@ -123,7 +123,7 @@ return [
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Enable ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice')
-            . '<br>' . __('Note: Recommend using this for development purposes only.', 'ry-woocommerce-ecpay-invoice')
+            . '<p class="description" style="margin-bottom:2px">' . __('Note: Recommend using this for development purposes only.', 'ry-woocommerce-ecpay-invoice') . '<p>'
     ],
     [
         'title' => __('MerchantID', 'ry-woocommerce-ecpay-invoice'),

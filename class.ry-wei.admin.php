@@ -1,31 +1,37 @@
 <?php
 final class RY_WEI_admin
 {
-    private static $initiated = false;
+    protected static $_instance = null;
 
-    public static function init()
+    public static function instance()
     {
-        if (!self::$initiated) {
-            self::$initiated = true;
-
-            if (!defined('RY_WT_VERSION')) {
-                add_filter('woocommerce_get_settings_pages', [__CLASS__, 'get_settings_page']);
-            }
-            add_filter('woocommerce_get_sections_rytools', [__CLASS__, 'add_sections'], 12);
-
-            add_filter('woocommerce_get_settings_rytools', [__CLASS__, 'add_setting'], 10, 2);
-            add_action('woocommerce_update_options_rytools_ry_key', [__CLASS__, 'activate_key']);
+        if (self::$_instance === null) {
+            self::$_instance = new self();
+            self::$_instance->do_init();
         }
+
+        return self::$_instance;
     }
 
-    public static function get_settings_page($settings)
+    protected function do_init()
+    {
+        if (!defined('RY_WT_VERSION')) {
+            add_filter('woocommerce_get_settings_pages', [$this, 'get_settings_page']);
+        }
+
+        add_filter('woocommerce_get_sections_rytools', [$this, 'add_sections'], 12);
+        add_filter('woocommerce_get_settings_rytools', [$this, 'add_setting'], 10, 2);
+        add_action('woocommerce_update_options_rytools_ry_key', [$this, 'activate_key']);
+    }
+
+    public function get_settings_page($settings)
     {
         $settings[] = include RY_WEI_PLUGIN_DIR . 'woocommerce/settings/class-settings-ry-wei.php';
 
         return $settings;
     }
 
-    public static function add_sections($sections)
+    public function add_sections($sections)
     {
         unset($sections['ry_key']);
         $sections['ry_key'] = __('License key', 'ry-woocommerce-ecpay-invoice');
@@ -33,10 +39,10 @@ final class RY_WEI_admin
         return $sections;
     }
 
-    public static function add_setting($settings, $current_section)
+    public function add_setting($settings, $current_section)
     {
         if ($current_section == 'ry_key') {
-            add_action('woocommerce_admin_field_rywei_version_info', [__CLASS__, 'show_version_info']);
+            add_action('woocommerce_admin_field_rywei_version_info', [$this, 'show_version_info']);
             if (empty($settings)) {
                 $settings = [];
             }
@@ -59,7 +65,7 @@ final class RY_WEI_admin
         return $settings;
     }
 
-    public static function show_version_info()
+    public function show_version_info()
     {
         $version = RY_WEI::get_option('version');
         $version_info = RY_WEI::get_transient('version_info');
@@ -73,7 +79,7 @@ final class RY_WEI_admin
         include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-version-info.php';
     }
 
-    public static function activate_key()
+    public function activate_key()
     {
         if (!empty(RY_WEI_License::get_license_key())) {
             RY_WEI::delete_transient('version_info');
@@ -115,4 +121,4 @@ final class RY_WEI_admin
     }
 }
 
-RY_WEI_admin::init();
+RY_WEI_admin::instance();
