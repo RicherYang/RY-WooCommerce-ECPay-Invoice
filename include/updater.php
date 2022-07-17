@@ -33,7 +33,7 @@ final class RY_WEI_Updater
             if (version_compare(RY_WEI_VERSION, $json['new_version'], '<')) {
                 unset($json['version']);
                 unset($json['url']);
-                $json['slug'] = 'ry-woocommerce-tools-pro';
+                $json['slug'] = 'ry-woocommerce-ecpay-invoice';
                 $json['plugin'] = RY_WEI_PLUGIN_BASENAME;
 
                 if (empty($transient)) {
