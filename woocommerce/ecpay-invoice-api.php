@@ -1,4 +1,5 @@
 <?php
+
 class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 {
     public static $api_test_url = [
@@ -232,11 +233,18 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
 
         $use_sku = 'yes' == RY_WEI::get_option('use_sku_as_name', 'no');
-        $order_items = $order->get_items(['line_item', 'fee']);
+        $order_items = $order->get_items(['line_item']);
         if (count($order_items)) {
             foreach ($order_items as $order_item) {
-                $total_refunded -= $order->get_total_refunded_for_item($order_item->get_id(), $order_item->get_type());
-                $item_total = $order_item->get_total() - $order->get_total_refunded_for_item($order_item->get_id(), $order_item->get_type());
+                $item_total = $order_item->get_total();
+                $item_refunded = $order->get_total_refunded_for_item($order_item->get_id(), $order_item->get_type());
+                if ('yes' !== get_option('woocommerce_tax_round_at_subtotal')) {
+                    $item_total = round($item_total, wc_get_price_decimals());
+                    $item_refunded = round($item_refunded, wc_get_price_decimals());
+                }
+
+                $total_refunded -= $item_refunded;
+                $item_total = $item_total - $item_refunded;
                 $item_qty = $order_item->get_quantity() + $order->get_qty_refunded_for_item($order_item->get_id(), $order_item->get_type());
 
                 if ($item_total == 0 && $item_qty == 0) {
@@ -247,9 +255,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                     'ItemName' => '',
                     'ItemCount' => $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemPrice' => sprintf('%.4f', $item_total / $item_qty),
+                    'ItemPrice' => sprintf('%.2f', $item_total / $item_qty),
                     'ItemTaxType' => '1',
-                    'ItemAmount' => sprintf('%.2f', $item_total)
+                    'ItemAmount' => sprintf('%d', $item_total)
                 ];
                 if ($use_sku && method_exists($order_item, 'get_product')) {
                     $data_item['ItemName'] = $order_item->get_product()->get_sku();
@@ -257,6 +265,28 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 if (empty($data_item['ItemName'])) {
                     $data_item['ItemName'] = $order_item->get_name();
                 }
+                $data['Items'][] = $data_item;
+            }
+        }
+        $fee_items = $order->get_items(['fee']);
+        if (count($fee_items)) {
+            foreach ($fee_items as $fee_item) {
+                $item_total = $fee_item->get_total();
+                $item_qty = $order_item->get_quantity();
+
+                if ($item_total == 0 && $item_qty == 0) {
+                    continue;
+                }
+
+                $item_total = round($item_total, wc_get_price_decimals());
+                $data_item = [
+                    'ItemName' => $order_item->get_name(),
+                    'ItemCount' => $item_qty,
+                    'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
+                    'ItemPrice' => sprintf('%.4f', $item_total / $item_qty),
+                    'ItemTaxType' => '1',
+                    'ItemAmount' => sprintf('%.2f', $item_total)
+                ];
                 $data['Items'][] = $data_item;
             }
         }
@@ -287,11 +317,11 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         foreach ($data['Items'] as $key => $item) {
             $data['Items'][$key]['ItemSeq'] = $key + 1;
-            $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 100);
+            $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 80);
         }
 
         $data['InvoiceRemark'] = apply_filters('ry_wei_invoice_remark', $data['InvoiceRemark'], $data, $order);
-        $data['InvoiceRemark'] = mb_substr($data['InvoiceRemark'], 0, 200);
+        $data['InvoiceRemark'] = mb_substr($data['InvoiceRemark'], 0, 190);
 
         return $data;
     }
