@@ -1,4 +1,5 @@
 <?php
+
 return [
     [
         'title' => __('RY WooCommerce ECPay Invoice', 'ry-woocommerce-ecpay-invoice'),

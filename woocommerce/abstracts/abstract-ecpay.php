@@ -1,4 +1,5 @@
 <?php
+
 abstract class RY_ECPay_Invoice
 {
     protected static $encrypt_method = 'aes-128-cbc';

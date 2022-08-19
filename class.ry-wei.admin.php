@@ -1,4 +1,5 @@
 <?php
+
 final class RY_WEI_admin
 {
     protected static $_instance = null;

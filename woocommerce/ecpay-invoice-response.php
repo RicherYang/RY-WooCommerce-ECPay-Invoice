@@ -1,4 +1,5 @@
 <?php
+
 class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
 {
     public static function init()

@@ -1,4 +1,5 @@
 <?php
+
 $order_statuses = wc_get_order_statuses();
 $paid_status = [];
 foreach (wc_get_is_paid_statuses() as $status) {

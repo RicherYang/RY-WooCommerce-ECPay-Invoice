@@ -1,4 +1,5 @@
 <?php
+
 final class RY_WEI_LinkServer
 {
     protected static $log = false;

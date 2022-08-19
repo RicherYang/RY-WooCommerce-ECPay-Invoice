@@ -1,4 +1,5 @@
 <?php
+
 final class RY_WEI_Invoice_Basic
 {
     private static $initiated = false;

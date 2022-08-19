@@ -1,4 +1,5 @@
 <?php
+
 final class RY_WEI_Invoice
 {
     public static $log_enabled = false;

@@ -1,4 +1,5 @@
 <?php
+
 if (!class_exists('WC_Settings_RY_Wei', false)) {
     class WC_Settings_RY_Wei extends WC_Settings_Page
     {

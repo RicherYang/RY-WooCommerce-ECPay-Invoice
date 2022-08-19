@@ -1,4 +1,5 @@
 <?php
+
 final class RY_WEI
 {
     public static $options = [];
