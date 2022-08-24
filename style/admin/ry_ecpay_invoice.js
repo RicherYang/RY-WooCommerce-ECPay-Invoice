@@ -2,7 +2,7 @@ jQuery(function ($) {
 
     if ($('#RY_WEI_get_mode').length) {
         function toggleDelayBox() {
-            var $item = $('#RY_WEI_get_delay_days').closest('tr');
+            let $item = $('#RY_WEI_get_delay_days').closest('tr');
 
             if ($('#RY_WEI_get_mode').val() == 'manual') {
                 $item.hide();
@@ -13,6 +13,21 @@ jQuery(function ($) {
 
         toggleDelayBox();
         $('#RY_WEI_get_mode').change(toggleDelayBox);
+    }
+
+    if ($('#RY_WEI_amount_abnormal_mode').length) {
+        function toggleAmountBox() {
+            let $item = $('#RY_WEI_amount_abnormal_product').closest('tr');
+
+            if ($('#RY_WEI_amount_abnormal_mode').val() == 'product') {
+                $item.show();
+            } else {
+                $item.hide();
+            }
+        }
+
+        toggleAmountBox();
+        $('#RY_WEI_amount_abnormal_mode').change(toggleAmountBox);
     }
 
     if ($('#_invoice_type').length) {

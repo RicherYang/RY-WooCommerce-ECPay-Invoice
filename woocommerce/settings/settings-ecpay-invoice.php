@@ -110,6 +110,25 @@ return [
         ]
     ],
     [
+        'title' => __('Amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'amount_abnormal_mode',
+        'type' => 'select',
+        'default' => '',
+        'options' => [
+            '' => _x('No action', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
+            'product' => _x('add one product to match order amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
+            'order' => _x('change order total amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice')
+        ],
+        /* translators: %s: paid status */
+        'desc' => sprintf(__('Order paid status: %s', 'ry-woocommerce-ecpay-invoice'), $paid_status)
+    ],
+    [
+        'title' => __('fix amount product name', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'amount_abnormal_product',
+        'type' => 'text',
+        'default' => __('Discount', 'ry-woocommerce-ecpay-invoice')
+    ],
+    [
         'id' => 'invoice_options',
         'type' => 'sectionend'
     ],

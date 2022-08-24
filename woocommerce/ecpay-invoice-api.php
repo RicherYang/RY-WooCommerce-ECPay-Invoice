@@ -176,7 +176,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $states = WC()->countries->get_states($country);
         $full_state = ($state && isset($states[$state])) ? $states[$state] : $state;
 
-        $total_refunded = $order->get_total_refunded();
         $data = [
             'MerchantID' => $MerchantID,
             'RelateNumber' => self::generate_trade_no($order->get_id(), RY_WEI::get_option('order_prefix')),
@@ -192,7 +191,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             'CarrierType' => '',
             'CarrierNum' => '',
             'TaxType' => '1',
-            'SalesAmount' => sprintf('%d', $order->get_total() - $total_refunded),
+            'SalesAmount' => round($order->get_total() - $order->get_total_refunded(), 0),
             'InvoiceRemark' => '#' . $order->get_order_number(),
             'Items' => [],
             'InvType' => '07',
@@ -243,7 +242,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                     $item_refunded = round($item_refunded, wc_get_price_decimals());
                 }
 
-                $total_refunded -= $item_refunded;
                 $item_total = $item_total - $item_refunded;
                 $item_qty = $order_item->get_quantity() + $order->get_qty_refunded_for_item($order_item->get_id(), $order_item->get_type());
 
@@ -255,9 +253,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                     'ItemName' => '',
                     'ItemCount' => $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemPrice' => sprintf('%.2f', $item_total / $item_qty),
-                    'ItemTaxType' => '1',
-                    'ItemAmount' => sprintf('%d', $item_total)
+                    'ItemAmount' => $item_total
                 ];
                 if ($use_sku && method_exists($order_item, 'get_product')) {
                     $data_item['ItemName'] = $order_item->get_product()->get_sku();
@@ -272,52 +268,57 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         if (count($fee_items)) {
             foreach ($fee_items as $fee_item) {
                 $item_total = $fee_item->get_total();
-                $item_qty = $order_item->get_quantity();
-
+                $item_qty = $fee_item->get_quantity();
+                $item_total = round($item_total, wc_get_price_decimals());
                 if ($item_total == 0 && $item_qty == 0) {
                     continue;
                 }
 
-                $item_total = round($item_total, wc_get_price_decimals());
                 $data_item = [
-                    'ItemName' => $order_item->get_name(),
+                    'ItemName' => $fee_item->get_name(),
                     'ItemCount' => $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemPrice' => sprintf('%.4f', $item_total / $item_qty),
-                    'ItemTaxType' => '1',
-                    'ItemAmount' => sprintf('%.2f', $item_total)
+                    'ItemAmount' => $item_total
                 ];
                 $data['Items'][] = $data_item;
             }
         }
 
-        $total_refunded -= $order->get_total_shipping_refunded();
         $shipping_fee = $order->get_shipping_total() - $order->get_total_shipping_refunded();
         if ($shipping_fee != 0) {
             $data['Items'][] = [
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
                 'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                'ItemPrice' => $shipping_fee,
-                'ItemTaxType' => '1',
-                'ItemAmount' => $shipping_fee
+                'ItemAmount' => round($shipping_fee, wc_get_price_decimals())
             ];
         }
 
-        if ($total_refunded != 0) {
-            $data['Items'][] = [
-                'ItemName' => __('refund fee', 'ry-woocommerce-ecpay-invoice'),
-                'ItemCount' => 1,
-                'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                'ItemPrice' => -$total_refunded,
-                'ItemTaxType' => '1',
-                'ItemAmount' => -$total_refunded
-            ];
+        $total_amount = array_sum(array_column($data['Items'], 'ItemAmount'));
+        if ($total_amount != $data['SalesAmount']) {
+            switch(RY_WEI::get_option('amount_abnormal_mode', '')) {
+                case 'product':
+                    $data['Items'][] = [
+                        'ItemName' => RY_WEI::get_option('amount_abnormal_product', __('Discount', 'ry-woocommerce-ecpay-invoice')),
+                        'ItemCount' => 1,
+                        'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
+                        'ItemAmount' => round($data['SalesAmount'] - $total_amount, wc_get_price_decimals())
+                    ];
+                    break;
+                case 'order':
+                    $data['SalesAmount'] = sprintf('%d', $total_amount);
+                    break;
+                default:
+                    break;
+            }
         }
 
         foreach ($data['Items'] as $key => $item) {
             $data['Items'][$key]['ItemSeq'] = $key + 1;
             $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 80);
+            $data['Items'][$key]['ItemTaxType'] = '1';
+            $data['Items'][$key]['ItemAmount'] = sprintf('%d', $data['Items'][$key]['ItemAmount']);
+            $data['Items'][$key]['ItemPrice'] = sprintf('%.2f', $data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount']);
         }
 
         $data['InvoiceRemark'] = apply_filters('ry_wei_invoice_remark', $data['InvoiceRemark'], $data, $order);
