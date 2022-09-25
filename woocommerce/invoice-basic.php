@@ -153,8 +153,10 @@ final class RY_WEI_Invoice_Basic
         if ($data['invoice_type'] == 'personal' && $data['invoice_carruer_type'] == 'phone_barcode') {
             if (!preg_match('/^\/{1}[0-9A-Z+-.]{7}$/', $data['invoice_carruer_no'])) {
                 $errors->add('validation', __('Invalid carruer number', 'ry-woocommerce-ecpay-invoice'));
-            } elseif (class_exists('RY_WEI_Invoice_Api') && RY_WEI_Invoice_Api::check_mobile_code($data['invoice_carruer_no']) === false) {
-                $errors->add('validation', __('Invalid carruer number', 'ry-woocommerce-ecpay-invoice'));
+            } elseif ('yes' == RY_WEI::get_option('check_number_with_api', 'yes')) {
+                if (class_exists('RY_WEI_Invoice_Api') && RY_WEI_Invoice_Api::check_mobile_code($data['invoice_carruer_no']) === false) {
+                    $errors->add('validation', __('Invalid carruer number', 'ry-woocommerce-ecpay-invoice'));
+                }
             }
         }
 
@@ -169,8 +171,10 @@ final class RY_WEI_Invoice_Basic
         if ($data['invoice_type'] == 'donate') {
             if (!preg_match('/^[0-9]{3,7}$/', $data['invoice_donate_no'])) {
                 $errors->add('validation', __('Invalid donate number', 'ry-woocommerce-ecpay-invoice'));
-            } elseif (class_exists('RY_WEI_Invoice_Api') && RY_WEI_Invoice_Api::check_donate_no($data['invoice_donate_no']) === false) {
-                $errors->add('validation', __('Invalid donate number', 'ry-woocommerce-ecpay-invoice'));
+            } elseif ('yes' == RY_WEI::get_option('check_number_with_api', 'yes')) {
+                if (class_exists('RY_WEI_Invoice_Api') && RY_WEI_Invoice_Api::check_donate_no($data['invoice_donate_no']) === false) {
+                    $errors->add('validation', __('Invalid donate number', 'ry-woocommerce-ecpay-invoice'));
+                }
             }
         }
     }

@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: RY WooCommerce ECPay Invoice\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-"
 "ecpay-invoice\n"
-"POT-Creation-Date: 2022-08-24T19:43:44+08:00\n"
-"PO-Revision-Date: 2022-08-24 19:44+0800\n"
+"POT-Creation-Date: 2022-09-25T19:40:30+08:00\n"
+"PO-Revision-Date: 2022-09-25 19:40+0800\n"
 "Last-Translator: Richer Yang\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -99,7 +99,7 @@ msgstr "發票資訊"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:10
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:97
-#: woocommerce/invoice-basic.php:27 woocommerce/invoice-basic.php:230
+#: woocommerce/invoice-basic.php:27 woocommerce/invoice-basic.php:234
 msgid "Invoice type"
 msgstr "發票類型"
 
@@ -153,19 +153,19 @@ msgstr "手機條碼"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:33
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:103
-#: woocommerce/invoice-basic.php:51 woocommerce/invoice-basic.php:240
+#: woocommerce/invoice-basic.php:51 woocommerce/invoice-basic.php:244
 msgid "Carruer number"
 msgstr "載具編號"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:38
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:108
-#: woocommerce/invoice-basic.php:56 woocommerce/invoice-basic.php:248
+#: woocommerce/invoice-basic.php:56 woocommerce/invoice-basic.php:252
 msgid "Tax ID number"
 msgstr "統一編號"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:43
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:112
-#: woocommerce/invoice-basic.php:61 woocommerce/invoice-basic.php:255
+#: woocommerce/invoice-basic.php:61 woocommerce/invoice-basic.php:259
 msgid "Donate number"
 msgstr "捐贈愛心碼"
 
@@ -174,14 +174,14 @@ msgstr "捐贈愛心碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:88
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:90
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:92
-#: woocommerce/ecpay-invoice-api.php:77 woocommerce/invoice-basic.php:217
+#: woocommerce/ecpay-invoice-api.php:77 woocommerce/invoice-basic.php:221
 #: woocommerce/invoice.php:122 woocommerce/invoice.php:248
 msgid "Invoice number"
 msgstr "發票號碼"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:59
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:93
-#: woocommerce/ecpay-invoice-api.php:78 woocommerce/invoice-basic.php:222
+#: woocommerce/ecpay-invoice-api.php:78 woocommerce/invoice-basic.php:226
 msgid "Invoice random number"
 msgstr "發票隨機碼"
 
@@ -264,12 +264,12 @@ msgid "update plugin"
 msgstr "升級外掛"
 
 #: woocommerce/ecpay-invoice-api.php:40 woocommerce/ecpay-invoice-api.php:114
-#: woocommerce/invoice-basic.php:205
+#: woocommerce/invoice-basic.php:209
 msgid "Zero total fee without invoice"
 msgstr "總額零元不開立發票"
 
 #: woocommerce/ecpay-invoice-api.php:46 woocommerce/ecpay-invoice-api.php:120
-#: woocommerce/invoice-basic.php:211
+#: woocommerce/invoice-basic.php:215
 msgid "Negative total fee can't invoice"
 msgstr "總額負數不開立發票"
 
@@ -292,7 +292,7 @@ msgid "shipping fee"
 msgstr "運費"
 
 #: woocommerce/ecpay-invoice-api.php:302
-#: woocommerce/settings/settings-ecpay-invoice.php:129
+#: woocommerce/settings/settings-ecpay-invoice.php:134
 msgid "Discount"
 msgstr "折價"
 
@@ -319,15 +319,15 @@ msgid "Company name"
 msgstr "公司名稱"
 
 #: woocommerce/invoice-basic.php:147 woocommerce/invoice-basic.php:155
-#: woocommerce/invoice-basic.php:157
+#: woocommerce/invoice-basic.php:158
 msgid "Invalid carruer number"
 msgstr "無效的載具編號"
 
-#: woocommerce/invoice-basic.php:164
+#: woocommerce/invoice-basic.php:166
 msgid "Invalid tax ID number"
 msgstr "無效的統一編號"
 
-#: woocommerce/invoice-basic.php:171 woocommerce/invoice-basic.php:173
+#: woocommerce/invoice-basic.php:173 woocommerce/invoice-basic.php:176
 msgid "Invalid donate number"
 msgstr "無效的愛心碼"
 
@@ -441,127 +441,110 @@ msgid "You need print invoice and seed to orderer."
 msgstr "你必須列印出紙本發票並且寄送給購買人。"
 
 #: woocommerce/settings/settings-ecpay-invoice.php:74
+msgid "check number with api"
+msgstr "呼叫綠界 API 確認編號正確"
+
+#: woocommerce/settings/settings-ecpay-invoice.php:78
+msgid "Use ECPay API to check the carruer number or donate number is right."
+msgstr "呼叫綠界 API 確認載具編號或是捐贈愛心碼輸入正確。"
+
+#: woocommerce/settings/settings-ecpay-invoice.php:81
 msgid "user SKU as product name"
 msgstr "使用貨號作為商品名稱"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:78
+#: woocommerce/settings/settings-ecpay-invoice.php:85
 msgid "If product no SKU, back to use product name"
 msgstr "如果沒有輸入貨號，則回復使用商品名稱"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:81
+#: woocommerce/settings/settings-ecpay-invoice.php:88
 msgid "Get mode"
 msgstr "開立發票模式"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:86
+#: woocommerce/settings/settings-ecpay-invoice.php:93
 msgctxt "get mode"
 msgid "manual"
 msgstr "手動"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:87
+#: woocommerce/settings/settings-ecpay-invoice.php:94
 msgctxt "get mode"
 msgid "auto ( when order paid )"
 msgstr "自動 (當訂單為完成付款)"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:88
+#: woocommerce/settings/settings-ecpay-invoice.php:95
 msgctxt "get mode"
 msgid "auto ( when order completed )"
 msgstr "自動 (當訂單狀態為完成)"
 
 #. translators: %s: paid status
-#: woocommerce/settings/settings-ecpay-invoice.php:91
-#: woocommerce/settings/settings-ecpay-invoice.php:123
+#: woocommerce/settings/settings-ecpay-invoice.php:98
 msgid "Order paid status: %s"
 msgstr "完成付款訂單狀態：%s"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:94
+#: woocommerce/settings/settings-ecpay-invoice.php:101
 msgid "Delay get days"
 msgstr "延遲開立天數"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:103
+#: woocommerce/settings/settings-ecpay-invoice.php:110
 msgid "Invalid mode"
 msgstr "作廢發票模式"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:108
+#: woocommerce/settings/settings-ecpay-invoice.php:115
 msgctxt "invalid mode"
 msgid "manual"
 msgstr "手動"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:109
+#: woocommerce/settings/settings-ecpay-invoice.php:116
 msgctxt "invalid mode"
 msgid "auto ( when order status cancelled OR refunded )"
 msgstr "自動 (當訂單狀態為取消或退費)"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:113
+#: woocommerce/settings/settings-ecpay-invoice.php:120
 msgid "Amount abnormal mode"
 msgstr "金額異常處理模式"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:118
+#: woocommerce/settings/settings-ecpay-invoice.php:125
 msgctxt "amount abnormal mode"
 msgid "No action"
 msgstr "沒有動作"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:119
+#: woocommerce/settings/settings-ecpay-invoice.php:126
 msgctxt "amount abnormal mode"
 msgid "add one product to match order amount"
 msgstr "添加一個商品以符合訂單總金額"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:120
+#: woocommerce/settings/settings-ecpay-invoice.php:127
 msgctxt "amount abnormal mode"
 msgid "change order total amount"
 msgstr "修改訂單總金額"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:126
+#: woocommerce/settings/settings-ecpay-invoice.php:131
 msgid "fix amount product name"
 msgstr "修正金額異常商品名稱"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:136
+#: woocommerce/settings/settings-ecpay-invoice.php:141
 msgid "API credentials"
 msgstr "API 憑證"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:141
+#: woocommerce/settings/settings-ecpay-invoice.php:146
 msgid "ECPay invoice sandbox"
 msgstr "綠界電子發票測試模式"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:145
+#: woocommerce/settings/settings-ecpay-invoice.php:150
 msgid "Enable ECPay invoice sandbox"
 msgstr "啟用綠界電子發票測試模式"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:146
+#: woocommerce/settings/settings-ecpay-invoice.php:151
 msgid "Note: Recommend using this for development purposes only."
 msgstr "注意：僅建議基於開發需求使用本功能。"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:149
+#: woocommerce/settings/settings-ecpay-invoice.php:154
 msgid "MerchantID"
 msgstr "商店代號"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:155
+#: woocommerce/settings/settings-ecpay-invoice.php:160
 msgid "HashKey"
 msgstr "HashKey"
 
-#: woocommerce/settings/settings-ecpay-invoice.php:161
+#: woocommerce/settings/settings-ecpay-invoice.php:166
 msgid "HashIV"
 msgstr "HashIV"
-
-#~ msgid "refund fee"
-#~ msgstr "退款"
-
-#~ msgid "Fix Order amount mode"
-#~ msgstr "修正訂單總金額模式"
-
-#~ msgid "https://richer.tw/ry-woocommerce-ecpay-invoice/"
-#~ msgstr "https://richer.tw/ry-woocommerce-ecpay-invoice/"
-
-#~ msgid "Clean invoice"
-#~ msgstr "清除發票"
-
-#~ msgid "Only clean order recode. You need go to ECPay real invalid it."
-#~ msgstr "只清除訂單紀錄。你需要前往綠界完成刪除的動作。"
-
-#~ msgid "Clean order invoice data.<br>Please wait."
-#~ msgstr "清除訂單發票資訊。<br>請耐心等待。"
-
-#~ msgid "Delay day only can between 0 and 15 days."
-#~ msgstr "延遲天數只可以在 0 到 15 天。"
-
-#~ msgid "Log ECPay invoice events/message, inside %s"
-#~ msgstr "紀錄 綠界電子發票 事件/訊息，檔案位於 %s"

@@ -218,7 +218,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 }
                 break;
             case 'company':
-                $data['Print'] = '1';
+                $data['CarrierType'] = '1';
                 $data['CustomerIdentifier'] = $order->get_meta('_invoice_no');
                 $company = $order->get_billing_company();
                 if ($company) {

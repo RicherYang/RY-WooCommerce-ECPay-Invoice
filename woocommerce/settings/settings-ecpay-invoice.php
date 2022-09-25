@@ -71,6 +71,13 @@ return [
         'desc' => __('You need print invoice and seed to orderer.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
+        'title' => __('check number with api', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'check_number_with_api',
+        'type' => 'checkbox',
+        'default' => 'yes',
+        'desc' => __('Use ECPay API to check the carruer number or donate number is right.', 'ry-woocommerce-ecpay-invoice')
+    ],
+    [
         'title' => __('user SKU as product name', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'use_sku_as_name',
         'type' => 'checkbox',
@@ -119,8 +126,6 @@ return [
             'product' => _x('add one product to match order amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
             'order' => _x('change order total amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice')
         ],
-        /* translators: %s: paid status */
-        'desc' => sprintf(__('Order paid status: %s', 'ry-woocommerce-ecpay-invoice'), $paid_status)
     ],
     [
         'title' => __('fix amount product name', 'ry-woocommerce-ecpay-invoice'),
