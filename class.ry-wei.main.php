@@ -22,6 +22,7 @@ final class RY_WEI
             include_once RY_WEI_PLUGIN_DIR . 'include/license.php';
             include_once RY_WEI_PLUGIN_DIR . 'include/link-server.php';
             include_once RY_WEI_PLUGIN_DIR . 'include/updater.php';
+            include_once RY_WEI_PLUGIN_DIR . 'woocommerce/admin/notes/license-auto-deactivate.php';
 
             self::$activate_status = RY_WEI_License::valid_key();
 
@@ -30,6 +31,9 @@ final class RY_WEI
 
             if (is_admin()) {
                 include_once RY_WEI_PLUGIN_DIR . 'class.ry-wei.admin.php';
+                if (!self::$activate_status) {
+                    add_action('woocommerce_settings_start', [RY_WEI_admin::instance(), 'add_license_notice']);
+                }
             }
 
             include_once RY_WEI_PLUGIN_DIR . 'woocommerce/invoice-basic.php';

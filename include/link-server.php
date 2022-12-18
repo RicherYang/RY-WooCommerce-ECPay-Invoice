@@ -50,7 +50,7 @@ final class RY_WEI_LinkServer
     public static function expire_data()
     {
         $response = wp_remote_post(self::$api_url . 'license/expire/' . self::$plugin_type, [
-            'timeout' => 10,
+            'timeout' => 5,
             'httpversion' => '1.1',
             'user-agent' => self::get_user_agent(),
             'headers' => [
@@ -71,8 +71,9 @@ final class RY_WEI_LinkServer
             return false;
         }
 
-        if (200 != wp_remote_retrieve_response_code($response)) {
-            RY_WEI_License::log('HTTP ' . wp_remote_retrieve_response_code($response) . ' @ ' . $response['http_response']->get_response_object()->url, 'error');
+        $response_code = wp_remote_retrieve_response_code($response);
+        if (200 != $response_code) {
+            RY_WEI_License::log('HTTP ' . $response_code . ' @ ' . $response['http_response']->get_response_object()->url, 'error');
             return false;
         }
 

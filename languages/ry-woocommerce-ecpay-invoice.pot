@@ -2,24 +2,19 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: RY WooCommerce ECPay Invoice 1.4.5\n"
+"Project-Id-Version: RY WooCommerce ECPay Invoice 1.4.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-ecpay-invoice\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-25T19:40:30+08:00\n"
+"POT-Creation-Date: 2022-12-18T17:42:56+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: ry-woocommerce-ecpay-invoice\n"
 
 #. Plugin Name of the plugin
-#: class.ry-wei.admin.php:91
-#: class.ry-wei.admin.php:97
-#: class.ry-wei.admin.php:115
-#: woocommerce/admin/view/html-setting-tools.php:2
-#: woocommerce/settings/settings-ry-key.php:5
 msgid "RY WooCommerce ECPay Invoice"
 msgstr ""
 
@@ -35,44 +30,49 @@ msgstr ""
 msgid "https://richer.tw/"
 msgstr ""
 
-#: class.ry-wei.admin.php:38
+#: class.ry-wei.admin.php:43
+msgid "Your license is not active!"
+msgstr ""
+
+#: class.ry-wei.admin.php:49
+#: woocommerce/admin/notes/license-auto-deactivate.php:41
 #: woocommerce/settings/class-settings-ry-wei.php:17
 #: woocommerce/settings/settings-ry-key.php:10
 msgid "License key"
 msgstr ""
 
 #. translators: %s: Expiration date of pro license
-#: class.ry-wei.admin.php:58
+#: class.ry-wei.admin.php:69
 msgid "License Expiration Date %s"
 msgstr ""
 
-#: class.ry-wei.admin.php:92
-#: class.ry-wei.admin.php:116
+#: class.ry-wei.admin.php:103
+#: class.ry-wei.admin.php:127
 msgid "Connect license server failed!"
 msgstr ""
 
 #. translators: %s: Error message
-#: class.ry-wei.admin.php:100
+#: class.ry-wei.admin.php:111
 msgid "Verification error: %s"
 msgstr ""
 
-#: class.ry-wei.admin.php:105
+#: class.ry-wei.admin.php:116
 msgid "Unknown key"
 msgstr ""
 
-#: class.ry-wei.admin.php:106
+#: class.ry-wei.admin.php:117
 msgid "Locked key"
 msgstr ""
 
-#: class.ry-wei.admin.php:107
+#: class.ry-wei.admin.php:118
 msgid "Unknown target url"
 msgstr ""
 
-#: class.ry-wei.admin.php:108
+#: class.ry-wei.admin.php:119
 msgid "Used key"
 msgstr ""
 
-#: class.ry-wei.admin.php:109
+#: class.ry-wei.admin.php:120
 msgid "Is tried"
 msgstr ""
 
@@ -233,6 +233,15 @@ msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:159
 msgid "s"
+msgstr ""
+
+#. translators: Date
+#: woocommerce/admin/notes/license-auto-deactivate.php:24
+msgid "License has auto deactivate at %1$s."
+msgstr ""
+
+#: woocommerce/admin/notes/license-auto-deactivate.php:35
+msgid "License Auto Deactivate!"
 msgstr ""
 
 #: woocommerce/admin/view/html-setting-tools.php:2

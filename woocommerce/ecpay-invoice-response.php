@@ -34,7 +34,7 @@ class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
             if ($ipn_info['inv_mer_id'] == $MerchantID) {
                 return true;
             } else {
-                RY_WEI_Invoice::log('IPN request check failed.', 'error');
+                RY_WEI_Invoice::log('IPN request check failed.', 'warning');
             }
         }
         return false;
@@ -52,12 +52,12 @@ class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
                     $order->save_meta_data();
                     self::die_success();
                 } else {
-                    RY_WEI_Invoice::log('Error invoice info', 'error');
+                    RY_WEI_Invoice::log('Error invoice info', 'warning');
                 }
             }
-            RY_WEI_Invoice::log('Lost invoice info', 'error');
+            RY_WEI_Invoice::log('Lost invoice info', 'warning');
         } else {
-            RY_WEI_Invoice::log('Order not found', 'error');
+            RY_WEI_Invoice::log('Order not found', 'warning');
         }
         self::die_error();
     }
