@@ -37,7 +37,7 @@ return [
         'title' => __('Order no prefix', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'order_prefix',
         'type' => 'text',
-        'desc' => __('The prefix string of order no. Only letters and numbers allowed allowed.', 'ry-woocommerce-ecpay-invoice'),
+        'desc' => __('The prefix string of order no. Only letters and numbers allowed.', 'ry-woocommerce-ecpay-invoice'),
         'desc_tip' => true
     ],
     [

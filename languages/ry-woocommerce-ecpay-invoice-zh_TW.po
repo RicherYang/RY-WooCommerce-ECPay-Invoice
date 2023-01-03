@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: RY WooCommerce ECPay Invoice\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-"
 "ecpay-invoice\n"
-"POT-Creation-Date: 2022-12-18T17:42:56+08:00\n"
-"PO-Revision-Date: 2022-12-18 17:43+0800\n"
+"POT-Creation-Date: 2023-01-03T21:54:17+08:00\n"
+"PO-Revision-Date: 2023-01-03 21:54+0800\n"
 "Last-Translator: Richer Yang\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -134,7 +134,7 @@ msgstr "載具類型"
 #: woocommerce/invoice-basic.php:41
 msgctxt "carruer type"
 msgid "none"
-msgstr "索取紙本發票"
+msgstr "紙本發票"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:27
 #: woocommerce/invoice-basic.php:42
@@ -178,7 +178,7 @@ msgstr "捐贈愛心碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:90
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:92
 #: woocommerce/ecpay-invoice-api.php:77 woocommerce/invoice-basic.php:221
-#: woocommerce/invoice.php:122 woocommerce/invoice.php:248
+#: woocommerce/invoice.php:123 woocommerce/invoice.php:251
 msgid "Invoice number"
 msgstr "發票號碼"
 
@@ -194,17 +194,17 @@ msgid "Invoice date"
 msgstr "發票開立時間"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:86
-#: woocommerce/invoice.php:134
+#: woocommerce/invoice.php:137
 msgid "Zero no invoice"
 msgstr "零元不開立"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:88
-#: woocommerce/invoice.php:136
+#: woocommerce/invoice.php:139
 msgid "Negative no invoice"
 msgstr "負數不開立"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:90
-#: woocommerce/ecpay-invoice-api.php:158 woocommerce/invoice.php:138
+#: woocommerce/ecpay-invoice-api.php:158 woocommerce/invoice.php:141
 msgid "Delay get invoice"
 msgstr "延遲開立發票"
 
@@ -213,7 +213,7 @@ msgid "Cancel invoice"
 msgstr "取消發票"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:125
-#: woocommerce/ecpay-invoice-api.php:412 woocommerce/ecpay-invoice-api.php:442
+#: woocommerce/ecpay-invoice-api.php:411 woocommerce/ecpay-invoice-api.php:441
 msgid "Invalid invoice"
 msgstr "作廢發票"
 
@@ -318,7 +318,7 @@ msgid "Cancel delay invoice"
 msgstr "取消延遲開立"
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:434
+#: woocommerce/ecpay-invoice-api.php:433
 msgid "Invalid invoice error: %s"
 msgstr "作廢發票號碼失敗：%s"
 
@@ -370,7 +370,7 @@ msgid "Not recommended enable two invoice module/plugin at the same time!"
 msgstr "不建議同時啟用兩個發票模組！"
 
 #: woocommerce/settings/class-settings.invoice.php:72
-msgid "Order no prefix only letters and numbers allowed allowed"
+msgid "Order no prefix only letters and numbers allowed"
 msgstr "訂單編號前綴只允許使用英文字母與數字"
 
 #: woocommerce/settings/class-settings.invoice.php:78
@@ -420,8 +420,7 @@ msgid "Order no prefix"
 msgstr "訂單編號前綴字"
 
 #: woocommerce/settings/settings-ecpay-invoice.php:40
-msgid ""
-"The prefix string of order no. Only letters and numbers allowed allowed."
+msgid "The prefix string of order no. Only letters and numbers allowed."
 msgstr "訂單編號前綴字符串。只允許使用英文字母與數字。"
 
 #: woocommerce/settings/settings-ecpay-invoice.php:44

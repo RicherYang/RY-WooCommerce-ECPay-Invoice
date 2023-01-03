@@ -55,12 +55,12 @@ abstract class RY_ECPay_Invoice
 
         if (is_wp_error($response)) {
             RY_WEI_Invoice::log('Link ECPay failed. Post error: ' . implode("\n", $response->get_error_messages()), 'error');
-            return '';
+            return null;
         }
 
         if ($response['response']['code'] != '200') {
             RY_WEI_Invoice::log('Link ECPay failed. Http code: ' . $response['response']['code'], 'error');
-            return '';
+            return null;
         }
 
         RY_WEI_Invoice::log('Link ECPay result: ' . $response['body']);
@@ -68,12 +68,12 @@ abstract class RY_ECPay_Invoice
 
         if (!is_object($result)) {
             RY_WEI_Invoice::log('Link ECPay failed. Response parse failed.', 'error');
-            return '';
+            return null;
         }
 
         if (!(isset($result->TransCode) && $result->TransCode == 1)) {
             RY_WEI_Invoice::log('Link ECPay failed. Result Error: ' . $result->TransMsg, 'error');
-            return '';
+            return null;
         }
 
         $result->Data = openssl_decrypt($result->Data, self::$encrypt_method, $HashKey, 0, $HashIV);
@@ -82,7 +82,7 @@ abstract class RY_ECPay_Invoice
 
         if (!is_object($result->Data)) {
             RY_WEI_Invoice::log('Link ECPay failed. Data decrypt failed.', 'error');
-            return '';
+            return null;
         }
 
         RY_WEI_Invoice::log('Link ECPay result: ' . var_export($result->Data, true));

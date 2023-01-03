@@ -14,7 +14,7 @@ class WC_Meta_Box_Invoice_Data
                 'options' => [
                     'personal' => _x('personal', 'invoice type', 'ry-woocommerce-ecpay-invoice'),
                     'company' => _x('company', 'invoice type', 'ry-woocommerce-ecpay-invoice'),
-                       'donate' => _x('donate', 'invoice type', 'ry-woocommerce-ecpay-invoice')
+                    'donate' => _x('donate', 'invoice type', 'ry-woocommerce-ecpay-invoice')
                 ]
             ],
             'carruer_type' => [

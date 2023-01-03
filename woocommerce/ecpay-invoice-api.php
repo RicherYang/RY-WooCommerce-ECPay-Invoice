@@ -59,7 +59,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result == '') {
+        if ($result === null) {
             return;
         }
 
@@ -140,7 +140,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result == '') {
+        if ($result === null) {
             return;
         }
 
@@ -358,7 +358,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result == '') {
+        if ($result === null) {
             return;
         }
 
@@ -378,7 +378,6 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
 
         $order->delete_meta_data('_invoice_number');
-        $order->delete_meta_data('_invoice_random_number');
         $order->delete_meta_data('_invoice_ecpay_RelateNumber');
         $order->save_meta_data();
 
@@ -424,7 +423,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result == '') {
+        if ($result === null) {
             return;
         }
 
@@ -445,6 +444,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $order->delete_meta_data('_invoice_number');
         $order->delete_meta_data('_invoice_random_number');
+        $order->delete_meta_data('_invoice_date');
         $order->delete_meta_data('_invoice_ecpay_RelateNumber');
         $order->save_meta_data();
 
@@ -471,7 +471,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result == '') {
+        if ($result === null) {
             return false;
         }
 
@@ -498,7 +498,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result == '') {
+        if ($result === null) {
             return false;
         }
 

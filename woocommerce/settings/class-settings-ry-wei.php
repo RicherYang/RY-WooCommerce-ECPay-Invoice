@@ -22,7 +22,7 @@ if (!class_exists('WC_Settings_RY_Wei', false)) {
 
         public function output()
         {
-            global $current_section, $hide_save_button;
+            global $current_section;
 
             if ($current_section == '') {
                 $current_section = 'ry_key';

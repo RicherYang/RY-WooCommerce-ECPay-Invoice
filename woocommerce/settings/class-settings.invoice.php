@@ -69,7 +69,7 @@ final class RY_WEI_Invoice_setting
         }
 
         if (!preg_match('/^[a-z0-9]*$/i', RY_WEI::get_option('order_prefix'))) {
-            WC_Admin_Settings::add_error(__('Order no prefix only letters and numbers allowed allowed', 'ry-woocommerce-ecpay-invoice'));
+            WC_Admin_Settings::add_error(__('Order no prefix only letters and numbers allowed', 'ry-woocommerce-ecpay-invoice'));
             RY_WEI::update_option('order_prefix', '');
         }
 

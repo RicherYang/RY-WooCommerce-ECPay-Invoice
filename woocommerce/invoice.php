@@ -116,12 +116,15 @@ final class RY_WEI_Invoice
 
     public static function add_admin_invoice_column($columns)
     {
-        $add_index = array_search('order_status', array_keys($columns)) + 1;
-        $pre_array = array_splice($columns, 0, $add_index);
-        $array = [
-            'invoice-number' => __('Invoice number', 'ry-woocommerce-ecpay-invoice')
-        ];
-        return array_merge($pre_array, $array, $columns);
+        if (!isset($columns['invoice-number'])) {
+            $add_index = array_search('order_status', array_keys($columns)) + 1;
+            $pre_array = array_splice($columns, 0, $add_index);
+            $array = [
+                'invoice-number' => __('Invoice number', 'ry-woocommerce-ecpay-invoice')
+            ];
+            $columns = array_merge($pre_array, $array, $columns);
+        }
+        return $columns;
     }
 
     public static function show_admin_invoice_column($column)
