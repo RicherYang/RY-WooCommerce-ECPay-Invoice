@@ -1,5 +1,5 @@
 <?php
-class WC_Meta_Box_Invoice_Data
+class WRY_WEI_MetaBox_Invoice_Data
 {
     protected static $fields;
 
