@@ -36,7 +36,7 @@ final class RY_WEI_admin
     {
         global $current_section, $current_tab;
 
-        if($current_tab === 'rytools' && $current_section === 'ry_key') {
+        if ($current_tab === 'rytools' && $current_section === 'ry_key') {
             return ;
         }
 
