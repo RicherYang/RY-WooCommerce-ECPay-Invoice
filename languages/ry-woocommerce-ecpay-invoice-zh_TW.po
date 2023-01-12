@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: RY WooCommerce ECPay Invoice\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-"
 "ecpay-invoice\n"
-"POT-Creation-Date: 2023-01-03T21:54:17+08:00\n"
-"PO-Revision-Date: 2023-01-03 21:54+0800\n"
+"POT-Creation-Date: 2023-01-12T22:13:17+08:00\n"
+"PO-Revision-Date: 2023-01-12 22:13+0800\n"
 "Last-Translator: Richer Yang\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -177,14 +177,16 @@ msgstr "捐贈愛心碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:88
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:90
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:92
-#: woocommerce/ecpay-invoice-api.php:77 woocommerce/invoice-basic.php:221
-#: woocommerce/invoice.php:123 woocommerce/invoice.php:251
+#: woocommerce/ecpay-invoice-api.php:77
+#: woocommerce/ecpay-invoice-response.php:56 woocommerce/invoice-basic.php:221
+#: woocommerce/invoice.php:123 woocommerce/invoice.php:248
 msgid "Invoice number"
 msgstr "發票號碼"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:59
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:93
-#: woocommerce/ecpay-invoice-api.php:78 woocommerce/invoice-basic.php:226
+#: woocommerce/ecpay-invoice-api.php:78
+#: woocommerce/ecpay-invoice-response.php:57 woocommerce/invoice-basic.php:226
 msgid "Invoice random number"
 msgstr "發票隨機碼"
 
@@ -287,10 +289,12 @@ msgstr "總額負數不開立發票"
 
 #. translators: %s Error messade
 #: woocommerce/ecpay-invoice-api.php:69 woocommerce/ecpay-invoice-api.php:150
+#: woocommerce/ecpay-invoice-response.php:48
 msgid "Get invoice error: %s"
 msgstr "開立發票號碼失敗：%s"
 
 #: woocommerce/ecpay-invoice-api.php:79
+#: woocommerce/ecpay-invoice-response.php:58
 msgid "Invoice create time"
 msgstr "發票建立時間"
 
