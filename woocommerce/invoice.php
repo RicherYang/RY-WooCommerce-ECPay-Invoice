@@ -228,7 +228,7 @@ final class RY_WEI_Invoice
                 $order->update_meta_data('_invoice_no', wc_clean(wp_unslash($_POST['_invoice_no'])));
                 $order->update_meta_data('_invoice_donate_no', wc_clean(wp_unslash($_POST['_invoice_donate_no'])));
 
-                $invoice_number = wc_clean(wp_unslash($_POST['_invoice_number']));
+                $invoice_number = wc_clean(wp_unslash($_POST['_invoice_number'] ?? ''));
                 if (!empty($invoice_number)) {
                     $order->update_meta_data('_invoice_number', $invoice_number);
                     $order->update_meta_data('_invoice_random_number', wc_clean(wp_unslash($_POST['_invoice_random_number'])));

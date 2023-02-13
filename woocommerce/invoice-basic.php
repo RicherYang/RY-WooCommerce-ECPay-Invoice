@@ -80,7 +80,7 @@ final class RY_WEI_Invoice_Basic
         // default donate no - 財團法人台灣兒童暨家庭扶助基金會 ( CCF )
         $donate_no = apply_filters('ry_wei_default_donate_no', ['7261651', '5900', '8585', '7885', '035', '378585', '2085', '024', '326139', '5875', '5520', '68660', '2100', '323804', '078585', '5584', '70885', '8300', '5678585', '2812085', '6323200', '6361712', '6361716', '8700', '7123', '1785', '3100', '6782', '461234', '818585', '33085', '176176'], '');
         if (is_array($donate_no)) {
-            $donate_no = $donate_no[time() / 86400 % count($donate_no)];
+            $donate_no = $donate_no[intval(time() / 86400) % count($donate_no)];
         }
         $fields['invoice']['invoice_donate_no']['default'] = $donate_no;
 

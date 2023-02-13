@@ -20,11 +20,11 @@
     <tbody>
         <?php foreach ($invoice_info as $info) { ?>
         <tr>
-            <td class="woocommerce-table__<?=$info['key'] ?> <?=$info['key'] ?>">
-                <?=$info['name'] ?>
+            <td class="woocommerce-table__<?php echo esc_attr($info['key']); ?> <?php echo esc_attr($info['key']); ?>">
+                <?php echo esc_html($info['name']); ?>
             </td>
-            <td class="woocommerce-table__<?=$info['key'] ?> <?=$info['key'] ?>">
-                <?=$info['value'] ?>
+            <td class="woocommerce-table__<?php echo esc_attr($info['key']); ?> <?php echo esc_attr($info['key']); ?>">
+                <?php echo esc_html($info['value']); ?>
             </td>
         </tr>
         <?php } ?>

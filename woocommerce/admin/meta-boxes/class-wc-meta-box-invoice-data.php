@@ -89,7 +89,7 @@ class WRY_WEI_MetaBox_Invoice_Data
             <?php } elseif ($invoice_number == 'delay') { ?>
             <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Delay get invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
             <?php } elseif ($invoice_number) { ?>
-            <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?=$invoice_number ?><br>
+            <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($invoice_number); ?><br>
             <strong><?php esc_html_e('Invoice random number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_random_number')); ?><br>
             <strong><?php esc_html_e('Invoice date', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_date')); ?><br>
             <?php } ?>
@@ -170,3 +170,4 @@ class WRY_WEI_MetaBox_Invoice_Data
 <?php
     }
 }
+?>
