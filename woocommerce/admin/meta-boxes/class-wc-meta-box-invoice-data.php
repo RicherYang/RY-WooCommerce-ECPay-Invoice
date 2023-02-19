@@ -25,6 +25,7 @@ class WRY_WEI_MetaBox_Invoice_Data
                 'options' => [
                     'none' => _x('none', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
                     'ecpay_host' => _x('ecpay_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
+                    'smilepay_host' => _x('smilepay_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
                     'MOICA' => _x('MOICA', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
                     'phone_barcode' => _x('phone_barcode', 'carruer type', 'ry-woocommerce-ecpay-invoice')
                 ]
@@ -48,6 +49,7 @@ class WRY_WEI_MetaBox_Invoice_Data
         if ('no' == RY_WEI::get_option('support_carruer_type_none', 'no')) {
             unset(self::$fields['carruer_type']['options']['none']);
         }
+        unset(self::$fields['carruer_type']['options']['smilepay_host']);
 
         if ($order->is_paid()) {
             self::$fields['number'] = [
@@ -98,7 +100,6 @@ class WRY_WEI_MetaBox_Invoice_Data
 
             <?php if ($invoice_type == 'personal') { ?>
             <strong><?php esc_html_e('Carruer type', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html_x($carruer_type, 'carruer type', 'ry-woocommerce-ecpay-invoice'); ?><br>
-
             <?php if (in_array($carruer_type, ['MOICA', 'phone_barcode'])) { ?>
             <strong><?php esc_html_e('Carruer number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_carruer_no')); ?><br>
             <?php } ?>

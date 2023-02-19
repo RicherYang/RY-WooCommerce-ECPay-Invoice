@@ -218,7 +218,13 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 }
                 break;
             case 'company':
-                $data['CarrierType'] = '1';
+                $carruer_mode = RY_WEI::get_option('company_carruer_mode', 'host');
+                if ($carruer_mode == 'print') {
+                    $data['Print'] = '1';
+                    $data['CarrierType'] = '';
+                } else {
+                    $data['CarrierType'] = '1';
+                }
                 $data['CustomerIdentifier'] = $order->get_meta('_invoice_no');
                 $company = $order->get_billing_company();
                 if ($company) {

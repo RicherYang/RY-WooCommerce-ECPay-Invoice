@@ -85,14 +85,24 @@ return [
         'desc' => __('If product no SKU, back to use product name', 'ry-woocommerce-ecpay-invoice')
     ],
     [
+        'title' => __('Company invoice carruer mode', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'company_carruer_mode',
+        'type' => 'select',
+        'default' => 'host',
+        'options' => [
+            'host' => _x('Cloud host (ecpay carruer)', 'company mode', 'ry-woocommerce-ecpay-invoice'),
+            'print' => _x('Print', 'company mode', 'ry-woocommerce-ecpay-invoice')
+        ]
+    ],
+    [
         'title' => __('Get mode', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'get_mode',
         'type' => 'select',
         'default' => 'manual',
         'options' => [
-            'manual' => _x('manual', 'get mode', 'ry-woocommerce-ecpay-invoice'),
-            'auto_paid' => _x('auto ( when order paid )', 'get mode', 'ry-woocommerce-ecpay-invoice'),
-            'auto_completed' => _x('auto ( when order completed )', 'get mode', 'ry-woocommerce-ecpay-invoice')
+            'manual' => _x('Manual', 'get mode', 'ry-woocommerce-ecpay-invoice'),
+            'auto_paid' => _x('Auto ( when order paid )', 'get mode', 'ry-woocommerce-ecpay-invoice'),
+            'auto_completed' => _x('Auto ( when order completed )', 'get mode', 'ry-woocommerce-ecpay-invoice')
         ],
         /* translators: %s: paid status */
         'desc' => sprintf(__('Order paid status: %s', 'ry-woocommerce-ecpay-invoice'), $paid_status)
@@ -112,8 +122,8 @@ return [
         'type' => 'select',
         'default' => 'manual',
         'options' => [
-            'manual' => _x('manual', 'invalid mode', 'ry-woocommerce-ecpay-invoice'),
-            'auto_cancell' => _x('auto ( when order status cancelled OR refunded )', 'invalid mode', 'ry-woocommerce-ecpay-invoice')
+            'manual' => _x('Manual', 'invalid mode', 'ry-woocommerce-ecpay-invoice'),
+            'auto_cancell' => _x('Auto ( when order status cancelled OR refunded )', 'invalid mode', 'ry-woocommerce-ecpay-invoice')
         ]
     ],
     [
@@ -123,8 +133,8 @@ return [
         'default' => '',
         'options' => [
             '' => _x('No action', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
-            'product' => _x('add one product to match order amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
-            'order' => _x('change order total amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice')
+            'product' => _x('Add one product to match order amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
+            'order' => _x('Change order total amount', 'amount abnormal mode', 'ry-woocommerce-ecpay-invoice')
         ],
     ],
     [
