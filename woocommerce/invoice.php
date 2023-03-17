@@ -39,9 +39,10 @@ final class RY_WEI_Invoice
             add_action('ry_wei_auto_get_delay_invoice', ['RY_WEI_Invoice_Api', 'get_delay'], 10, 2);
 
             if ('auto_cancell' == RY_WEI::get_option('invalid_mode')) {
-                add_action('woocommerce_order_status_cancelled', ['RY_WEI_Invoice_Api', 'invalid']);
-                add_action('woocommerce_order_status_refunded', ['RY_WEI_Invoice_Api', 'invalid']);
+                add_action('woocommerce_order_status_cancelled', [__CLASS__, 'auto_delete_invoice']);
             }
+            add_action('ry_wei_auto_cancel_invoice', ['RY_WEI_Invoice_Api', 'cancel_delay']);
+            add_action('ry_wei_auto_invalid_invoice', ['RY_WEI_Invoice_Api', 'invalid']);
 
             if (is_admin()) {
                 add_filter('enable_ry_invoice', [__CLASS__, 'add_enable_ry_invoice']);
@@ -84,9 +85,28 @@ final class RY_WEI_Invoice
 
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
         if ($delay_days == 0) {
-            WC()->queue()->schedule_single(time() + 3, 'ry_wei_auto_get_invoice', [$order_id], '');
+            WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_get_invoice', [$order_id], '');
         } else {
-            WC()->queue()->schedule_single(time() + 3, 'ry_wei_auto_get_delay_invoice', [$order_id], '');
+            WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_get_delay_invoice', [$order_id], '');
+        }
+    }
+
+    public static function auto_delete_invoice($order_id)
+    {
+        $order = wc_get_order($order_id);
+        if (!$order) {
+            return false;
+        }
+
+        $invoice_number = $order->get_meta('_invoice_number');
+        if ($invoice_number) {
+            if ($invoice_number == 'zero') {
+            } elseif ($invoice_number == 'negative') {
+            } elseif ($invoice_number == 'delay') {
+                WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_cancel_invoice', [$order_id], '');
+            } else {
+                WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_invalid_invoice', [$order_id], '');
+            }
         }
     }
 

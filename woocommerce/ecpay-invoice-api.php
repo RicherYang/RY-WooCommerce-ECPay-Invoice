@@ -414,7 +414,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             'MerchantID' => $MerchantID,
             'InvoiceNo' => $invoice_number,
             'InvoiceDate' => $order->get_meta('_invoice_date'),
-            'Reason' => __('Invalid invoice', 'ry-woocommerce-ecpay-invoice'),
+            'Reason' => __('Order cancel', 'ry-woocommerce-ecpay-invoice'),
         ];
 
         $args = self::build_args($data, $MerchantID);
