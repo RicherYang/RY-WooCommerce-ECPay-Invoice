@@ -41,7 +41,7 @@ final class RY_WEI_License
         if (is_array($json) && isset($json['data'])) {
             self::set_license_data($json['data']);
             RY_WEI::delete_transient('expire_link_error');
-        } elseif ($json === false) {
+        } elseif (false === $json) {
             wp_clear_scheduled_hook(RY_WEI::$option_prefix . 'check_expire');
             wp_schedule_event(time() + HOUR_IN_SECONDS, 'daily', RY_WEI::$option_prefix . 'check_expire');
 

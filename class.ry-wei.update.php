@@ -6,10 +6,10 @@ final class RY_WEI_update
     {
         $now_version = RY_WEI::get_option('version');
 
-        if ($now_version === false) {
+        if (false === $now_version) {
             $now_version = '0.0.0';
         }
-        if ($now_version == RY_WEI_VERSION) {
+        if (RY_WEI_VERSION === $now_version) {
             return;
         }
 
@@ -18,7 +18,7 @@ final class RY_WEI_update
         }
 
         if (version_compare($now_version, '1.1.0', '<')) {
-            if ('yes' == RY_WEI::get_option('enabled_invoice', 'no')) {
+            if ('yes' === RY_WEI::get_option('enabled_invoice', 'no')) {
                 if (!is_callable('openssl_encrypt') || !is_callable('openssl_decrypt')) {
                     add_action('admin_notices', function () {
                         echo '<div class="error"><p>' . __('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice')

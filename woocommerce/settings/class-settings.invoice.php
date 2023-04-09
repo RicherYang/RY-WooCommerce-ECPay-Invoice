@@ -36,7 +36,7 @@ final class RY_WEI_Invoice_setting
 
     public static function add_setting($settings, $current_section)
     {
-        if ($current_section == 'ecpay_invoice') {
+        if ('ecpay_invoice' == $current_section) {
             $settings = include RY_WEI_PLUGIN_DIR . 'woocommerce/settings/settings-ecpay-invoice.php';
         }
         return $settings;
@@ -46,15 +46,15 @@ final class RY_WEI_Invoice_setting
     {
         if ('yes' == RY_WEI::get_option('enabled_invoice', 'no')) {
             $enable_list = apply_filters('enable_ry_invoice', []);
-            if (count($enable_list) == 1) {
+            if (1 == count($enable_list)) {
                 if ($enable_list != ['ecpay']) {
                     WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
                 }
-            } elseif (count($enable_list) > 1) {
+            } elseif (1 < count($enable_list)) {
                 WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
             }
 
-            if ('yes' != RY_WEI::get_option('ecpay_testmode', 'no')) {
+            if ('yes' !== RY_WEI::get_option('ecpay_testmode', 'no')) {
                 if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
                     WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));
                     RY_WEI::update_option('enabled_invoice', 'no');
@@ -73,7 +73,7 @@ final class RY_WEI_Invoice_setting
             RY_WEI::update_option('order_prefix', '');
         }
 
-        $delay_days = RY_WEI::get_option('get_delay_days', 0);
+        $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
         if ($delay_days < 0 || $delay_days > 15) {
             WC_Admin_Settings::add_error(__('Delay day only can between 1 and 15 days.', 'ry-woocommerce-ecpay-invoice'));
             RY_WEI::update_option('get_delay_days', 0);
@@ -86,19 +86,19 @@ final class RY_WEI_Invoice_setting
 
         $hide_save_button = true;
 
-        if (isset($_POST['ecpay_official_invoice_transfer']) && $_POST['ecpay_official_invoice_transfer'] == 'ecpay_official_invoice_transfer') {
+        if (isset($_POST['ecpay_official_invoice_transfer']) && 'ecpay_official_invoice_transfer' === $_POST['ecpay_official_invoice_transfer']) {
             self::official_invoice_transfer();
 
             echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
-        if (isset($_POST['ecpay_official_invoice_transfer_delete']) && $_POST['ecpay_official_invoice_transfer_delete'] == 'ecpay_official_invoice_transfer_delete') {
+        if (isset($_POST['ecpay_official_invoice_transfer_delete']) && 'ecpay_official_invoice_transfer_delete' === $_POST['ecpay_official_invoice_transfer_delete']) {
             self::official_invoice_transfer_delete();
 
             echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
-        if (isset($_POST['ecpay_official_invoice_delete']) && $_POST['ecpay_official_invoice_delete'] == 'ecpay_official_invoice_delete') {
+        if (isset($_POST['ecpay_official_invoice_delete']) && 'ecpay_official_invoice_delete' === $_POST['ecpay_official_invoice_delete']) {
             self::official_invoice_delete();
 
             echo '<div class="updated inline"><p>' . __('Data delete complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';

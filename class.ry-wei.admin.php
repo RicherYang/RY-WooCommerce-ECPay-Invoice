@@ -6,7 +6,7 @@ final class RY_WEI_admin
 
     public static function instance()
     {
-        if (self::$_instance === null) {
+        if (null === self::$_instance) {
             self::$_instance = new self();
             self::$_instance->do_init();
         }
@@ -36,7 +36,7 @@ final class RY_WEI_admin
     {
         global $current_section, $current_tab;
 
-        if ($current_tab === 'rytools' && $current_section === 'ry_key') {
+        if ('rytools' === $current_tab  && 'ry_key' === $current_section) {
             return ;
         }
 
@@ -98,7 +98,7 @@ final class RY_WEI_admin
 
             $json = RY_WEI_LinkServer::activate_key();
 
-            if ($json === false) {
+            if (false === $json) {
                 WC_Admin_Settings::add_error('RY WooCommerce ECPay Invoice: '
                     . __('Connect license server failed!', 'ry-woocommerce-ecpay-invoice'));
             } else {

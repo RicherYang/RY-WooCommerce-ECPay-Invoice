@@ -71,7 +71,7 @@ abstract class RY_ECPay_Invoice
             return null;
         }
 
-        if (!(isset($result->TransCode) && $result->TransCode == 1)) {
+        if (!(isset($result->TransCode) && 1 == $result->TransCode)) {
             RY_WEI_Invoice::log('Link ECPay failed. Result Error: ' . $result->TransMsg, 'error');
             return null;
         }

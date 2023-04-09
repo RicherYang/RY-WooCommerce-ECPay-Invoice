@@ -64,11 +64,21 @@ return [
         'type' => 'title'
     ],
     [
-        'title' => __('support paper type', 'ry-woocommerce-ecpay-invoice'),
+        'title' => __('support paper type (B2C)', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'support_carruer_type_none',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('You need print invoice and seed to orderer.', 'ry-woocommerce-ecpay-invoice')
+    ],
+    [
+        'title' => __('Company invoice carruer mode (B2B2C)', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'company_carruer_mode',
+        'type' => 'select',
+        'default' => 'host',
+        'options' => [
+            'host' => _x('Cloud host (ecpay carruer)', 'company mode', 'ry-woocommerce-ecpay-invoice'),
+            'print' => _x('Print', 'company mode', 'ry-woocommerce-ecpay-invoice')
+        ]
     ],
     [
         'title' => __('check number with api', 'ry-woocommerce-ecpay-invoice'),
@@ -83,16 +93,6 @@ return [
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('If product no SKU, back to use product name', 'ry-woocommerce-ecpay-invoice')
-    ],
-    [
-        'title' => __('Company invoice carruer mode', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'company_carruer_mode',
-        'type' => 'select',
-        'default' => 'host',
-        'options' => [
-            'host' => _x('Cloud host (ecpay carruer)', 'company mode', 'ry-woocommerce-ecpay-invoice'),
-            'print' => _x('Print', 'company mode', 'ry-woocommerce-ecpay-invoice')
-        ]
     ],
     [
         'title' => __('Get mode', 'ry-woocommerce-ecpay-invoice'),

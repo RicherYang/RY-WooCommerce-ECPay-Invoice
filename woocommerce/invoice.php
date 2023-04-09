@@ -38,7 +38,7 @@ final class RY_WEI_Invoice
             add_action('ry_wei_auto_get_invoice', ['RY_WEI_Invoice_Api', 'get'], 10, 2);
             add_action('ry_wei_auto_get_delay_invoice', ['RY_WEI_Invoice_Api', 'get_delay'], 10, 2);
 
-            if ('auto_cancell' == RY_WEI::get_option('invalid_mode')) {
+            if ('auto_cancell' === RY_WEI::get_option('invalid_mode')) {
                 add_action('woocommerce_order_status_cancelled', [__CLASS__, 'auto_delete_invoice']);
             }
             add_action('ry_wei_auto_cancel_invoice', ['RY_WEI_Invoice_Api', 'cancel_delay']);
@@ -58,7 +58,7 @@ final class RY_WEI_Invoice
                 add_action('wp_ajax_RY_WEI_cancel_delay', [__CLASS__, 'cancel_delay_invoice']);
             } else {
                 add_filter('default_checkout_invoice_company_name', [__CLASS__, 'set_default_invoice_company_name']);
-                if ('yes' == RY_WEI::get_option('show_invoice_number', 'no')) {
+                if ('yes' === RY_WEI::get_option('show_invoice_number', 'no')) {
                     add_filter('woocommerce_account_orders_columns', [__CLASS__, 'add_invoice_column']);
                     add_action('woocommerce_my_account_my_orders_column_invoice-number', [__CLASS__, 'show_invoice_column']);
                 }
@@ -84,7 +84,7 @@ final class RY_WEI_Invoice
         }
 
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
-        if ($delay_days == 0) {
+        if (0 === $delay_days) {
             WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_get_invoice', [$order_id], '');
         } else {
             WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_get_delay_invoice', [$order_id], '');
@@ -100,9 +100,9 @@ final class RY_WEI_Invoice
 
         $invoice_number = $order->get_meta('_invoice_number');
         if ($invoice_number) {
-            if ($invoice_number == 'zero') {
-            } elseif ($invoice_number == 'negative') {
-            } elseif ($invoice_number == 'delay') {
+            if ('zero' == $invoice_number) {
+            } elseif ('negative' == $invoice_number) {
+            } elseif ('delay' == $invoice_number) {
                 WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_cancel_invoice', [$order_id], '');
             } else {
                 WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_invalid_invoice', [$order_id], '');
@@ -149,15 +149,15 @@ final class RY_WEI_Invoice
 
     public static function show_admin_invoice_column($column)
     {
-        if ($column == 'invoice-number') {
+        if ('invoice-number' == $column) {
             global $the_order;
 
             $invoice_number = $the_order->get_meta('_invoice_number');
-            if ($invoice_number == 'zero') {
+            if ('zero' == $invoice_number) {
                 echo __('Zero no invoice', 'ry-woocommerce-ecpay-invoice');
-            } elseif ($invoice_number == 'negative') {
+            } elseif ('negative' == $invoice_number) {
                 echo __('Negative no invoice', 'ry-woocommerce-ecpay-invoice');
-            } elseif ($invoice_number == 'delay') {
+            } elseif ('delay' == $invoice_number) {
                 echo __('Delay get invoice', 'ry-woocommerce-ecpay-invoice');
             } else {
                 echo $the_order->get_meta('_invoice_number');
@@ -215,7 +215,7 @@ final class RY_WEI_Invoice
 
     public static function log($message, $level = 'info')
     {
-        if (self::$log_enabled || $level == 'error') {
+        if (self::$log_enabled || 'error' == $level) {
             if (empty(self::$log)) {
                 self::$log = wc_get_logger();
             }

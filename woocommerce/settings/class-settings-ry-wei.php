@@ -24,7 +24,7 @@ if (!class_exists('WC_Settings_RY_Wei', false)) {
         {
             global $current_section;
 
-            if ($current_section == '') {
+            if (empty($current_section)) {
                 $current_section = 'ry_key';
             }
 
@@ -40,7 +40,7 @@ if (!class_exists('WC_Settings_RY_Wei', false)) {
         {
             global $current_section;
 
-            if ($current_section == '') {
+            if (empty($current_section)) {
                 $current_section = 'ry_key';
             }
 
@@ -58,7 +58,7 @@ if (!class_exists('WC_Settings_RY_Wei', false)) {
         {
             $settings = [];
 
-            if ($current_section == '') {
+            if (empty($current_section)) {
                 $current_section = 'ry_key';
             }
 

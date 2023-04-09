@@ -46,7 +46,7 @@ class WRY_WEI_MetaBox_Invoice_Data
                 'type' => 'text'
             ],
         ];
-        if ('no' == RY_WEI::get_option('support_carruer_type_none', 'no')) {
+        if ('no' === RY_WEI::get_option('support_carruer_type_none', 'no')) {
             unset(self::$fields['carruer_type']['options']['none']);
         }
         unset(self::$fields['carruer_type']['options']['smilepay_host']);
@@ -84,11 +84,11 @@ class WRY_WEI_MetaBox_Invoice_Data
 <div class="ivoice <?=$invoice_number ? '' : 'address' ?>">
     <div class="ivoice_data_column">
         <p>
-            <?php if ($invoice_number == 'zero') { ?>
+            <?php if ('zero' == $invoice_number) { ?>
             <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Zero no invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
-            <?php } elseif ($invoice_number == 'negative') { ?>
+            <?php } elseif ('negative' == $invoice_number) { ?>
             <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Negative no invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
-            <?php } elseif ($invoice_number == 'delay') { ?>
+            <?php } elseif ('delay' == $invoice_number) { ?>
             <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php esc_html_e('Delay get invoice', 'ry-woocommerce-ecpay-invoice'); ?><br>
             <?php } elseif ($invoice_number) { ?>
             <strong><?php esc_html_e('Invoice number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($invoice_number); ?><br>
@@ -98,18 +98,18 @@ class WRY_WEI_MetaBox_Invoice_Data
 
             <strong><?php esc_html_e('Invoice type', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html_x($invoice_type, 'invoice type', 'ry-woocommerce-ecpay-invoice'); ?><br>
 
-            <?php if ($invoice_type == 'personal') { ?>
+            <?php if ('personal' == $invoice_type) { ?>
             <strong><?php esc_html_e('Carruer type', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html_x($carruer_type, 'carruer type', 'ry-woocommerce-ecpay-invoice'); ?><br>
             <?php if (in_array($carruer_type, ['MOICA', 'phone_barcode'])) { ?>
             <strong><?php esc_html_e('Carruer number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_carruer_no')); ?><br>
             <?php } ?>
             <?php } ?>
 
-            <?php if ($invoice_type == 'company') { ?>
+            <?php if ('company' == $invoice_type) { ?>
             <strong><?php esc_html_e('Tax ID number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_no')); ?><br>
             <?php } ?>
 
-            <?php if ($invoice_type == 'donate') { ?>
+            <?php if ('donate'==$invoice_type) { ?>
             <strong><?php esc_html_e('Donate number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_donate_no')); ?><br>
             <?php } ?>
         </p>
@@ -117,7 +117,7 @@ class WRY_WEI_MetaBox_Invoice_Data
     <div class="ivoice_action_column">
         <?php
         if ($invoice_number) {
-            if ($invoice_number == 'delay') {
+            if ('delay' == $invoice_number) {
                 echo '<button id="cancel_delay_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
                     . __('Cancel invoice', 'ry-woocommerce-ecpay-invoice')
                     . '</button>';

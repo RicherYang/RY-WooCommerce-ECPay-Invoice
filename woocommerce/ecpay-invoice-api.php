@@ -59,7 +59,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result === null) {
+        if (null === $result) {
             return;
         }
 
@@ -140,7 +140,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result === null) {
+        if (null === $result) {
             return;
         }
 
@@ -237,7 +237,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 break;
         }
 
-        $use_sku = 'yes' == RY_WEI::get_option('use_sku_as_name', 'no');
+        $use_sku = 'yes' === RY_WEI::get_option('use_sku_as_name', 'no');
         $order_items = $order->get_items(['line_item']);
         if (count($order_items)) {
             foreach ($order_items as $order_item) {
@@ -364,7 +364,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result === null) {
+        if (null === $result) {
             return;
         }
 
@@ -399,7 +399,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $invoice_number = $order->get_meta('_invoice_number');
 
-        if ($invoice_number == 'zero' || $invoice_number == 'negative') {
+        if ('zero' == $invoice_number  || 'negative' == $invoice_number) {
             $order->delete_meta_data('_invoice_number');
             $order->save_meta_data();
             return;
@@ -429,7 +429,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result === null) {
+        if (null === $result) {
             return;
         }
 
@@ -477,11 +477,11 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result === null) {
+        if (null === $result) {
             return false;
         }
 
-        return $result->RtnCode == 1 && $result->IsExist == 'Y';
+        return 1 == $result->RtnCode && 'Y' == $result->IsExist;
     }
 
     public static function check_donate_no($code)
@@ -504,10 +504,10 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $result = self::link_server($post_url, $args, $HashKey, $HashIV);
 
-        if ($result === null) {
+        if (null === $result) {
             return false;
         }
 
-        return $result->RtnCode == 1 && $result->IsExist == 'Y';
+        return 1 == $result->RtnCode && 'Y' == $result->IsExist;
     }
 }
