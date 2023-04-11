@@ -9,6 +9,13 @@ jQuery(function ($) {
             } else {
                 $item.show();
             }
+
+            $item = $('#RY_WEI_skip_foreign_order').closest('tr');
+            if ($('#RY_WEI_get_mode').val() == 'manual') {
+                $item.hide();
+            } else {
+                $item.show();
+            }
         }
 
         toggleDelayBox();

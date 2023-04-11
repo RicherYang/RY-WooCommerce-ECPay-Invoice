@@ -108,6 +108,13 @@ return [
         'desc' => sprintf(__('Order paid status: %s', 'ry-woocommerce-ecpay-invoice'), $paid_status)
     ],
     [
+        'title' => __('Skip foreign orders', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::$option_prefix . 'skip_foreign_order',
+        'type' => 'checkbox',
+        'default' => 'no',
+        'desc' => __('Disable auto get invoice for order billing country and shipping country are not in Taiwan.', 'ry-woocommerce-ecpay-invoice')
+    ],
+    [
         'title' => __('Delay get days', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::$option_prefix . 'get_delay_days',
         'type' => 'text',

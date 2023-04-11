@@ -83,6 +83,18 @@ final class RY_WEI_Invoice
             }
         }
 
+        if ('yes' === RY_WEI::get_option('skip_foreign_order', 'no')) {
+            if('TW' !== $order->get_billing_country()) {
+                if($order->needs_shipping_address()) {
+                    if('TW' !== $order->get_shipping_country()) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        }
+
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
         if (0 === $delay_days) {
             WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_get_invoice', [$order_id], '');
