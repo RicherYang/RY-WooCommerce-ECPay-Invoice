@@ -1,5 +1,7 @@
 <?php
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 final class RY_WEI_Invoice
 {
     public static $log_enabled = false;
@@ -48,8 +50,13 @@ final class RY_WEI_Invoice
                 add_filter('enable_ry_invoice', [__CLASS__, 'add_enable_ry_invoice']);
                 add_action('admin_enqueue_scripts', [__CLASS__, 'add_scripts']);
 
-                add_filter('manage_shop_order_posts_columns', [__CLASS__, 'add_admin_invoice_column'], 11);
-                add_action('manage_shop_order_posts_custom_column', [__CLASS__, 'show_admin_invoice_column'], 11);
+                if (class_exists('Automattic\WooCommerce\Utilities\OrderUtil') && OrderUtil::custom_orders_table_usage_is_enabled()) {
+                    add_filter('manage_woocommerce_page_wc-orders_columns', [__CLASS__, 'add_admin_invoice_column'], 11);
+                    add_action('manage_woocommerce_page_wc-orders_custom_column', [__CLASS__, 'show_admin_invoice_column'], 11, 2);
+                } else {
+                    add_filter('manage_shop_order_posts_columns', [__CLASS__, 'add_admin_invoice_column'], 11);
+                    add_action('manage_shop_order_posts_custom_column', [__CLASS__, 'show_admin_invoice_column'], 11, 2);
+                }
                 add_action('woocommerce_admin_order_data_after_billing_address', ['WRY_WEI_MetaBox_Invoice_Data', 'output']);
                 add_action('woocommerce_update_order', [__CLASS__, 'save_order_update']);
 
@@ -134,7 +141,7 @@ final class RY_WEI_Invoice
         $screen = get_current_screen();
         $screen_id = $screen ? $screen->id : '';
 
-        if (in_array($screen_id, ['shop_order', 'edit-shop_order', 'woocommerce_page_wc-settings'])) {
+        if (in_array($screen_id, ['shop_order', 'edit-shop_order', 'woocommerce_page_wc-settings', 'woocommerce_page_wc-orders'])) {
             wp_enqueue_script('ry-wei-admin-script', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.js', ['jquery'], RY_WEI_VERSION);
             wp_enqueue_style('ry-wei-admin-style', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.css', [], RY_WEI_VERSION);
 
@@ -159,12 +166,15 @@ final class RY_WEI_Invoice
         return $columns;
     }
 
-    public static function show_admin_invoice_column($column)
+    public static function show_admin_invoice_column($column, $order)
     {
         if ('invoice-number' == $column) {
-            global $the_order;
+            if(!is_object($order)) {
+                global $the_order;
+                $order = $the_order;
+            }
 
-            $invoice_number = $the_order->get_meta('_invoice_number');
+            $invoice_number = $order->get_meta('_invoice_number');
             if ('zero' == $invoice_number) {
                 echo __('Zero no invoice', 'ry-woocommerce-ecpay-invoice');
             } elseif ('negative' == $invoice_number) {
@@ -172,7 +182,7 @@ final class RY_WEI_Invoice
             } elseif ('delay' == $invoice_number) {
                 echo __('Delay get invoice', 'ry-woocommerce-ecpay-invoice');
             } else {
-                echo $the_order->get_meta('_invoice_number');
+                echo $order->get_meta('_invoice_number');
             }
         }
     }
