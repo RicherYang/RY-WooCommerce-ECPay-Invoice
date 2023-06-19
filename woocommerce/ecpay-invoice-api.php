@@ -237,12 +237,14 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 break;
         }
 
+        $total_refunded = $order->get_total_refunded();
         $use_sku = 'yes' === RY_WEI::get_option('use_sku_as_name', 'no');
         $order_items = $order->get_items(['line_item']);
         if (count($order_items)) {
             foreach ($order_items as $order_item) {
                 $item_total = $order_item->get_total();
                 $item_refunded = $order->get_total_refunded_for_item($order_item->get_id(), $order_item->get_type());
+                $total_refunded -= $item_refunded;
                 if ('yes' !== get_option('woocommerce_tax_round_at_subtotal')) {
                     $item_total = round($item_total, wc_get_price_decimals());
                     $item_refunded = round($item_refunded, wc_get_price_decimals());
@@ -257,7 +259,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
                 $data_item = [
                     'ItemName' => '',
-                    'ItemCount' => $item_qty,
+                    'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                     'ItemAmount' => $item_total
                 ];
@@ -282,7 +284,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
                 $data_item = [
                     'ItemName' => $fee_item->get_name(),
-                    'ItemCount' => $item_qty,
+                    'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                     'ItemAmount' => $item_total
                 ];
@@ -291,12 +293,22 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         }
 
         $shipping_fee = $order->get_shipping_total() - $order->get_total_shipping_refunded();
+        $total_refunded -= $order->get_total_shipping_refunded();
         if ($shipping_fee != 0) {
             $data['Items'][] = [
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
                 'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                 'ItemAmount' => round($shipping_fee, wc_get_price_decimals())
+            ];
+        }
+
+        if($total_refunded != 0) {
+            $data['Items'][] = [
+                'ItemName' => __('return fee', 'ry-woocommerce-ecpay-invoice'),
+                'ItemCount' => 1,
+                'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
+                'ItemAmount' => round(-$total_refunded, wc_get_price_decimals())
             ];
         }
 

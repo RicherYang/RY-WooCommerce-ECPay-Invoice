@@ -1,17 +1,17 @@
 # Copyright (C) 2023 Richer Yang
-# This file is distributed under the GPLv2 or later.
+# This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: RY WooCommerce ECPay Invoice 1.5.2\n"
+"Project-Id-Version: RY WooCommerce ECPay Invoice 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-ecpay-invoice\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-11T17:29:23+08:00\n"
+"POT-Creation-Date: 2023-06-19T22:23:03+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: ry-woocommerce-ecpay-invoice\n"
 
 #. Plugin Name of the plugin
@@ -182,8 +182,8 @@ msgstr ""
 #: woocommerce/ecpay-invoice-api.php:77
 #: woocommerce/ecpay-invoice-response.php:56
 #: woocommerce/invoice-basic.php:221
-#: woocommerce/invoice.php:155
-#: woocommerce/invoice.php:280
+#: woocommerce/invoice.php:162
+#: woocommerce/invoice.php:290
 msgid "Invoice number"
 msgstr ""
 
@@ -201,18 +201,18 @@ msgid "Invoice date"
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:88
-#: woocommerce/invoice.php:169
+#: woocommerce/invoice.php:179
 msgid "Zero no invoice"
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:90
-#: woocommerce/invoice.php:171
+#: woocommerce/invoice.php:181
 msgid "Negative no invoice"
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:92
 #: woocommerce/ecpay-invoice-api.php:158
-#: woocommerce/invoice.php:173
+#: woocommerce/invoice.php:183
 msgid "Delay get invoice"
 msgstr ""
 
@@ -221,7 +221,7 @@ msgid "Cancel invoice"
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:126
-#: woocommerce/ecpay-invoice-api.php:447
+#: woocommerce/ecpay-invoice-api.php:459
 msgid "Invalid invoice"
 msgstr ""
 
@@ -307,37 +307,42 @@ msgstr ""
 msgid "Invoice create time"
 msgstr ""
 
-#: woocommerce/ecpay-invoice-api.php:261
-#: woocommerce/ecpay-invoice-api.php:286
-#: woocommerce/ecpay-invoice-api.php:298
+#: woocommerce/ecpay-invoice-api.php:263
+#: woocommerce/ecpay-invoice-api.php:288
+#: woocommerce/ecpay-invoice-api.php:301
 #: woocommerce/ecpay-invoice-api.php:310
+#: woocommerce/ecpay-invoice-api.php:322
 msgid "parcel"
 msgstr ""
 
-#: woocommerce/ecpay-invoice-api.php:296
+#: woocommerce/ecpay-invoice-api.php:299
 msgid "shipping fee"
 msgstr ""
 
 #: woocommerce/ecpay-invoice-api.php:308
+msgid "return fee"
+msgstr ""
+
+#: woocommerce/ecpay-invoice-api.php:320
 #: woocommerce/settings/settings-ecpay-invoice.php:151
 msgid "Discount"
 msgstr ""
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:374
+#: woocommerce/ecpay-invoice-api.php:386
 msgid "Cancel delay invoice error: %s"
 msgstr ""
 
-#: woocommerce/ecpay-invoice-api.php:382
+#: woocommerce/ecpay-invoice-api.php:394
 msgid "Cancel delay invoice"
 msgstr ""
 
-#: woocommerce/ecpay-invoice-api.php:417
+#: woocommerce/ecpay-invoice-api.php:429
 msgid "Order cancel"
 msgstr ""
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:439
+#: woocommerce/ecpay-invoice-api.php:451
 msgid "Invalid invoice error: %s"
 msgstr ""
 
@@ -364,15 +369,15 @@ msgstr ""
 msgid "Invalid donate number"
 msgstr ""
 
-#: woocommerce/invoice.php:142
+#: woocommerce/invoice.php:149
 msgid "Get invoice.<br>Please wait."
 msgstr ""
 
-#: woocommerce/invoice.php:143
+#: woocommerce/invoice.php:150
 msgid "Invalid invoice.<br>Please wait."
 msgstr ""
 
-#: woocommerce/invoice.php:144
+#: woocommerce/invoice.php:151
 msgid "Cancel delay invoice data.<br>Please wait."
 msgstr ""
 
