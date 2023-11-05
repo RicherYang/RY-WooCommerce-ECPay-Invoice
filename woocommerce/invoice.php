@@ -51,8 +51,10 @@ final class RY_WEI_Invoice
                 add_action('admin_enqueue_scripts', [__CLASS__, 'add_scripts']);
 
                 if (class_exists('Automattic\WooCommerce\Utilities\OrderUtil') && OrderUtil::custom_orders_table_usage_is_enabled()) {
-                    add_filter('manage_woocommerce_page_wc-orders_columns', [__CLASS__, 'add_admin_invoice_column'], 11);
-                    add_action('manage_woocommerce_page_wc-orders_custom_column', [__CLASS__, 'show_admin_invoice_column'], 11, 2);
+                    if('edit' !== ($_GET['action'] ?? '')) {
+                        add_filter('manage_woocommerce_page_wc-orders_columns', [__CLASS__, 'add_admin_invoice_column'], 11);
+                        add_action('manage_woocommerce_page_wc-orders_custom_column', [__CLASS__, 'show_admin_invoice_column'], 11, 2);
+                    }
                 } else {
                     add_filter('manage_shop_order_posts_columns', [__CLASS__, 'add_admin_invoice_column'], 11);
                     add_action('manage_shop_order_posts_custom_column', [__CLASS__, 'show_admin_invoice_column'], 11, 2);
@@ -146,9 +148,9 @@ final class RY_WEI_Invoice
             wp_enqueue_style('ry-wei-admin-style', RY_WEI_PLUGIN_URL . 'style/admin/ry_ecpay_invoice.css', [], RY_WEI_VERSION);
 
             wp_localize_script('ry-wei-admin-script', 'ry_wei_script', [
-                'get_loading_text'=> __('Get invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
-                'invalid_loading_text'=> __('Invalid invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
-                'cancel_delay_loading_text'=> __('Cancel delay invoice data.<br>Please wait.', 'ry-woocommerce-ecpay-invoice')
+                'get_loading_text' => __('Get invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
+                'invalid_loading_text' => __('Invalid invoice.<br>Please wait.', 'ry-woocommerce-ecpay-invoice'),
+                'cancel_delay_loading_text' => __('Cancel delay invoice data.<br>Please wait.', 'ry-woocommerce-ecpay-invoice')
             ]);
         }
     }
@@ -277,7 +279,7 @@ final class RY_WEI_Invoice
                     $date = gmdate('Y-m-d H:i:s', strtotime($_POST['_invoice_date'] . ' ' . (int) $_POST['_invoice_date_hour'] . ':' . (int) $_POST['_invoice_date_minute'] . ':' . (int) $_POST['_invoice_date_second']));
                     $order->update_meta_data('_invoice_date', $date);
                 }
-                $order->save_meta_data();
+                $order->save();
             }
         }
     }

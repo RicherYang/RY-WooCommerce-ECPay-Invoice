@@ -36,13 +36,13 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $data = self::make_get_data($order, $MerchantID);
         if ($data['SalesAmount'] == 0) {
             $order->update_meta_data('_invoice_number', 'zero');
-            $order->save_meta_data();
+            $order->save();
             $order->add_order_note(__('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'));
             return;
         }
         if ($data['SalesAmount'] < 0) {
             $order->update_meta_data('_invoice_number', 'negative');
-            $order->save_meta_data();
+            $order->save();
             $order->add_order_note(__('Negative total fee can\'t invoice', 'ry-woocommerce-ecpay-invoice'));
             return;
         }
@@ -84,7 +84,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $order->update_meta_data('_invoice_random_number', $result->RandomNumber);
         $order->update_meta_data('_invoice_date', $result->InvoiceDate);
         $order->update_meta_data('_invoice_ecpay_RelateNumber', $data['RelateNumber']);
-        $order->save_meta_data();
+        $order->save();
 
         do_action('ry_wei_get_invoice_response', $result, $order);
     }
@@ -110,13 +110,13 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $data = self::make_get_data($order, $MerchantID);
         if ($data['SalesAmount'] == 0) {
             $order->update_meta_data('_invoice_number', 'zero');
-            $order->save_meta_data();
+            $order->save();
             $order->add_order_note(__('Zero total fee without invoice', 'ry-woocommerce-ecpay-invoice'));
             return;
         }
         if ($data['SalesAmount'] < 0) {
             $order->update_meta_data('_invoice_number', 'negative');
-            $order->save_meta_data();
+            $order->save();
             $order->add_order_note(__('Negative total fee can\'t invoice', 'ry-woocommerce-ecpay-invoice'));
             return;
         }
@@ -161,7 +161,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $order->update_meta_data('_invoice_number', 'delay');
         $order->update_meta_data('_invoice_ecpay_RelateNumber', $data['RelateNumber']);
-        $order->save_meta_data();
+        $order->save();
 
         do_action('ry_wei_get_dalay_invoice_response', $result, $order);
     }
@@ -397,7 +397,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $order->delete_meta_data('_invoice_number');
         $order->delete_meta_data('_invoice_ecpay_RelateNumber');
-        $order->save_meta_data();
+        $order->save();
 
         do_action('ry_wei_cancel_delay_invoice_response', $result, $order);
     }
@@ -413,7 +413,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         if ('zero' == $invoice_number  || 'negative' == $invoice_number) {
             $order->delete_meta_data('_invoice_number');
-            $order->save_meta_data();
+            $order->save();
             return;
         }
 
@@ -464,7 +464,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $order->delete_meta_data('_invoice_random_number');
         $order->delete_meta_data('_invoice_date');
         $order->delete_meta_data('_invoice_ecpay_RelateNumber');
-        $order->save_meta_data();
+        $order->save();
 
         do_action('ry_wei_invalid_invoice_response', $result, $order);
     }

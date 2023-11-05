@@ -62,7 +62,7 @@ class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
                         $order->update_meta_data('_invoice_number', $ipn_info['invoicenumber']);
                         $order->update_meta_data('_invoice_random_number', $ipn_info['invoicecode']);
                         $order->update_meta_data('_invoice_date', $ipn_info['invoicedate'] . ' ' . $ipn_info['invoicetime']);
-                        $order->save_meta_data();
+                        $order->save();
                         self::die_success();
                     } else {
                         RY_WEI_Invoice::log('Error invoice info', 'warning');

@@ -151,7 +151,7 @@ final class RY_WEI_Invoice_Basic
             }
 
             // 手機載具
-            if ('phone_barcode'==  $data['invoice_carruer_type']) {
+            if ('phone_barcode' ==  $data['invoice_carruer_type']) {
                 if (!preg_match('/^\/{1}[0-9A-Z+-.]{7}$/', $data['invoice_carruer_no'])) {
                     $errors->add('validation', __('Invalid carruer number', 'ry-woocommerce-ecpay-invoice'));
                 } elseif ('yes' === RY_WEI::get_option('check_number_with_api', 'yes')) {
@@ -161,14 +161,14 @@ final class RY_WEI_Invoice_Basic
                 }
             }
 
-        // 統一編號
-        } elseif ('company' ==$data['invoice_type']) {
+            // 統一編號
+        } elseif ('company' == $data['invoice_type']) {
             if (!preg_match('/^[0-9]{8}$/', $data['invoice_no'])) {
                 $errors->add('validation', __('Invalid tax ID number', 'ry-woocommerce-ecpay-invoice'));
             }
 
-        // 愛心碼
-        } elseif ('donate'== $data['invoice_type']) {
+            // 愛心碼
+        } elseif ('donate' == $data['invoice_type']) {
             if (!preg_match('/^[0-9]{3,7}$/', $data['invoice_donate_no'])) {
                 $errors->add('validation', __('Invalid donate number', 'ry-woocommerce-ecpay-invoice'));
             } elseif ('yes' === RY_WEI::get_option('check_number_with_api', 'yes')) {

@@ -78,9 +78,7 @@ final class RY_WEI
         return delete_transient(self::$option_prefix . $transient);
     }
 
-    public static function plugin_activation()
-    {
-    }
+    public static function plugin_activation() {}
 
     public static function plugin_deactivation()
     {

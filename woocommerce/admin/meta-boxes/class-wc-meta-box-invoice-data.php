@@ -109,7 +109,7 @@ class WRY_WEI_MetaBox_Invoice_Data
             <strong><?php esc_html_e('Tax ID number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_no')); ?><br>
             <?php } ?>
 
-            <?php if ('donate'==$invoice_type) { ?>
+            <?php if ('donate' == $invoice_type) { ?>
             <strong><?php esc_html_e('Donate number', 'ry-woocommerce-ecpay-invoice'); ?>:</strong> <?php echo esc_html($order->get_meta('_invoice_donate_no')); ?><br>
             <?php } ?>
         </p>
