@@ -13,7 +13,8 @@ return [
         'default' => ''
     ],
     [
-        'type' => 'rywei_version_info',
+        'id' => 'ry_wei_version_info',
+        'type' => 'ry_wei_version_info',
     ],
     [
         'id' => 'wei_options',
