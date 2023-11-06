@@ -266,6 +266,7 @@ final class RY_WEI_Invoice
     {
         if ($order = wc_get_order($order_id)) {
             if (isset($_POST['_invoice_type'])) {
+                remove_action('woocommerce_update_order', [__CLASS__, 'save_order_update']);
                 $order->update_meta_data('_invoice_type', wc_clean(wp_unslash($_POST['_invoice_type'])));
                 $order->update_meta_data('_invoice_carruer_type', wc_clean(wp_unslash($_POST['_invoice_carruer_type'])));
                 $order->update_meta_data('_invoice_carruer_no', wc_clean(wp_unslash($_POST['_invoice_carruer_no'])));
@@ -280,6 +281,7 @@ final class RY_WEI_Invoice
                     $order->update_meta_data('_invoice_date', $date);
                 }
                 $order->save();
+                add_action('woocommerce_update_order', [__CLASS__, 'save_order_update']);
             }
         }
     }
