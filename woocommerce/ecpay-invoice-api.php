@@ -493,7 +493,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             return false;
         }
 
-        return 1 == $result->RtnCode && 'Y' == $result->IsExist;
+        return self::get_no_check_status($result);
     }
 
     public static function check_donate_no($code)
@@ -520,6 +520,19 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             return false;
         }
 
-        return 1 == $result->RtnCode && 'Y' == $result->IsExist;
+        return self::get_no_check_status($result);
+    }
+
+    protected static function get_no_check_status($result)
+    {
+        if(1 == $result->RtnCode) {
+            return 'Y' == $result->IsExist;
+        }
+
+        if(9000001 == $result->RtnCode) {
+            return true;
+        }
+
+        return false;
     }
 }
