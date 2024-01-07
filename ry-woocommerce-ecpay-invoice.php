@@ -12,7 +12,7 @@
  * Text Domain: ry-woocommerce-ecpay-invoice
  * Domain Path: /languages
  *
- * WC requires at least: 7
+ * WC requires at least: 8
  */
 
 function_exists('plugin_dir_url') or exit('No direct script access allowed');
