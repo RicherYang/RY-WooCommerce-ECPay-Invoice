@@ -87,6 +87,11 @@ final class RY_WEI_LinkServer
 
     protected static function get_user_agent()
     {
-        return sprintf('RY_WEI %s (WordPress/%s WooCommerce/%s)', RY_WEI_VERSION, get_bloginfo('version'), WC_VERSION);
+        return sprintf(
+            'RY_WEI %s (WordPress/%s WooCommerce/%s)',
+            RY_WEI_VERSION,
+            get_bloginfo('version'),
+            WC_VERSION
+        );
     }
 }

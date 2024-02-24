@@ -2,8 +2,9 @@
 
 final class RY_WEI
 {
+    public const OPTION_PREFIX = 'RY_WEI_';
+
     public static $options = [];
-    public static $option_prefix = 'RY_WEI_';
 
     private static $initiated = false;
     private static $activate_status = false;
@@ -50,39 +51,39 @@ final class RY_WEI
 
     public static function get_option($option, $default = false)
     {
-        return get_option(self::$option_prefix . $option, $default);
+        return get_option(self::OPTION_PREFIX . $option, $default);
     }
 
-    public static function update_option($option, $value)
+    public static function update_option($option, $value, $autoload = null): bool
     {
-        return update_option(self::$option_prefix . $option, $value);
+        return update_option(self::OPTION_PREFIX . $option, $value, $autoload);
     }
 
-    public static function delete_option($option)
+    public static function delete_option($option): bool
     {
-        return delete_option(self::$option_prefix . $option);
+        return delete_option(self::OPTION_PREFIX . $option);
     }
 
     public static function get_transient($transient)
     {
-        return get_transient(self::$option_prefix . $transient);
+        return get_transient(self::OPTION_PREFIX . $transient);
     }
 
     public static function set_transient($transient, $value, $expiration = 0)
     {
-        return set_transient(self::$option_prefix . $transient, $value, $expiration);
+        return set_transient(self::OPTION_PREFIX . $transient, $value, $expiration);
     }
 
     public static function delete_transient($transient)
     {
-        return delete_transient(self::$option_prefix . $transient);
+        return delete_transient(self::OPTION_PREFIX . $transient);
     }
 
     public static function plugin_activation() {}
 
     public static function plugin_deactivation()
     {
-        wp_unschedule_hook(self::$option_prefix . 'check_expire');
-        wp_unschedule_hook(self::$option_prefix . 'check_update');
+        wp_unschedule_hook(self::OPTION_PREFIX . 'check_expire');
+        wp_unschedule_hook(self::OPTION_PREFIX . 'check_update');
     }
 }

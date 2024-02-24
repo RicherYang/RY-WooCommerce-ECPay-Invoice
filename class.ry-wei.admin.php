@@ -63,7 +63,7 @@ final class RY_WEI_admin
             $expire = RY_WEI_License::get_expire();
             if (!empty($expire)) {
                 foreach ($settings as $key => $setting) {
-                    if (isset($setting['id']) && $setting['id'] == RY_WEI::$option_prefix . 'license_key') {
+                    if (isset($setting['id']) && $setting['id'] == RY_WEI::OPTION_PREFIX . 'license_key') {
                         $settings[$key]['desc'] = sprintf(
                             /* translators: %s: Expiration date of pro license */
                             __('License Expiration Date %s', 'ry-woocommerce-ecpay-invoice'),

@@ -17,7 +17,7 @@ final class RY_WEI_Updater
 
     public static function check_update()
     {
-        $time = (int) get_site_transient(RY_WEI::$option_prefix . 'checktime');
+        $time = (int) get_site_transient(RY_WEI::OPTION_PREFIX . 'checktime');
         if (HOUR_IN_SECONDS < time() - $time) {
             $update_plugins = get_site_transient('update_plugins');
             set_site_transient('update_plugins', $update_plugins);
@@ -29,7 +29,7 @@ final class RY_WEI_Updater
         $json = RY_WEI_LinkServer::check_version();
 
         if (is_array($json) && isset($json['new_version'])) {
-            set_site_transient(RY_WEI::$option_prefix . 'checktime', time());
+            set_site_transient(RY_WEI::OPTION_PREFIX . 'checktime', time());
 
             if (version_compare(RY_WEI_VERSION, $json['new_version'], '<')) {
                 unset($json['version']);

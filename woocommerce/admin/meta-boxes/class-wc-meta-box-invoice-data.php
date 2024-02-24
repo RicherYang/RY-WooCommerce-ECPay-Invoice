@@ -80,8 +80,9 @@ class WRY_WEI_MetaBox_Invoice_Data
 <h3 style="clear:both">
     <?php esc_html_e('Invoice info', 'ry-woocommerce-ecpay-invoice'); ?>
 </h3>
+
 <?php if (!empty($invoice_type)) { ?>
-<div class="ivoice <?=$invoice_number ? '' : 'address' ?>">
+<div class="ivoice <?php echo($invoice_number ? '' : 'address'); ?>">
     <div class="ivoice_data_column">
         <p>
             <?php if ('zero' == $invoice_number) { ?>
@@ -155,9 +156,9 @@ class WRY_WEI_MetaBox_Invoice_Data
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
         <input type="text" class="date-picker" id="<?php echo esc_attr($field['id']); ?>" name="<?php echo esc_attr($field['id']); ?>" maxlength="10" value="" pattern="<?php echo esc_attr(apply_filters('woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])')); ?>" />@
         &lrm;
-        <input type="number" class="hour" placeholder="<?php esc_attr_e('h', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']); ?>_hour" min="0" max="23" step="1" value="" pattern="([01]?[0-9]{1}|2[0-3]{1})" />:
-        <input type="number" class="minute" placeholder="<?php esc_attr_e('m', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']); ?>_minute" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />:
-        <input type="number" class="second" placeholder="<?php esc_attr_e('s', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?=esc_attr($field['id']); ?>_second" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />
+        <input type="number" class="hour" placeholder="<?php esc_attr_e('h', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?php echo esc_attr($field['id']); ?>_hour" min="0" max="23" step="1" value="" pattern="([01]?[0-9]{1}|2[0-3]{1})" />:
+        <input type="number" class="minute" placeholder="<?php esc_attr_e('m', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?php echo esc_attr($field['id']); ?>_minute" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />:
+        <input type="number" class="second" placeholder="<?php esc_attr_e('s', 'ry-woocommerce-ecpay-invoice'); ?>" name="<?php echo esc_attr($field['id']); ?>_second" min="0" max="59" step="1" value="" pattern="[0-5]{1}[0-9]{1}" />
     </p>
     <?php
                     break;
@@ -171,4 +172,3 @@ class WRY_WEI_MetaBox_Invoice_Data
 <?php
     }
 }
-?>

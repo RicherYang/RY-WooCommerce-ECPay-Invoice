@@ -42,8 +42,8 @@ final class RY_WEI_License
             self::set_license_data($json['data']);
             RY_WEI::delete_transient('expire_link_error');
         } elseif (false === $json) {
-            wp_clear_scheduled_hook(RY_WEI::$option_prefix . 'check_expire');
-            wp_schedule_event(time() + HOUR_IN_SECONDS, 'daily', RY_WEI::$option_prefix . 'check_expire');
+            wp_clear_scheduled_hook(RY_WEI::OPTION_PREFIX . 'check_expire');
+            wp_schedule_event(time() + HOUR_IN_SECONDS, 'daily', RY_WEI::OPTION_PREFIX . 'check_expire');
 
             $link_error = (int) RY_WEI::get_transient('expire_link_error');
             if ($link_error > 3) {
@@ -104,8 +104,8 @@ final class RY_WEI_License
         RY_WEI::delete_transient('version_info');
         RY_WEI::delete_transient('expire_link_error');
 
-        wp_unschedule_hook(RY_WEI::$option_prefix . 'check_expire');
-        wp_unschedule_hook(RY_WEI::$option_prefix . 'check_update');
+        wp_unschedule_hook(RY_WEI::OPTION_PREFIX . 'check_expire');
+        wp_unschedule_hook(RY_WEI::OPTION_PREFIX . 'check_update');
     }
 
     protected static function get_license_data()

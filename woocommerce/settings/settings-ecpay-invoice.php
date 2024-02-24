@@ -15,14 +15,14 @@ return [
     ],
     [
         'title' => __('Enable/Disable', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'enabled_invoice',
+        'id' => RY_WEI::OPTION_PREFIX . 'enabled_invoice',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Enable ECPay invoice method', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('Debug log', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'invoice_log',
+        'id' => RY_WEI::OPTION_PREFIX . 'invoice_log',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Enable logging', 'ry-woocommerce-ecpay-invoice') . '<br>'
@@ -35,21 +35,21 @@ return [
     ],
     [
         'title' => __('Order no prefix', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'order_prefix',
+        'id' => RY_WEI::OPTION_PREFIX . 'order_prefix',
         'type' => 'text',
         'desc' => __('The prefix string of order no. Only letters and numbers allowed.', 'ry-woocommerce-ecpay-invoice'),
         'desc_tip' => true
     ],
     [
         'title' => __('Show invoice number', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'show_invoice_number',
+        'id' => RY_WEI::OPTION_PREFIX . 'show_invoice_number',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Show invoice number in Frontend order list', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('Move billing company', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'move_billing_company',
+        'id' => RY_WEI::OPTION_PREFIX . 'move_billing_company',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Move billing company to invoice area', 'ry-woocommerce-ecpay-invoice')
@@ -65,14 +65,14 @@ return [
     ],
     [
         'title' => __('support paper type (B2C)', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'support_carruer_type_none',
+        'id' => RY_WEI::OPTION_PREFIX . 'support_carruer_type_none',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('You need print invoice and seed to orderer.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('Company invoice carruer mode (B2B2C)', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'company_carruer_mode',
+        'id' => RY_WEI::OPTION_PREFIX . 'company_carruer_mode',
         'type' => 'select',
         'default' => 'host',
         'options' => [
@@ -82,21 +82,21 @@ return [
     ],
     [
         'title' => __('check number with api', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'check_number_with_api',
+        'id' => RY_WEI::OPTION_PREFIX . 'check_number_with_api',
         'type' => 'checkbox',
         'default' => 'yes',
         'desc' => __('Use ECPay API to check the carruer number or donate number is right.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('user SKU as product name', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'use_sku_as_name',
+        'id' => RY_WEI::OPTION_PREFIX . 'use_sku_as_name',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('If product no SKU, back to use product name', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('Get mode', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'get_mode',
+        'id' => RY_WEI::OPTION_PREFIX . 'get_mode',
         'type' => 'select',
         'default' => 'manual',
         'options' => [
@@ -104,19 +104,22 @@ return [
             'auto_paid' => _x('Auto ( when order paid )', 'get mode', 'ry-woocommerce-ecpay-invoice'),
             'auto_completed' => _x('Auto ( when order completed )', 'get mode', 'ry-woocommerce-ecpay-invoice')
         ],
-        /* translators: %s: paid status */
-        'desc' => sprintf(__('Order paid status: %s', 'ry-woocommerce-ecpay-invoice'), $paid_status)
+        'desc' => sprintf(
+            /* translators: %s: paid status */
+            __('Order paid status: %s', 'ry-woocommerce-ecpay-invoice'),
+            $paid_status
+        )
     ],
     [
         'title' => __('Skip foreign orders', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'skip_foreign_order',
+        'id' => RY_WEI::OPTION_PREFIX . 'skip_foreign_order',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Disable auto get invoice for order billing country and shipping country are not in Taiwan.', 'ry-woocommerce-ecpay-invoice')
     ],
     [
         'title' => __('Delay get days', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'get_delay_days',
+        'id' => RY_WEI::OPTION_PREFIX . 'get_delay_days',
         'type' => 'text',
         'default' => '0',
         'desc' => '如設定為 <strong>0</strong> 天表示立即開立。<br>'
@@ -125,7 +128,7 @@ return [
     ],
     [
         'title' => __('Invalid mode', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'invalid_mode',
+        'id' => RY_WEI::OPTION_PREFIX . 'invalid_mode',
         'type' => 'select',
         'default' => 'manual',
         'options' => [
@@ -135,7 +138,7 @@ return [
     ],
     [
         'title' => __('Amount abnormal mode', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'amount_abnormal_mode',
+        'id' => RY_WEI::OPTION_PREFIX . 'amount_abnormal_mode',
         'type' => 'select',
         'default' => '',
         'options' => [
@@ -146,7 +149,7 @@ return [
     ],
     [
         'title' => __('fix amount product name', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'amount_abnormal_product',
+        'id' => RY_WEI::OPTION_PREFIX . 'amount_abnormal_product',
         'type' => 'text',
         'default' => __('Discount', 'ry-woocommerce-ecpay-invoice')
     ],
@@ -161,7 +164,7 @@ return [
     ],
     [
         'title' => __('ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'ecpay_testmode',
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_testmode',
         'type' => 'checkbox',
         'default' => 'no',
         'desc' => __('Enable ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice')
@@ -169,19 +172,19 @@ return [
     ],
     [
         'title' => __('MerchantID', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'ecpay_MerchantID',
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_MerchantID',
         'type' => 'text',
         'default' => ''
     ],
     [
         'title' => __('HashKey', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'ecpay_HashKey',
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_HashKey',
         'type' => 'text',
         'default' => ''
     ],
     [
         'title' => __('HashIV', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::$option_prefix . 'ecpay_HashIV',
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_HashIV',
         'type' => 'text',
         'default' => ''
     ],
