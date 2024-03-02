@@ -178,13 +178,13 @@ final class RY_WEI_Invoice
 
             $invoice_number = $order->get_meta('_invoice_number');
             if ('zero' == $invoice_number) {
-                echo __('Zero no invoice', 'ry-woocommerce-ecpay-invoice');
+                esc_html_e('Zero no invoice', 'ry-woocommerce-ecpay-invoice');
             } elseif ('negative' == $invoice_number) {
-                echo __('Negative no invoice', 'ry-woocommerce-ecpay-invoice');
+                esc_html_e('Negative no invoice', 'ry-woocommerce-ecpay-invoice');
             } elseif ('delay' == $invoice_number) {
-                echo __('Delay get invoice', 'ry-woocommerce-ecpay-invoice');
+                esc_html_e('Delay get invoice', 'ry-woocommerce-ecpay-invoice');
             } else {
-                echo $order->get_meta('_invoice_number');
+                echo esc_html($order->get_meta('_invoice_number'));
             }
         }
     }
@@ -300,7 +300,7 @@ final class RY_WEI_Invoice
     {
         $invoice_number = $order->get_meta('_invoice_number');
         if (!in_array($invoice_number, ['delay', 'zero', 'negative'])) {
-            echo $invoice_number;
+            echo esc_html($invoice_number);
         }
     }
 }

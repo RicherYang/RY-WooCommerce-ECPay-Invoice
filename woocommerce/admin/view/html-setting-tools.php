@@ -1,5 +1,5 @@
 <h2>
-    RY WooCommerce ECPay Invoice <?php esc_html_e('Tools', 'ry-woocommerce-ecpay-invoice'); ?>
+    RY ECPay Invoice for WooCommerce <?php esc_html_e('Tools', 'ry-woocommerce-ecpay-invoice'); ?>
 </h2>
 
 <p>將 <a href="https://tw.wordpress.org/plugins/ecpay-invoice-for-woocommerce/" target="_black">ECPay Invoice for WooCommerce</a> 的發票資料轉變為本外掛的儲存格式。</p>

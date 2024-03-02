@@ -6,7 +6,7 @@ abstract class RY_ECPay_Invoice
 
     protected static function generate_trade_no($order_id, $order_prefix = '')
     {
-        $trade_no = $order_prefix . $order_id . 'TS' . rand(0, 9) . strrev((string) time());
+        $trade_no = $order_prefix . $order_id . 'TS' . random_int(0, 9) . strrev((string) time());
         $trade_no = substr($trade_no, 0, 20);
         $trade_no = apply_filters('ry_ecpay_trade_no', $trade_no);
         return substr($trade_no, 0, 20);

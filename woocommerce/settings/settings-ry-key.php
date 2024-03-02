@@ -2,7 +2,7 @@
 
 return [
     [
-        'title' => 'RY WooCommerce ECPay Invoice',
+        'title' => 'RY ECPay Invoice for WooCommerce',
         'id' => 'wei_options',
         'type' => 'title'
     ],

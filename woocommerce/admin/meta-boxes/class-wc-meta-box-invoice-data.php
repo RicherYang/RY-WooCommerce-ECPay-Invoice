@@ -119,17 +119,17 @@ class WRY_WEI_MetaBox_Invoice_Data
         <?php
         if ($invoice_number) {
             if ('delay' == $invoice_number) {
-                echo '<button id="cancel_delay_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
-                    . __('Cancel invoice', 'ry-woocommerce-ecpay-invoice')
+                echo '<button id="cancel_delay_ecpay_invoice" type="button" class="button" data-orderid="' . esc_attr($order->get_id()) . '">'
+                    . esc_html__('Cancel invoice', 'ry-woocommerce-ecpay-invoice')
                     . '</button>';
             } else {
-                echo '<button id="invalid_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
-                    . __('Invalid invoice', 'ry-woocommerce-ecpay-invoice')
+                echo '<button id="invalid_ecpay_invoice" type="button" class="button" data-orderid="' . esc_attr($order->get_id()) . '">'
+                    . esc_html__('Invalid invoice', 'ry-woocommerce-ecpay-invoice')
                     . '</button>';
             }
         } elseif ($order->is_paid()) {
-            echo '<button id="get_ecpay_invoice" type="button" class="button" data-orderid="' . $order->get_id() . '">'
-                    . __('Get invoice', 'ry-woocommerce-ecpay-invoice')
+            echo '<button id="get_ecpay_invoice" type="button" class="button" data-orderid="' . esc_attr($order->get_id()) . '">'
+                    . esc_html__('Get invoice', 'ry-woocommerce-ecpay-invoice')
                     . '</button>';
         }
     ?>

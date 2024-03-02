@@ -89,19 +89,19 @@ final class RY_WEI_Invoice_setting
         if (isset($_POST['ecpay_official_invoice_transfer']) && 'ecpay_official_invoice_transfer' === $_POST['ecpay_official_invoice_transfer']) {
             self::official_invoice_transfer();
 
-            echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+            echo '<div class="updated inline"><p>' . esc_html__('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
         if (isset($_POST['ecpay_official_invoice_transfer_delete']) && 'ecpay_official_invoice_transfer_delete' === $_POST['ecpay_official_invoice_transfer_delete']) {
             self::official_invoice_transfer_delete();
 
-            echo '<div class="updated inline"><p>' . __('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+            echo '<div class="updated inline"><p>' . esc_html__('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
         if (isset($_POST['ecpay_official_invoice_delete']) && 'ecpay_official_invoice_delete' === $_POST['ecpay_official_invoice_delete']) {
             self::official_invoice_delete();
 
-            echo '<div class="updated inline"><p>' . __('Data delete complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+            echo '<div class="updated inline"><p>' . esc_html__('Data delete complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
         include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/view/html-setting-tools.php';
