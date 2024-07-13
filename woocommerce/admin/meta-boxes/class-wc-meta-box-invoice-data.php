@@ -14,8 +14,8 @@ class WRY_WEI_MetaBox_Invoice_Data
                 'options' => [
                     'personal' => _x('personal', 'invoice type', 'ry-woocommerce-ecpay-invoice'),
                     'company' => _x('company', 'invoice type', 'ry-woocommerce-ecpay-invoice'),
-                    'donate' => _x('donate', 'invoice type', 'ry-woocommerce-ecpay-invoice')
-                ]
+                    'donate' => _x('donate', 'invoice type', 'ry-woocommerce-ecpay-invoice'),
+                ],
             ],
             'carruer_type' => [
                 'label' => __('Carruer type', 'ry-woocommerce-ecpay-invoice'),
@@ -27,23 +27,23 @@ class WRY_WEI_MetaBox_Invoice_Data
                     'ecpay_host' => _x('ecpay_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
                     'smilepay_host' => _x('smilepay_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
                     'MOICA' => _x('MOICA', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
-                    'phone_barcode' => _x('phone_barcode', 'carruer type', 'ry-woocommerce-ecpay-invoice')
-                ]
+                    'phone_barcode' => _x('phone_barcode', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
+                ],
             ],
             'carruer_no' => [
                 'label' => __('Carruer number', 'ry-woocommerce-ecpay-invoice'),
                 'show' => false,
-                'type' => 'text'
+                'type' => 'text',
             ],
             'no' => [
                 'label' => __('Tax ID number', 'ry-woocommerce-ecpay-invoice'),
                 'show' => false,
-                'type' => 'text'
+                'type' => 'text',
             ],
             'donate_no' => [
                 'label' => __('Donate number', 'ry-woocommerce-ecpay-invoice'),
                 'show' => false,
-                'type' => 'text'
+                'type' => 'text',
             ],
         ];
         if ('no' === RY_WEI::get_option('support_carruer_type_none', 'no')) {
@@ -55,18 +55,18 @@ class WRY_WEI_MetaBox_Invoice_Data
             self::$fields['number'] = [
                 'label' => __('Invoice number', 'ry-woocommerce-ecpay-invoice'),
                 'show' => false,
-                'type' => 'text'
+                'type' => 'text',
             ];
             self::$fields['random_number'] = [
                 'label' => __('Invoice random number', 'ry-woocommerce-ecpay-invoice'),
                 'show' => false,
                 'type' => 'text',
-                'pattern' => '[0-9]{4}'
+                'pattern' => '[0-9]{4}',
             ];
             self::$fields['date'] =  [
                 'label' => __('Invoice date', 'ry-woocommerce-ecpay-invoice'),
                 'show' => false,
-                'type' => 'date'
+                'type' => 'date',
             ];
         }
     }
@@ -129,7 +129,7 @@ class WRY_WEI_MetaBox_Invoice_Data
             }
         } elseif ($order->is_paid()) {
             echo '<button id="get_ecpay_invoice" type="button" class="button" data-orderid="' . esc_attr($order->get_id()) . '">'
-                    . esc_html__('Get invoice', 'ry-woocommerce-ecpay-invoice')
+                    . esc_html__('Issue invoice', 'ry-woocommerce-ecpay-invoice')
                     . '</button>';
         }
     ?>
@@ -172,3 +172,4 @@ class WRY_WEI_MetaBox_Invoice_Data
 <?php
     }
 }
+?>

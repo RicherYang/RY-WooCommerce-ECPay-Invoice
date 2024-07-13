@@ -1,52 +1,64 @@
 <?php
 
-class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
+class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
 {
-    public static function init()
-    {
-        add_action('woocommerce_api_ry_wei_delay_callback', [__CLASS__, 'check_callback']);
+    protected static $_instance = null;
 
-        add_action('valid_wei_callback_request', [__CLASS__, 'doing_callback']);
+    public static function instance(): RY_WEI_WC_Invoice_Response
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+            self::$_instance->do_init();
+        }
+
+        return self::$_instance;
     }
 
-    public static function check_callback()
+    public function do_init()
+    {
+        add_action('woocommerce_api_ry_wei_delay_callback', [$this, 'check_callback']);
+
+        add_action('valid_wei_callback_request', [$this, 'doing_callback']);
+    }
+
+    public function check_callback()
     {
         if (!empty($_POST)) {
             $ipn_info = wp_unslash($_POST);
-            if (self::ipn_request_is_valid($ipn_info)) {
+            if ($this->ipn_request_is_valid($ipn_info)) {
                 do_action('valid_wei_callback_request', $ipn_info);
             } else {
-                self::die_error();
+                $this->die_error();
             }
         } else {
-            self::die_error();
+            $this->die_error();
         }
     }
 
-    protected static function ipn_request_is_valid($ipn_info)
+    protected function ipn_request_is_valid($ipn_info)
     {
         if (isset($ipn_info['inv_mer_id'])) {
-            RY_WEI_Invoice::log('IPN request: ' . var_export($ipn_info, true));
-            list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+            RY_WEI_WC_Invoice::instance()->log('IPN request', WC_Log_Levels::INFO, ['data' => $ipn_info]);
+            list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
 
             if ($ipn_info['inv_mer_id'] == $MerchantID) {
                 return true;
             } else {
-                RY_WEI_Invoice::log('IPN request check failed.', 'warning');
+                RY_WT_WC_ECPay_Gateway::instance()->log('IPN request check failed', WC_Log_Levels::ERROR, []);
             }
         }
         return false;
     }
 
-    public static function doing_callback($ipn_info)
+    public function doing_callback($ipn_info)
     {
-        $order_id = self::get_order_id($ipn_info, RY_WEI::get_option('order_prefix'));
-        if ($order = wc_get_order($order_id)) {
+        $order_ID = $this->get_order_id($ipn_info, RY_WEI::get_option('order_prefix'));
+        if ($order = wc_get_order($order_ID)) {
             if (isset($ipn_info['inv_error']) && !empty($ipn_info['inv_error'])) {
                 $order->add_order_note(sprintf(
                     /* translators: %s Error messade */
-                    __('Get invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
-                    $ipn_info['inv_error']
+                    __('Issue invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
+                    $ipn_info['inv_error'],
                 ));
             } else {
                 if (isset($ipn_info['invoicenumber'], $ipn_info['invoicecode'], $ipn_info['invoicedate'], $ipn_info['invoicetime'])) {
@@ -55,7 +67,7 @@ class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
                             $order->add_order_note(
                                 __('Invoice number', 'ry-woocommerce-ecpay-invoice') . ': ' . $ipn_info['invoicenumber'] . "\n"
                                 . __('Invoice random number', 'ry-woocommerce-ecpay-invoice') . ': ' . $ipn_info['invoicecode'] . "\n"
-                                . __('Invoice create time', 'ry-woocommerce-ecpay-invoice') . ': ' . $ipn_info['invoicedate'] . ' ' . $ipn_info['invoicetime'] . "\n"
+                                . __('Invoice create time', 'ry-woocommerce-ecpay-invoice') . ': ' . $ipn_info['invoicedate'] . ' ' . $ipn_info['invoicetime'] . "\n",
                             );
                         }
 
@@ -63,17 +75,11 @@ class RY_WEI_Invoice_Response extends RY_WEI_Invoice_Api
                         $order->update_meta_data('_invoice_random_number', $ipn_info['invoicecode']);
                         $order->update_meta_data('_invoice_date', $ipn_info['invoicedate'] . ' ' . $ipn_info['invoicetime']);
                         $order->save();
-                        self::die_success();
-                    } else {
-                        RY_WEI_Invoice::log('Error invoice info', 'warning');
+                        $this->die_success();
                     }
-                } else {
-                    RY_WEI_Invoice::log('Lost invoice info', 'warning');
                 }
             }
-        } else {
-            RY_WEI_Invoice::log('Order not found', 'warning');
         }
-        self::die_error();
+        $this->die_error();
     }
 }

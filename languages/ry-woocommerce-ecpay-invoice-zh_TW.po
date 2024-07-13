@@ -1,21 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: RY ECPay Invoice for WooCommerce\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-"
-"ecpay-invoice\n"
-"POT-Creation-Date: 2024-03-02T11:52:45+08:00\n"
-"PO-Revision-Date: 2024-03-02 11:54+0800\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-ecpay-invoice\n"
 "Last-Translator: Richer Yang\n"
 "Language-Team: \n"
-"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-03-02T11:52:45+08:00\n"
+"PO-Revision-Date: 2024-07-13 11:27+0800\n"
+"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
-"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,"
-"_nc:4c,1,2\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 3.4.2\n"
@@ -23,35 +19,35 @@ msgstr ""
 "X-Poedit-SearchPath-0: ./..\n"
 
 #. Plugin Name of the plugin
-#: D:\WordPress_SVN\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
 msgid "RY ECPay Invoice for WooCommerce"
 msgstr "RY ECPay Invoice for WooCommerce"
 
 #. Plugin URI of the plugin
-#: D:\WordPress_SVN\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
 msgid "https://ry-plugin.com/ry-woocommerce-ecpay-invoice"
 msgstr "https://ry-plugin.com/ry-woocommerce-ecpay-invoice"
 
 #. Description of the plugin
-#: D:\WordPress_SVN\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
 msgid "WooCommerce order invoice for ecpay"
-msgstr ""
+msgstr "WooCommerce order invoice for ecpay"
 
 #. Author of the plugin
-#: D:\WordPress_SVN\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
 msgid "Richer Yang"
 msgstr "Richer Yang"
 
 #. Author URI of the plugin
-#: D:\WordPress_SVN\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
 msgid "https://richer.tw/"
 msgstr "https://richer.tw/"
 
-#: class.ry-wei.admin.php:43
+#: woocommerce/admin/admin.php:39
 msgid "Your license is not active!"
 msgstr "你的授權尚未啟動！"
 
-#: class.ry-wei.admin.php:49
+#: woocommerce/admin/admin.php:53
 #: woocommerce/admin/notes/license-auto-deactivate.php:41
 #: woocommerce/settings/class-settings-ry-wei.php:17
 #: woocommerce/settings/settings-ry-key.php:10
@@ -59,46 +55,47 @@ msgid "License key"
 msgstr "授權金鑰"
 
 #. translators: %s: Expiration date of pro license
-#: class.ry-wei.admin.php:69
+#: woocommerce/admin/admin.php:72
 msgid "License Expiration Date %s"
 msgstr "授權到期日 %s"
 
-#: class.ry-wei.admin.php:103 class.ry-wei.admin.php:127
+#: woocommerce/admin/admin.php:101
+#: woocommerce/admin/admin.php:124
 msgid "Connect license server failed!"
 msgstr "連結授權伺服器失敗！"
 
 #. translators: %s: Error message
-#: class.ry-wei.admin.php:111
+#: woocommerce/admin/admin.php:109
 msgid "Verification error: %s"
 msgstr "驗證錯誤：%s"
 
-#: class.ry-wei.admin.php:116
+#: woocommerce/admin/admin.php:114
 msgid "Unknown key"
 msgstr "未知的金鑰"
 
-#: class.ry-wei.admin.php:117
+#: woocommerce/admin/admin.php:115
 msgid "Locked key"
 msgstr "鎖定的金鑰"
 
-#: class.ry-wei.admin.php:118
+#: woocommerce/admin/admin.php:116
 msgid "Unknown target url"
 msgstr "未知的目標網址"
 
-#: class.ry-wei.admin.php:119
+#: woocommerce/admin/admin.php:117
 msgid "Used key"
 msgstr "已使用的金鑰"
 
-#: class.ry-wei.admin.php:120
+#: woocommerce/admin/admin.php:118
 msgid "Is tried"
 msgstr "已使用過測試版"
 
-#: class.ry-wei.update.php:24
+#: includes/update.php:24
 #: woocommerce/settings/class-settings.invoice.php:59
 #: woocommerce/settings/class-settings.invoice.php:65
 msgid "ECPay invoice method failed to enable!"
 msgstr "綠界發票模組啟用失敗！"
 
-#: class.ry-wei.update.php:25
+#: includes/update.php:25
 #: woocommerce/settings/class-settings.invoice.php:66
 msgid "Required PHP function openssl_encrypt and openssl_decrypt."
 msgstr "缺少必要的 PHP 函式 openssl_encrypt 和 openssl_decrypt。"
@@ -111,42 +108,43 @@ msgstr "發票資訊"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:10
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:100
-#: woocommerce/invoice-basic.php:27 woocommerce/invoice-basic.php:234
+#: woocommerce/invoice-basic.php:33
+#: woocommerce/invoice-basic.php:241
 msgid "Invoice type"
 msgstr "發票類型"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:15
-#: woocommerce/invoice-basic.php:29
+#: woocommerce/invoice-basic.php:35
 msgctxt "invoice type"
 msgid "personal"
 msgstr "個人"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:16
-#: woocommerce/invoice-basic.php:30
+#: woocommerce/invoice-basic.php:36
 msgctxt "invoice type"
 msgid "company"
 msgstr "公司"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:17
-#: woocommerce/invoice-basic.php:31
+#: woocommerce/invoice-basic.php:37
 msgctxt "invoice type"
 msgid "donate"
 msgstr "捐贈"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:21
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:103
-#: woocommerce/invoice-basic.php:39
+#: woocommerce/invoice-basic.php:45
 msgid "Carruer type"
 msgstr "載具類型"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:26
-#: woocommerce/invoice-basic.php:41
+#: woocommerce/invoice-basic.php:47
 msgctxt "carruer type"
 msgid "none"
 msgstr "紙本發票"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:27
-#: woocommerce/invoice-basic.php:42
+#: woocommerce/invoice-basic.php:48
 msgctxt "carruer type"
 msgid "ecpay_host"
 msgstr "雲端發票"
@@ -157,50 +155,56 @@ msgid "smilepay_host"
 msgstr "雲端發票 (速買配載具)"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:29
-#: woocommerce/invoice-basic.php:43
+#: woocommerce/invoice-basic.php:49
 msgctxt "carruer type"
 msgid "MOICA"
 msgstr "自然人憑證"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:30
-#: woocommerce/invoice-basic.php:44
+#: woocommerce/invoice-basic.php:50
 msgctxt "carruer type"
 msgid "phone_barcode"
 msgstr "手機條碼"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:34
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:105
-#: woocommerce/invoice-basic.php:51 woocommerce/invoice-basic.php:244
+#: woocommerce/invoice-basic.php:57
+#: woocommerce/invoice-basic.php:251
 msgid "Carruer number"
 msgstr "載具編號"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:39
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:110
-#: woocommerce/invoice-basic.php:56 woocommerce/invoice-basic.php:251
+#: woocommerce/invoice-basic.php:62
+#: woocommerce/invoice-basic.php:258
 msgid "Tax ID number"
 msgstr "統一編號"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:44
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:114
-#: woocommerce/invoice-basic.php:61 woocommerce/invoice-basic.php:257
+#: woocommerce/invoice-basic.php:67
+#: woocommerce/invoice-basic.php:264
 msgid "Donate number"
 msgstr "捐贈愛心碼"
 
+#: woocommerce/admin/invoice.php:102
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:56
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:89
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:91
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:93
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:95
-#: woocommerce/ecpay-invoice-api.php:77
-#: woocommerce/ecpay-invoice-response.php:56 woocommerce/invoice-basic.php:221
-#: woocommerce/invoice.php:164 woocommerce/invoice.php:294
+#: woocommerce/invoice-api.php:88
+#: woocommerce/invoice-basic.php:228
+#: woocommerce/invoice-response.php:68
+#: woocommerce/invoice.php:135
 msgid "Invoice number"
 msgstr "發票號碼"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:61
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:96
-#: woocommerce/ecpay-invoice-api.php:78
-#: woocommerce/ecpay-invoice-response.php:57 woocommerce/invoice-basic.php:226
+#: woocommerce/invoice-api.php:89
+#: woocommerce/invoice-basic.php:233
+#: woocommerce/invoice-response.php:69
 msgid "Invoice random number"
 msgstr "發票隨機碼"
 
@@ -209,18 +213,18 @@ msgstr "發票隨機碼"
 msgid "Invoice date"
 msgstr "發票開立時間"
 
+#: woocommerce/admin/invoice.php:119
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:89
-#: woocommerce/invoice.php:181
 msgid "Zero no invoice"
 msgstr "零元不開立"
 
+#: woocommerce/admin/invoice.php:121
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:91
-#: woocommerce/invoice.php:183
 msgid "Negative no invoice"
 msgstr "負數不開立"
 
+#: woocommerce/admin/invoice.php:123
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:93
-#: woocommerce/ecpay-invoice-api.php:158 woocommerce/invoice.php:185
 msgid "Delay get invoice"
 msgstr "延遲開立發票"
 
@@ -229,13 +233,9 @@ msgid "Cancel invoice"
 msgstr "取消發票"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:127
-#: woocommerce/ecpay-invoice-api.php:459
+#: woocommerce/invoice-api.php:470
 msgid "Invalid invoice"
 msgstr "作廢發票"
-
-#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:132
-msgid "Get invoice"
-msgstr "開立發票"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:159
 msgid "h"
@@ -291,94 +291,90 @@ msgstr "最新版本"
 msgid "update plugin"
 msgstr "升級外掛"
 
-#: woocommerce/ecpay-invoice-api.php:40 woocommerce/ecpay-invoice-api.php:114
-#: woocommerce/invoice-basic.php:209
+#: woocommerce/invoice-api.php:51
+#: woocommerce/invoice-api.php:125
+#: woocommerce/invoice-basic.php:216
 msgid "Zero total fee without invoice"
 msgstr "總額零元不開立發票"
 
-#: woocommerce/ecpay-invoice-api.php:46 woocommerce/ecpay-invoice-api.php:120
-#: woocommerce/invoice-basic.php:215
+#: woocommerce/invoice-api.php:57
+#: woocommerce/invoice-api.php:131
+#: woocommerce/invoice-basic.php:222
 msgid "Negative total fee can't invoice"
 msgstr "總額負數不開立發票"
 
-#. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:69 woocommerce/ecpay-invoice-api.php:150
-#: woocommerce/ecpay-invoice-response.php:48
-msgid "Get invoice error: %s"
-msgstr "開立發票號碼失敗：%s"
-
-#: woocommerce/ecpay-invoice-api.php:79
-#: woocommerce/ecpay-invoice-response.php:58
+#: woocommerce/invoice-api.php:90
+#: woocommerce/invoice-response.php:70
 msgid "Invoice create time"
 msgstr "發票建立時間"
 
-#: woocommerce/ecpay-invoice-api.php:263 woocommerce/ecpay-invoice-api.php:288
-#: woocommerce/ecpay-invoice-api.php:301 woocommerce/ecpay-invoice-api.php:310
-#: woocommerce/ecpay-invoice-api.php:322
+#: woocommerce/invoice-api.php:274
+#: woocommerce/invoice-api.php:299
+#: woocommerce/invoice-api.php:312
+#: woocommerce/invoice-api.php:321
+#: woocommerce/invoice-api.php:333
 msgid "parcel"
 msgstr "批"
 
-#: woocommerce/ecpay-invoice-api.php:299
+#: woocommerce/invoice-api.php:310
 msgid "shipping fee"
 msgstr "運費"
 
-#: woocommerce/ecpay-invoice-api.php:308
+#: woocommerce/invoice-api.php:319
 msgid "return fee"
 msgstr "退款"
 
-#: woocommerce/ecpay-invoice-api.php:320
+#: woocommerce/invoice-api.php:331
 #: woocommerce/settings/settings-ecpay-invoice.php:154
 msgid "Discount"
 msgstr "折價"
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:386
+#: woocommerce/invoice-api.php:397
 msgid "Cancel delay invoice error: %s"
 msgstr "取消延遲開立發票失敗：%s"
 
-#: woocommerce/ecpay-invoice-api.php:394
+#: woocommerce/invoice-api.php:405
 msgid "Cancel delay invoice"
 msgstr "取消延遲開立"
 
-#: woocommerce/ecpay-invoice-api.php:429
+#: woocommerce/invoice-api.php:440
 msgid "Order cancel"
 msgstr "訂單取消"
 
 #. translators: %s Error messade
-#: woocommerce/ecpay-invoice-api.php:451
+#: woocommerce/invoice-api.php:462
 msgid "Invalid invoice error: %s"
 msgstr "作廢發票號碼失敗：%s"
 
-#: woocommerce/invoice-basic.php:42
+#: woocommerce/invoice-basic.php:48
 msgid " (send paper when win)"
 msgstr " (中獎時寄送紙本發票)"
 
-#: woocommerce/invoice-basic.php:74
+#: woocommerce/invoice-basic.php:80
 msgid "Company name"
 msgstr "公司名稱"
 
-#: woocommerce/invoice-basic.php:148 woocommerce/invoice-basic.php:156
-#: woocommerce/invoice-basic.php:159
+#: woocommerce/invoice-basic.php:155
+#: woocommerce/invoice-basic.php:163
+#: woocommerce/invoice-basic.php:166
 msgid "Invalid carruer number"
 msgstr "無效的載具編號"
 
-#: woocommerce/invoice-basic.php:167
+#: woocommerce/invoice-basic.php:174
 msgid "Invalid tax ID number"
 msgstr "無效的統一編號"
 
-#: woocommerce/invoice-basic.php:173 woocommerce/invoice-basic.php:176
+#: woocommerce/invoice-basic.php:180
+#: woocommerce/invoice-basic.php:183
 msgid "Invalid donate number"
 msgstr "無效的愛心碼"
 
-#: woocommerce/invoice.php:151
-msgid "Get invoice.<br>Please wait."
-msgstr "開立發票中。<br>請耐心等待。"
-
-#: woocommerce/invoice.php:152
+#: woocommerce/admin/invoice.php:60
 msgid "Invalid invoice.<br>Please wait."
 msgstr "作廢發票中。<br>請耐心等待。"
 
-#: woocommerce/invoice.php:153
+#: woocommerce/admin/invoice.php:61
 msgid "Cancel delay invoice data.<br>Please wait."
 msgstr "取消延遲開立發票資訊。<br>請耐心等待。"
 
@@ -537,9 +533,7 @@ msgid "Skip foreign orders"
 msgstr "忽略國外訂單"
 
 #: woocommerce/settings/settings-ecpay-invoice.php:118
-msgid ""
-"Disable auto get invoice for order billing country and shipping country are "
-"not in Taiwan."
+msgid "Disable auto get invoice for order billing country and shipping country are not in Taiwan."
 msgstr "當帳單地址與運送地址不是台灣的時候，停止自動開立發票。"
 
 #: woocommerce/settings/settings-ecpay-invoice.php:121
@@ -610,3 +604,26 @@ msgstr "HashKey"
 #: woocommerce/settings/settings-ecpay-invoice.php:186
 msgid "HashIV"
 msgstr "HashIV"
+
+#. translators: %s Error messade
+#: woocommerce/invoice-api.php:80
+#: woocommerce/invoice-response.php:60
+msgid "Issue invoice error: %s"
+msgstr "開立發票失敗：%s"
+
+#. translators: %s Error messade
+#: woocommerce/invoice-api.php:161
+msgid "Issue delay invoice error: %s"
+msgstr "延遲開立發票失敗：%s"
+
+#: woocommerce/invoice-api.php:169
+msgid "Issue delay invoice"
+msgstr "延遲開立發票"
+
+#: woocommerce/admin/invoice.php:59
+msgid "Issue invoice.<br>Please wait."
+msgstr "開立發票中。<br>請耐心等待。"
+
+#: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:132
+msgid "Issue invoice"
+msgstr "開立發票"

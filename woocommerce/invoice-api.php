@@ -1,8 +1,10 @@
 <?php
 
-class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
+class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 {
-    public static $api_test_url = [
+    protected static $_instance = null;
+
+    protected $api_test_url = [
         'get' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/Issue',
         'getDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/DelayIssue',
         'cancelDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CancelDelayIssue',
@@ -11,7 +13,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         'checkDonate' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckLoveCode',
     ];
 
-    public static $api_url = [
+    protected $api_url = [
         'get' => 'https://einvoice.ecpay.com.tw/B2CInvoice/Issue',
         'getDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/DelayIssue',
         'cancelDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CancelDelayIssue',
@@ -20,9 +22,18 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         'checkDonate' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CheckLoveCode',
     ];
 
-    public static function get($order_id)
+    public static function instance(): RY_WEI_WC_Invoice_Api
     {
-        $order = wc_get_order($order_id);
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+
+    public function get($order_ID)
+    {
+        $order = wc_get_order($order_ID);
         if (!$order) {
             return false;
         }
@@ -31,9 +42,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
 
-        $data = self::make_get_data($order, $MerchantID);
+        $data = $this->make_get_data($order, $MerchantID);
         if ($data['SalesAmount'] == 0) {
             $order->update_meta_data('_invoice_number', 'zero');
             $order->save();
@@ -47,17 +58,17 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             return;
         }
 
-        $args = self::build_args($data, $MerchantID);
+        $args = $this->build_args($data, $MerchantID);
         do_action('ry_wei_get_invoice', $args, $order);
 
-        RY_WEI_Invoice::log('Create POST: ' . var_export($args, true));
+        RY_WEI_WC_Invoice::instance()->log('Issue invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
-            $post_url = self::$api_test_url['get'];
+        if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
+            $post_url = $this->api_test_url['get'];
         } else {
-            $post_url = self::$api_url['get'];
+            $post_url = $this->api_url['get'];
         }
-        $result = self::link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
         if (null === $result) {
             return;
@@ -66,8 +77,8 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         if ($result->RtnCode != 1) {
             $order->add_order_note(sprintf(
                 /* translators: %s Error messade */
-                __('Get invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
-                $result->RtnMsg
+                __('Issue invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
+                $result->RtnMsg,
             ));
             return;
         }
@@ -76,7 +87,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             $order->add_order_note(
                 __('Invoice number', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->InvoiceNo . "\n"
                 . __('Invoice random number', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->RandomNumber . "\n"
-                . __('Invoice create time', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->InvoiceDate . "\n"
+                . __('Invoice create time', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->InvoiceDate . "\n",
             );
         }
 
@@ -89,14 +100,14 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         do_action('ry_wei_get_invoice_response', $result, $order);
     }
 
-    public static function get_delay($order_id)
+    public function get_delay($order_ID)
     {
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
         if ($delay_days <= 0) {
-            return self::get($order_id);
+            return $this->get($order_ID);
         }
 
-        $order = wc_get_order($order_id);
+        $order = wc_get_order($order_ID);
         if (!$order) {
             return false;
         }
@@ -105,9 +116,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
 
-        $data = self::make_get_data($order, $MerchantID);
+        $data = $this->make_get_data($order, $MerchantID);
         if ($data['SalesAmount'] == 0) {
             $order->update_meta_data('_invoice_number', 'zero');
             $order->save();
@@ -128,17 +139,17 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         $data['PayAct'] = 'ECPAY';
         $data['NotifyURL'] = WC()->api_request_url('ry_wei_delay_callback', true);
 
-        $args = self::build_args($data, $MerchantID);
+        $args = $this->build_args($data, $MerchantID);
         do_action('ry_wei_get_invoice', $args, $order);
 
-        RY_WEI_Invoice::log('Create POST: ' . var_export($args, true));
+        RY_WEI_WC_Invoice::instance()->log('Issue delay invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
-            $post_url = self::$api_test_url['getDelay'];
+        if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
+            $post_url = $this->api_test_url['getDelay'];
         } else {
-            $post_url = self::$api_url['getDelay'];
+            $post_url = $this->api_url['getDelay'];
         }
-        $result = self::link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
         if (null === $result) {
             return;
@@ -147,15 +158,15 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         if ($result->RtnCode != 1) {
             $order->add_order_note(sprintf(
                 /* translators: %s Error messade */
-                __('Get invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
-                $result->RtnMsg
+                __('Issue delay invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
+                $result->RtnMsg,
             ));
             return;
         }
 
         if (apply_filters('ry_wei_add_api_success_notice', true)) {
             $order->add_order_note(
-                __('Delay get invoice', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->OrderNumber . "\n"
+                __('Issue delay invoice', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->OrderNumber . "\n",
             );
         }
 
@@ -166,7 +177,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         do_action('ry_wei_get_dalay_invoice_response', $result, $order);
     }
 
-    protected static function make_get_data($order, $MerchantID)
+    protected function make_get_data($order, $MerchantID)
     {
         $country = $order->get_billing_country();
         $countries = WC()->countries->get_countries();
@@ -178,7 +189,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
 
         $data = [
             'MerchantID' => $MerchantID,
-            'RelateNumber' => self::generate_trade_no($order->get_id(), RY_WEI::get_option('order_prefix')),
+            'RelateNumber' => $this->generate_trade_no($order->get_id(), RY_WEI::get_option('order_prefix')),
             'CustomerID' => '',
             'CustomerIdentifier' => '',
             'CustomerName' => $order->get_billing_last_name() . $order->get_billing_first_name(),
@@ -261,7 +272,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                     'ItemName' => '',
                     'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemAmount' => $item_total
+                    'ItemAmount' => $item_total,
                 ];
                 if ($use_sku && method_exists($order_item, 'get_product')) {
                     $data_item['ItemName'] = $order_item->get_product()->get_sku();
@@ -286,7 +297,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                     'ItemName' => $fee_item->get_name(),
                     'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
                     'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                    'ItemAmount' => $item_total
+                    'ItemAmount' => $item_total,
                 ];
                 $data['Items'][] = $data_item;
             }
@@ -299,7 +310,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
                 'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                'ItemAmount' => round($shipping_fee, wc_get_price_decimals())
+                'ItemAmount' => round($shipping_fee, wc_get_price_decimals()),
             ];
         }
 
@@ -308,7 +319,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                 'ItemName' => __('return fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
                 'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                'ItemAmount' => round(-$total_refunded, wc_get_price_decimals())
+                'ItemAmount' => round(-$total_refunded, wc_get_price_decimals()),
             ];
         }
 
@@ -320,7 +331,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
                         'ItemName' => RY_WEI::get_option('amount_abnormal_product', __('Discount', 'ry-woocommerce-ecpay-invoice')),
                         'ItemCount' => 1,
                         'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
-                        'ItemAmount' => round($data['SalesAmount'] - $total_amount, wc_get_price_decimals())
+                        'ItemAmount' => round($data['SalesAmount'] - $total_amount, wc_get_price_decimals()),
                     ];
                     break;
                 case 'order':
@@ -345,9 +356,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         return $data;
     }
 
-    public static function cancel_delay($order_id)
+    public function cancel_delay($order_ID)
     {
-        $order = wc_get_order($order_id);
+        $order = wc_get_order($order_ID);
         if (!$order) {
             return false;
         }
@@ -358,23 +369,23 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
         $data = [
             'MerchantID' => $MerchantID,
-            'Tsr' => $ecpay_RelateNumber
+            'Tsr' => $ecpay_RelateNumber,
         ];
 
-        $args = self::build_args($data, $MerchantID);
+        $args = $this->build_args($data, $MerchantID);
         do_action('ry_wei_cancel_delay_invoice', $args, $order);
 
-        RY_WEI_Invoice::log('Cancel POST: ' . var_export($args, true));
+        RY_WEI_WC_Invoice::instance()->log('Invalid delay invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
-            $post_url = self::$api_test_url['cancelDelay'];
+        if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
+            $post_url = $this->api_test_url['cancelDelay'];
         } else {
-            $post_url = self::$api_url['cancelDelay'];
+            $post_url = $this->api_url['cancelDelay'];
         }
-        $result = self::link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
         if (null === $result) {
             return;
@@ -384,14 +395,14 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             $order->add_order_note(sprintf(
                 /* translators: %s Error messade */
                 __('Cancel delay invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
-                $result->RtnMsg
+                $result->RtnMsg,
             ));
             return;
         }
 
         if (apply_filters('ry_wei_add_api_success_notice', true)) {
             $order->add_order_note(
-                __('Cancel delay invoice', 'ry-woocommerce-ecpay-invoice')
+                __('Cancel delay invoice', 'ry-woocommerce-ecpay-invoice'),
             );
         }
 
@@ -402,9 +413,9 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         do_action('ry_wei_cancel_delay_invoice_response', $result, $order);
     }
 
-    public static function invalid($order_id)
+    public function invalid($order_ID)
     {
-        $order = wc_get_order($order_id);
+        $order = wc_get_order($order_ID);
         if (!$order) {
             return false;
         }
@@ -421,7 +432,7 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
         $data = [
             'MerchantID' => $MerchantID,
             'InvoiceNo' => $invoice_number,
@@ -429,17 +440,17 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             'Reason' => __('Order cancel', 'ry-woocommerce-ecpay-invoice'),
         ];
 
-        $args = self::build_args($data, $MerchantID);
+        $args = $this->build_args($data, $MerchantID);
         do_action('ry_wei_invalid_invoice', $args, $order);
 
-        RY_WEI_Invoice::log('Invalid POST: ' . var_export($args, true));
+        RY_WEI_WC_Invoice::instance()->log('Invalid invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
-            $post_url = self::$api_test_url['invalid'];
+        if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
+            $post_url = $this->api_test_url['invalid'];
         } else {
-            $post_url = self::$api_url['invalid'];
+            $post_url = $this->api_url['invalid'];
         }
-        $result = self::link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
         if (null === $result) {
             return;
@@ -449,14 +460,14 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
             $order->add_order_note(sprintf(
                 /* translators: %s Error messade */
                 __('Invalid invoice error: %s', 'ry-woocommerce-ecpay-invoice'),
-                $result->RtnMsg
+                $result->RtnMsg,
             ));
             return;
         }
 
         if (apply_filters('ry_wei_add_api_success_notice', true)) {
             $order->add_order_note(
-                __('Invalid invoice', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->InvoiceNo
+                __('Invalid invoice', 'ry-woocommerce-ecpay-invoice') . ': ' . $result->InvoiceNo,
             );
         }
 
@@ -469,61 +480,61 @@ class RY_WEI_Invoice_Api extends RY_ECPay_Invoice
         do_action('ry_wei_invalid_invoice_response', $result, $order);
     }
 
-    public static function check_mobile_code($code)
+    public function check_mobile_code($code)
     {
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
 
         $data = [
             'MerchantID' => $MerchantID,
-            'BarCode' => $code
+            'BarCode' => $code,
         ];
-        $args = self::build_args($data, $MerchantID);
+        $args = $this->build_args($data, $MerchantID);
 
-        RY_WEI_Invoice::log('Check mobile POST: ' . var_export($args, true));
+        RY_WEI_WC_Invoice::instance()->log('Check mobile', WC_Log_Levels::INFO, ['data' => $args]);
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
-            $post_url = self::$api_test_url['checkMobile'];
+        if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
+            $post_url = $this->api_test_url['checkMobile'];
         } else {
-            $post_url = self::$api_url['checkMobile'];
+            $post_url = $this->api_url['checkMobile'];
         }
 
-        $result = self::link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
         if (null === $result) {
             return false;
         }
 
-        return self::get_no_check_status($result);
+        return $this->get_no_check_status($result);
     }
 
-    public static function check_donate_no($code)
+    public function check_donate_no($code)
     {
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_Invoice::get_ecpay_api_info();
+        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
 
         $data = [
             'MerchantID' => $MerchantID,
-            'LoveCode' => $code
+            'LoveCode' => $code,
         ];
-        $args = self::build_args($data, $MerchantID);
+        $args = $this->build_args($data, $MerchantID);
 
-        RY_WEI_Invoice::log('Check donate POST: ' . var_export($args, true));
+        RY_WEI_WC_Invoice::instance()->log('Check donate', WC_Log_Levels::INFO, ['data' => $args]);
 
-        if ('yes' === RY_WEI::get_option('ecpay_testmode', 'no')) {
-            $post_url = self::$api_test_url['checkDonate'];
+        if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
+            $post_url = $this->api_test_url['checkDonate'];
         } else {
-            $post_url = self::$api_url['checkDonate'];
+            $post_url = $this->api_url['checkDonate'];
         }
 
-        $result = self::link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
         if (null === $result) {
             return false;
         }
 
-        return self::get_no_check_status($result);
+        return $this->get_no_check_status($result);
     }
 
-    protected static function get_no_check_status($result)
+    protected function get_no_check_status($result)
     {
         if(1 == $result->RtnCode) {
             return 'Y' == $result->IsExist;

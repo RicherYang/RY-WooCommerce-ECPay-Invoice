@@ -1,0 +1,34 @@
+#order_data {
+    .order_data_column {
+        ._invoice_carruer_type_field,
+        ._invoice_random_number_field {
+            float: right;
+            clear: right;
+        }
+
+        ._invoice_date_field .date-picker {
+            width: 7.5em;
+        }
+
+        ._invoice_date_field .hour,
+        ._invoice_date_field .minute,
+        ._invoice_date_field .second {
+            width: 4em;
+        }
+
+        .address.ivoice strong {
+            display: inline-block;
+        }
+    }
+
+    .ivoice_data_column {
+        float: left;
+        width: 63%;
+        padding-right: 2%;
+    }
+
+    .ivoice_action_column {
+        float: left;
+        width: 35%;
+    }
+}

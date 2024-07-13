@@ -1,5 +1,6 @@
-jQuery(function ($) {
+import $ from 'jquery';
 
+$(function () {
     $(document.body).on('change', '#invoice_type', function () {
         switch ($(this).val()) {
             case 'personal':
