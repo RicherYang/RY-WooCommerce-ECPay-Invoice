@@ -14,13 +14,6 @@ return [
         'type' => 'title',
     ],
     [
-        'title' => __('Enable/Disable', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::OPTION_PREFIX . 'enabled_invoice',
-        'type' => 'checkbox',
-        'default' => 'no',
-        'desc' => __('Enable ECPay invoice method', 'ry-woocommerce-ecpay-invoice'),
-    ],
-    [
         'title' => __('Debug log', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::OPTION_PREFIX . 'ecpay_invoice_log',
         'type' => 'checkbox',

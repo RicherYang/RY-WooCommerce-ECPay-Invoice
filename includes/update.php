@@ -39,5 +39,11 @@ final class RY_WEI_update
 
             RY_WEI::update_option('version', '2.0.0', true);
         }
+
+        if (version_compare($now_version, '2.0.1', '<')) {
+            RY_WEI::delete_option('enabled_invoice');
+
+            RY_WEI::update_option('version', '2.0.1', true);
+        }
     }
 }

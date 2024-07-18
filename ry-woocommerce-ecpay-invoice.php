@@ -3,7 +3,7 @@
  * Plugin Name: RY ECPay Invoice for WooCommerce
  * Plugin URI: https://ry-plugin.com/ry-woocommerce-ecpay-invoice
  * Description: WooCommerce order invoice for ecpay
- * Version: 2.0.0
+ * Version: 2.0.1
  * Requires at least: 6.3
  * Requires PHP: 8.0
  * Requires Plugins: woocommerce
@@ -21,7 +21,7 @@
 
 function_exists('plugin_dir_url') or exit('No direct script access allowed');
 
-define('RY_WEI_VERSION', '2.0.0');
+define('RY_WEI_VERSION', '2.0.1');
 define('RY_WEI_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('RY_WEI_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('RY_WEI_PLUGIN_BASENAME', plugin_basename(__FILE__));

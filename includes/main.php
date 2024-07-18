@@ -50,13 +50,11 @@ final class RY_WEI
             include_once RY_WEI_PLUGIN_DIR . 'includes/cron.php';
             RY_WEI_Cron::add_action();
 
-            if ('yes' === self::get_option('enabled_invoice', 'no')) {
-                include_once RY_WEI_PLUGIN_DIR . 'woocommerce/cron.php';
-                RY_WEI_WC_Cron::add_action();
+            include_once RY_WEI_PLUGIN_DIR . 'woocommerce/cron.php';
+            RY_WEI_WC_Cron::add_action();
 
-                include_once RY_WEI_PLUGIN_DIR . 'woocommerce/invoice.php';
-                RY_WEI_WC_Invoice::instance();
-            }
+            include_once RY_WEI_PLUGIN_DIR . 'woocommerce/invoice.php';
+            RY_WEI_WC_Invoice::instance();
         }
     }
 

@@ -41,34 +41,30 @@ final class RY_WEI_WC_Admin_Setting_Invoice
     public function add_setting($settings, $current_section)
     {
         if ('ecpay_invoice' == $current_section) {
+            if (!is_callable('openssl_encrypt') || !is_callable('openssl_decrypt')) {
+                echo '<div class="notice notice-error"><p><strong>RY ECPay Invoice for WooCommerce</strong> ' . esc_html__('Required PHP function openssl_encrypt and openssl_decrypt.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+            }
+
             $settings = include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/settings/settings-invoice.php';
         }
+
         return $settings;
     }
 
     public function check_option()
     {
-        if ('yes' == RY_WEI::get_option('enabled_invoice', 'no')) {
-            $enable_list = apply_filters('enable_ry_invoice', []);
-            if (1 == count($enable_list)) {
-                if ($enable_list != ['ecpay']) {
-                    WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
-                }
-            } elseif (1 < count($enable_list)) {
+        $enable_list = apply_filters('enable_ry_invoice', []);
+        if (1 == count($enable_list)) {
+            if ($enable_list != ['ecpay']) {
                 WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
             }
+        } elseif (1 < count($enable_list)) {
+            WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
+        }
 
-            if (!RY_WEI_WC_Invoice::instance()->is_testmode()) {
-                if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
-                    WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));
-                    RY_WEI::update_option('enabled_invoice', 'no');
-                }
-            }
-
-            if (!is_callable('openssl_encrypt') || !is_callable('openssl_decrypt')) {
-                WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice')
-                    . __('Required PHP function openssl_encrypt and openssl_decrypt.', 'ry-woocommerce-ecpay-invoice'));
-                RY_WEI::update_option('enabled_invoice', 'no');
+        if (!RY_WEI_WC_Invoice::instance()->is_testmode()) {
+            if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
+                WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));
             }
         }
 
