@@ -25,7 +25,7 @@ final class RY_WEI
             RY_WEI_update::update();
         }
 
-        add_action('woocommerce_loaded', [$this, 'do_woo_init'], 11);
+        add_action('woocommerce_init', [$this, 'do_woo_init'], 11);
     }
 
     public function do_woo_init(): void

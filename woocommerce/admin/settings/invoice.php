@@ -41,8 +41,8 @@ final class RY_WEI_WC_Admin_Setting_Invoice
     public function add_setting($settings, $current_section)
     {
         if ('ecpay_invoice' == $current_section) {
-            if (!is_callable('openssl_encrypt') || !is_callable('openssl_decrypt')) {
-                echo '<div class="notice notice-error"><p><strong>RY ECPay Invoice for WooCommerce</strong> ' . esc_html__('Required PHP function openssl_encrypt and openssl_decrypt.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
+            if (!function_exists('openssl_encrypt') || !function_exists('openssl_decrypt')) {
+                echo '<div class="notice notice-error"><p><strong>RY ECPay Invoice for WooCommerce</strong> ' . esc_html__('Required PHP function `openssl_encrypt` and `openssl_decrypt`.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
             }
 
             $settings = include RY_WEI_PLUGIN_DIR . 'woocommerce/admin/settings/settings-invoice.php';

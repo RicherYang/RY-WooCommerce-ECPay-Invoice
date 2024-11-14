@@ -19,10 +19,10 @@ final class RY_WEI_update
 
         if (version_compare($now_version, '1.1.0', '<')) {
             if ('yes' === RY_WEI::get_option('enabled_invoice', 'no')) {
-                if (!is_callable('openssl_encrypt') || !is_callable('openssl_decrypt')) {
+                if (!function_exists('openssl_encrypt') || !function_exists('openssl_decrypt')) {
                     add_action('admin_notices', function () {
                         echo '<div class="error"><p>' . __('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice')
-                        . __('Required PHP function openssl_encrypt and openssl_decrypt.', 'ry-woocommerce-ecpay-invoice')
+                        . __('Required PHP function `openssl_encrypt` and `openssl_decrypt`.', 'ry-woocommerce-ecpay-invoice')
                         . '</p></div>';
                     });
                     RY_WEI::update_option('enabled_invoice', 'no');
@@ -44,6 +44,10 @@ final class RY_WEI_update
             RY_WEI::delete_option('enabled_invoice');
 
             RY_WEI::update_option('version', '2.0.1', true);
+        }
+
+        if (version_compare($now_version, '2.0.2', '<')) {
+            RY_WEI::update_option('version', '2.0.2', true);
         }
     }
 }
