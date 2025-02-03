@@ -10,7 +10,7 @@ $(function () {
                 $('#RY_WEI_skip_foreign_order').closest('tr').hide();
             } else {
                 $('#RY_WEI_get_delay_days').closest('tr').show();
-                $('#RY_WEI_skip_foreign_order').closest('tr').hide();
+                $('#RY_WEI_skip_foreign_order').closest('tr').show();
             }
         }).trigger('change');
     }
