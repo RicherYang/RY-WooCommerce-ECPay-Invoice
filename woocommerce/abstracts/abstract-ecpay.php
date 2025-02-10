@@ -30,12 +30,11 @@ abstract class RY_WEI_EcPay
 
     protected function urlencode($string)
     {
-        $string = str_replace(
+        return str_replace(
             ['%2D', '%2d', '%5F', '%5f', '%2E', '%2e', '%2A', '%2a', '%21', '%28', '%29'],
-            [  '-',   '-',   '_',   '_',    '.',  '.',   '*',   '*',   '!',   '(',   ')'],
+            ['-', '-', '_', '_', '.', '.', '*', '*', '!', '(', ')'],
             urlencode($string),
         );
-        return $string;
     }
 
     protected function link_server($post_url, $args, $HashKey, $HashIV)
@@ -51,28 +50,29 @@ abstract class RY_WEI_EcPay
                 'Content-Type' => 'application/json',
             ],
             'body' => wp_json_encode($args),
+            'user-agent' => apply_filters('http_headers_useragent', 'WordPress/' . get_bloginfo('version')),
         ]);
 
         if (is_wp_error($response)) {
             RY_WEI_WC_Invoice::instance()->log('Link failed', WC_Log_Levels::ERROR, ['info' => $response->get_error_messages()]);
-            return null;
+            return;
         }
 
         if (wp_remote_retrieve_response_code($response) != '200') {
             RY_WEI_WC_Invoice::instance()->log('Link HTTP status error', WC_Log_Levels::ERROR, ['info' => $response->get_error_messages()]);
-            return null;
+            return;
         }
 
         $result = @json_decode($response['body']);
 
         if (!is_object($result)) {
             RY_WEI_WC_Invoice::instance()->log('Link response parse failed', WC_Log_Levels::ERROR, ['info' => $response->get_error_messages()]);
-            return null;
+            return;
         }
 
         if (!(isset($result->TransCode) && 1 == $result->TransCode)) {
             RY_WEI_WC_Invoice::instance()->log('Link result error', WC_Log_Levels::ERROR, ['code' => $result->TransCode, 'msg' => $result->TransMsg]);
-            return null;
+            return;
         }
 
         $result->Data = openssl_decrypt($result->Data, self::Encrypt_Method, $HashKey, 0, $HashIV);
@@ -81,7 +81,7 @@ abstract class RY_WEI_EcPay
 
         if (!is_object($result->Data)) {
             RY_WEI_WC_Invoice::instance()->log('Link data decrypt failed', WC_Log_Levels::ERROR, ['data' => $result->Data]);
-            return null;
+            return;
         }
 
         return $result->Data;
@@ -107,9 +107,7 @@ abstract class RY_WEI_EcPay
         $args_string = $this->urlencode($args_string);
         $args_string = strtolower($args_string);
         $check_value = hash($hash_algo, $args_string);
-        $check_value = strtoupper($check_value);
-
-        return $check_value;
+        return strtoupper($check_value);
     }
 
     protected function add_check_value($args, $HashKey, $HashIV, $hash_algo, $skip_args = [])
@@ -133,11 +131,11 @@ abstract class RY_WEI_EcPay
 
     protected function die_success()
     {
-        die('1|OK');
+        exit('1|OK');
     }
 
     protected function die_error()
     {
-        die('0|');
+        exit('0|');
     }
 }

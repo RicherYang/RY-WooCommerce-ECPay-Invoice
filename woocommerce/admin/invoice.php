@@ -29,7 +29,7 @@ final class RY_WEI_WC_Admin_Invoice
         add_action('woocommerce_update_order', [$this, 'save_order_update']);
 
         if (class_exists('Automattic\WooCommerce\Utilities\OrderUtil') && OrderUtil::custom_orders_table_usage_is_enabled()) {
-            if('edit' !== ($_GET['action'] ?? '')) {
+            if ('edit' !== ($_GET['action'] ?? '')) {
                 add_filter('manage_woocommerce_page_wc-orders_columns', [$this, 'add_invoice_column'], 11);
                 add_action('manage_woocommerce_page_wc-orders_custom_column', [$this, 'show_invoice_column'], 11, 2);
             }
@@ -111,7 +111,7 @@ final class RY_WEI_WC_Admin_Invoice
     public function show_invoice_column($column, $order)
     {
         if ('invoice-number' == $column) {
-            if(!is_object($order)) {
+            if (!is_object($order)) {
                 global $the_order;
                 $order = $the_order;
             }

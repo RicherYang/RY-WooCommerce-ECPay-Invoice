@@ -23,12 +23,12 @@ final class RY_WEI_Updater
 
     public function update_plugin($update, $plugin_data, $plugin_file, $locales)
     {
-        if('RY ECPay Invoice for WooCommerce' !== $plugin_data['Name']) {
+        if ('RY ECPay Invoice for WooCommerce' !== $plugin_data['Name']) {
             return $update;
         }
 
         $update = RY_WEI_LinkServer::instance()->check_version();
-        if(is_array($update)) {
+        if (is_array($update)) {
             $update['id'] = 'https://ry-plugin.com/ry-woocommerce-ecpay-invoice';
             $update['url'] = 'https://ry-plugin.com/ry-woocommerce-ecpay-invoice';
             $update['slug'] = 'ry-woocommerce-ecpay-invoice';

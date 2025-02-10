@@ -4,13 +4,13 @@ return [
     [
         'title' => 'RY ECPay Invoice for WooCommerce',
         'id' => 'wei_options',
-        'type' => 'title'
+        'type' => 'title',
     ],
     [
         'title' => __('License key', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::OPTION_PREFIX . 'license_key',
         'type' => 'text',
-        'default' => ''
+        'default' => '',
     ],
     [
         'id' => 'ry_wei_version_info',
@@ -18,6 +18,6 @@ return [
     ],
     [
         'id' => 'wei_options',
-        'type' => 'sectionend'
-    ]
+        'type' => 'sectionend',
+    ],
 ];

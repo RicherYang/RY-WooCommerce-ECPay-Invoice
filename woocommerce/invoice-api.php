@@ -314,7 +314,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             ];
         }
 
-        if($total_refunded != 0) {
+        if ($total_refunded != 0) {
             $data['Items'][] = [
                 'ItemName' => __('return fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
@@ -325,7 +325,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
         $total_amount = array_sum(array_column($data['Items'], 'ItemAmount'));
         if ($total_amount != $data['SalesAmount']) {
-            switch(RY_WEI::get_option('amount_abnormal_mode', '')) {
+            switch (RY_WEI::get_option('amount_abnormal_mode', '')) {
                 case 'product':
                     $data['Items'][] = [
                         'ItemName' => RY_WEI::get_option('amount_abnormal_product', __('Discount', 'ry-woocommerce-ecpay-invoice')),
@@ -422,7 +422,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
         $invoice_number = $order->get_meta('_invoice_number');
 
-        if ('zero' == $invoice_number  || 'negative' == $invoice_number) {
+        if ('zero' == $invoice_number || 'negative' == $invoice_number) {
             $order->delete_meta_data('_invoice_number');
             $order->save();
             return;
@@ -536,11 +536,11 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
     protected function get_no_check_status($result)
     {
-        if(1 == $result->RtnCode) {
+        if (1 == $result->RtnCode) {
             return 'Y' == $result->IsExist;
         }
 
-        if(9000001 == $result->RtnCode) {
+        if (9000001 == $result->RtnCode) {
             return true;
         }
 

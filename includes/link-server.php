@@ -5,6 +5,7 @@ final class RY_WEI_LinkServer
     protected static $_instance = null;
 
     private $api_url = 'https://ry-plugin.com/wp-json/ry/v2/';
+
     private $plugin_type = 'ry-woocommerce-ecpay-invoice';
 
     public static function instance(): RY_WEI_LinkServer

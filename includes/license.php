@@ -13,7 +13,6 @@ final class RY_WEI_License extends RY_WEI_Model
         if (null === self::$_instance) {
             self::$_instance = new self();
             self::$_instance->do_init();
-
         }
 
         return self::$_instance;

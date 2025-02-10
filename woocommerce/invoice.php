@@ -11,7 +11,6 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
         if (null === self::$_instance) {
             self::$_instance = new self();
             self::$_instance->do_init();
-
         }
 
         return self::$_instance;
@@ -78,9 +77,9 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
         }
 
         if ('yes' === RY_WEI::get_option('skip_foreign_order', 'no')) {
-            if('TW' !== $order->get_billing_country()) {
-                if($order->needs_shipping_address()) {
-                    if('TW' !== $order->get_shipping_country()) {
+            if ('TW' !== $order->get_billing_country()) {
+                if ($order->needs_shipping_address()) {
+                    if ('TW' !== $order->get_shipping_country()) {
                         return false;
                     }
                 } else {

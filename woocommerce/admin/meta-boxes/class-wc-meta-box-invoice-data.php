@@ -63,7 +63,7 @@ class WRY_WEI_MetaBox_Invoice_Data
                 'type' => 'text',
                 'pattern' => '[0-9]{4}',
             ];
-            self::$fields['date'] =  [
+            self::$fields['date'] = [
                 'label' => __('Invoice date', 'ry-woocommerce-ecpay-invoice'),
                 'show' => false,
                 'type' => 'date',
@@ -152,7 +152,7 @@ class WRY_WEI_MetaBox_Invoice_Data
                     break;
                 case 'date':
                     ?>
-    <p class="form-field form-field-wide <?php echo esc_attr($field['id']) ?>_field">
+    <p class="form-field form-field-wide <?php echo esc_attr($field['id']); ?>_field">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
         <input type="text" class="date-picker" id="<?php echo esc_attr($field['id']); ?>" name="<?php echo esc_attr($field['id']); ?>" maxlength="10" value="" pattern="<?php echo esc_attr(apply_filters('woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])')); ?>" />@
         &lrm;

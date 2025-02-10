@@ -149,7 +149,7 @@ final class RY_WEI_WC_Invoice_Basic
     {
         if ('personal' == $data['invoice_type']) {
             // 自然人憑證
-            if('MOICA' == $data['invoice_carruer_type']) {
+            if ('MOICA' == $data['invoice_carruer_type']) {
                 if (!empty($data['invoice_carruer_no'])) {
                     if (!preg_match('/^[A-Z]{2}\d{14}$/', $data['invoice_carruer_no'])) {
                         $errors->add('validation', __('Invalid carruer number', 'ry-woocommerce-ecpay-invoice'));
@@ -158,7 +158,7 @@ final class RY_WEI_WC_Invoice_Basic
             }
 
             // 手機載具
-            if ('phone_barcode' ==  $data['invoice_carruer_type']) {
+            if ('phone_barcode' == $data['invoice_carruer_type']) {
                 if (!preg_match('/^\/{1}[0-9A-Z+-.]{7}$/', $data['invoice_carruer_no'])) {
                     $errors->add('validation', __('Invalid carruer number', 'ry-woocommerce-ecpay-invoice'));
                 } elseif ('yes' === RY_WEI::get_option('check_number_with_api', 'yes')) {
@@ -188,13 +188,13 @@ final class RY_WEI_WC_Invoice_Basic
 
     public function save_order_invoice($order, $data)
     {
-        $order->update_meta_data('_invoice_type', isset($data['invoice_type']) ? $data['invoice_type'] : 'personal');
-        $order->update_meta_data('_invoice_carruer_type', isset($data['invoice_carruer_type']) ? $data['invoice_carruer_type'] : 'ecpay_host');
-        $order->update_meta_data('_invoice_carruer_no', isset($data['invoice_carruer_no']) ? $data['invoice_carruer_no'] : '');
-        $order->update_meta_data('_invoice_no', isset($data['invoice_no']) ? $data['invoice_no'] : '');
-        $order->update_meta_data('_invoice_donate_no', isset($data['invoice_donate_no']) ? $data['invoice_donate_no'] : '');
+        $order->update_meta_data('_invoice_type', $data['invoice_type'] ?? 'personal');
+        $order->update_meta_data('_invoice_carruer_type', $data['invoice_carruer_type'] ?? 'ecpay_host');
+        $order->update_meta_data('_invoice_carruer_no', $data['invoice_carruer_no'] ?? '');
+        $order->update_meta_data('_invoice_no', $data['invoice_no'] ?? '');
+        $order->update_meta_data('_invoice_donate_no', $data['invoice_donate_no'] ?? '');
         if ('yes' === RY_WEI::get_option('move_billing_company', 'no')) {
-            $order->set_billing_company(isset($data['invoice_company_name']) ? $data['invoice_company_name'] : '');
+            $order->set_billing_company($data['invoice_company_name'] ?? '');
         }
     }
 
@@ -205,7 +205,7 @@ final class RY_WEI_WC_Invoice_Basic
         $carruer_type = $order->get_meta('_invoice_carruer_type');
 
         if (!$invoice_type) {
-            return ;
+            return;
         }
 
         $invoice_info = [];

@@ -38,8 +38,8 @@ final class RY_WEI_WC_Admin
     {
         global $current_section, $current_tab;
 
-        if ('rytools' === $current_tab  && 'ry_key' === $current_section) {
-            return ;
+        if ('rytools' === $current_tab && 'ry_key' === $current_section) {
+            return;
         }
 
         if (!RY_WEI_License::instance()->is_activated()) {
