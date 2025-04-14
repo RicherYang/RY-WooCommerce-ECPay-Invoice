@@ -52,7 +52,7 @@ class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
 
     public function doing_callback($ipn_info)
     {
-        $order_ID = $this->get_order_id($ipn_info, RY_WEI::get_option('order_prefix'));
+        $order_ID = $this->get_order_id($ipn_info, RY_WEI::get_option('order_prefix', ''));
         if ($order = wc_get_order($order_ID)) {
             if (isset($ipn_info['inv_error']) && !empty($ipn_info['inv_error'])) {
                 $order->add_order_note(sprintf(

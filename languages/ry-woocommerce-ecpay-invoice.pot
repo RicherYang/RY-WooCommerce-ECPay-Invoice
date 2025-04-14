@@ -2,40 +2,40 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: RY ECPay Invoice for WooCommerce 2.0.4\n"
+"Project-Id-Version: RY ECPay Invoice for WooCommerce 2.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-ecpay-invoice\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-04T11:14:31+08:00\n"
+"POT-Creation-Date: 2025-04-14T16:02:12+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: ry-woocommerce-ecpay-invoice\n"
 
 #. Plugin Name of the plugin
-#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: ry-woocommerce-ecpay-invoice.php
 msgid "RY ECPay Invoice for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: ry-woocommerce-ecpay-invoice.php
 msgid "https://ry-plugin.com/ry-woocommerce-ecpay-invoice"
 msgstr ""
 
 #. Description of the plugin
-#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: ry-woocommerce-ecpay-invoice.php
 msgid "WooCommerce order invoice for ecpay"
 msgstr ""
 
 #. Author of the plugin
-#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: ry-woocommerce-ecpay-invoice.php
 msgid "Richer Yang"
 msgstr ""
 
 #. Author URI of the plugin
-#: D:\WebServer\htdocs_80\ry-plugin.com\wp-content\plugins\ry-woocommerce-ecpay-invoice\ry-woocommerce-ecpay-invoice.php
+#: ry-woocommerce-ecpay-invoice.php
 msgid "https://richer.tw/"
 msgstr ""
 
@@ -122,7 +122,7 @@ msgstr ""
 #: woocommerce/invoice-api.php:88
 #: woocommerce/invoice-basic.php:228
 #: woocommerce/invoice-response.php:68
-#: woocommerce/invoice.php:135
+#: woocommerce/invoice.php:134
 msgid "Invoice number"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgid "Cancel invoice"
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:127
-#: woocommerce/invoice-api.php:470
+#: woocommerce/invoice-api.php:467
 msgid "Invalid invoice"
 msgstr ""
 
@@ -355,7 +355,7 @@ msgid "Invoice options"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:60
-msgid "support paper type (B2C)"
+msgid "Support paper type (B2C)"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:64
@@ -377,7 +377,7 @@ msgid "Print"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:77
-msgid "check number with api"
+msgid "Check number with api"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:81
@@ -385,7 +385,7 @@ msgid "Use ECPay API to check the carruer number or donate number is right."
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:84
-msgid "user SKU as product name"
+msgid "User SKU as product name"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:88
@@ -462,39 +462,43 @@ msgid "Change order total amount"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:144
-msgid "fix amount product name"
+msgid "Fix amount product name"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:147
-#: woocommerce/invoice-api.php:331
+#: woocommerce/invoice-api.php:328
 msgid "Discount"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:154
+#: woocommerce/admin/settings/settings-invoice.php:150
+msgid "Custom track code"
+msgstr ""
+
+#: woocommerce/admin/settings/settings-invoice.php:160
 msgid "API credentials"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:159
+#: woocommerce/admin/settings/settings-invoice.php:165
 msgid "ECPay invoice sandbox"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:163
+#: woocommerce/admin/settings/settings-invoice.php:169
 msgid "Enable ECPay invoice sandbox"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:164
+#: woocommerce/admin/settings/settings-invoice.php:170
 msgid "Note: Recommend using this for development purposes only."
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:167
+#: woocommerce/admin/settings/settings-invoice.php:173
 msgid "MerchantID"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:173
+#: woocommerce/admin/settings/settings-invoice.php:179
 msgid "HashKey"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:179
+#: woocommerce/admin/settings/settings-invoice.php:185
 msgid "HashIV"
 msgstr ""
 
@@ -558,37 +562,33 @@ msgstr ""
 msgid "Issue delay invoice"
 msgstr ""
 
-#: woocommerce/invoice-api.php:274
-#: woocommerce/invoice-api.php:299
-#: woocommerce/invoice-api.php:312
-#: woocommerce/invoice-api.php:321
-#: woocommerce/invoice-api.php:333
-msgid "parcel"
-msgstr ""
-
-#: woocommerce/invoice-api.php:310
+#: woocommerce/invoice-api.php:309
 msgid "shipping fee"
 msgstr ""
 
-#: woocommerce/invoice-api.php:319
+#: woocommerce/invoice-api.php:317
 msgid "return fee"
 msgstr ""
 
+#: woocommerce/invoice-api.php:347
+msgid "parcel"
+msgstr ""
+
 #. translators: %s Error messade
-#: woocommerce/invoice-api.php:397
+#: woocommerce/invoice-api.php:394
 msgid "Cancel delay invoice error: %s"
 msgstr ""
 
-#: woocommerce/invoice-api.php:405
+#: woocommerce/invoice-api.php:402
 msgid "Cancel delay invoice"
 msgstr ""
 
-#: woocommerce/invoice-api.php:440
+#: woocommerce/invoice-api.php:437
 msgid "Order cancel"
 msgstr ""
 
 #. translators: %s Error messade
-#: woocommerce/invoice-api.php:462
+#: woocommerce/invoice-api.php:459
 msgid "Invalid invoice error: %s"
 msgstr ""
 

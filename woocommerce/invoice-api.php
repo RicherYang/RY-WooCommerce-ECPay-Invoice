@@ -189,7 +189,8 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
         $data = [
             'MerchantID' => $MerchantID,
-            'RelateNumber' => $this->generate_trade_no($order->get_id(), RY_WEI::get_option('order_prefix')),
+            'ProductServiceID' => RY_WEI::get_option('used_track', ''),
+            'RelateNumber' => $this->generate_trade_no($order->get_id(), RY_WEI::get_option('order_prefix', '')),
             'CustomerID' => '',
             'CustomerIdentifier' => '',
             'CustomerName' => $order->get_billing_last_name() . $order->get_billing_first_name(),
@@ -271,7 +272,6 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                 $data_item = [
                     'ItemName' => '',
                     'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
-                    'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                     'ItemAmount' => $item_total,
                 ];
                 if ($use_sku && method_exists($order_item, 'get_product')) {
@@ -296,7 +296,6 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                 $data_item = [
                     'ItemName' => $fee_item->get_name(),
                     'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
-                    'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                     'ItemAmount' => $item_total,
                 ];
                 $data['Items'][] = $data_item;
@@ -309,7 +308,6 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             $data['Items'][] = [
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
-                'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                 'ItemAmount' => round($shipping_fee, wc_get_price_decimals()),
             ];
         }
@@ -318,7 +316,6 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             $data['Items'][] = [
                 'ItemName' => __('return fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
-                'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                 'ItemAmount' => round(-$total_refunded, wc_get_price_decimals()),
             ];
         }
@@ -330,12 +327,11 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                     $data['Items'][] = [
                         'ItemName' => RY_WEI::get_option('amount_abnormal_product', __('Discount', 'ry-woocommerce-ecpay-invoice')),
                         'ItemCount' => 1,
-                        'ItemWord' => __('parcel', 'ry-woocommerce-ecpay-invoice'),
                         'ItemAmount' => round($data['SalesAmount'] - $total_amount, wc_get_price_decimals()),
                     ];
                     break;
                 case 'order':
-                    $data['SalesAmount'] = sprintf('%d', $total_amount);
+                    $data['SalesAmount'] = round($total_amount, 0);
                     break;
                 default:
                     break;
@@ -345,13 +341,14 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         foreach ($data['Items'] as $key => $item) {
             $data['Items'][$key]['ItemSeq'] = $key + 1;
             $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 80);
-            $data['Items'][$key]['ItemTaxType'] = '1';
-            $data['Items'][$key]['ItemAmount'] = sprintf('%d', $data['Items'][$key]['ItemAmount']);
-            $data['Items'][$key]['ItemPrice'] = sprintf('%.2f', $data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount']);
+            $data['Items'][$key]['ItemAmount'] = round($data['Items'][$key]['ItemAmount'], 0);
+            $data['Items'][$key]['ItemCount'] = round($data['Items'][$key]['ItemCount'], 3);
+            $data['Items'][$key]['ItemPrice'] = round($data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount'], 2);
+            $data['Items'][$key]['ItemWord'] = __('parcel', 'ry-woocommerce-ecpay-invoice');
         }
 
         $data['InvoiceRemark'] = apply_filters('ry_wei_invoice_remark', $data['InvoiceRemark'], $data, $order);
-        $data['InvoiceRemark'] = mb_substr($data['InvoiceRemark'], 0, 190);
+        $data['InvoiceRemark'] = mb_substr($data['InvoiceRemark'], 0, 100);
 
         return $data;
     }

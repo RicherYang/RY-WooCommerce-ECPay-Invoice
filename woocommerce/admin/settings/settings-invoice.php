@@ -57,7 +57,7 @@ return [
         'type' => 'title',
     ],
     [
-        'title' => __('support paper type (B2C)', 'ry-woocommerce-ecpay-invoice'),
+        'title' => __('Support paper type (B2C)', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::OPTION_PREFIX . 'support_carruer_type_none',
         'type' => 'checkbox',
         'default' => 'no',
@@ -74,14 +74,14 @@ return [
         ],
     ],
     [
-        'title' => __('check number with api', 'ry-woocommerce-ecpay-invoice'),
+        'title' => __('Check number with api', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::OPTION_PREFIX . 'check_number_with_api',
         'type' => 'checkbox',
         'default' => 'yes',
         'desc' => __('Use ECPay API to check the carruer number or donate number is right.', 'ry-woocommerce-ecpay-invoice'),
     ],
     [
-        'title' => __('user SKU as product name', 'ry-woocommerce-ecpay-invoice'),
+        'title' => __('User SKU as product name', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::OPTION_PREFIX . 'use_sku_as_name',
         'type' => 'checkbox',
         'default' => 'no',
@@ -141,10 +141,16 @@ return [
         ],
     ],
     [
-        'title' => __('fix amount product name', 'ry-woocommerce-ecpay-invoice'),
+        'title' => __('Fix amount product name', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::OPTION_PREFIX . 'amount_abnormal_product',
         'type' => 'text',
         'default' => __('Discount', 'ry-woocommerce-ecpay-invoice'),
+    ],
+    [
+        'title' => __('Custom track code', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::OPTION_PREFIX . 'used_track',
+        'type' => 'text',
+        'default' => '',
     ],
     [
         'id' => 'invoice_options',
