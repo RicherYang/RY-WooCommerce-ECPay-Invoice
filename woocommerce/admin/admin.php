@@ -108,15 +108,8 @@ final class RY_WEI_WC_Admin
                             . sprintf(
                                 /* translators: %s: Error message */
                                 __('Verification error: %s', 'ry-woocommerce-ecpay-invoice'),
-                                __($json['error'], 'ry-woocommerce-ecpay-invoice'),
+                                rywei_link_error_to_msg($json['error']),
                             ));
-
-                        /* Error message list. For make .pot */
-                        __('Unknown key', 'ry-woocommerce-ecpay-invoice');
-                        __('Locked key', 'ry-woocommerce-ecpay-invoice');
-                        __('Unknown target url', 'ry-woocommerce-ecpay-invoice');
-                        __('Used key', 'ry-woocommerce-ecpay-invoice');
-                        __('Is tried', 'ry-woocommerce-ecpay-invoice');
                     } else {
                         RY_WEI_License::instance()->set_license_data($json['data']);
                         return true;

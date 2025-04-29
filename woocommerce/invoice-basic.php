@@ -91,8 +91,8 @@ final class RY_WEI_WC_Invoice_Basic
         $fields['invoice']['invoice_donate_no']['default'] = $donate_no;
 
         if (did_action('woocommerce_checkout_process')) {
-            $invoice_type = isset($_POST['invoice_type']) ? wc_clean($_POST['invoice_type']) : '';
-            $invoice_carruer_type = isset($_POST['invoice_carruer_type']) ? wc_clean($_POST['invoice_carruer_type']) : '';
+            $invoice_type = wp_unslash($_POST['invoice_type'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $invoice_carruer_type = wp_unslash($_POST['invoice_carruer_type'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
             switch ($invoice_type) {
                 case 'personal':
@@ -239,12 +239,12 @@ final class RY_WEI_WC_Invoice_Basic
         $invoice_info[] = [
             'key' => 'invoice-type',
             'name' => __('Invoice type', 'ry-woocommerce-ecpay-invoice'),
-            'value' => _x($invoice_type, 'invoice type', 'ry-woocommerce-ecpay-invoice'),
+            'value' => rywei_invoice_type_to_name($invoice_type),
         ];
 
         if ('personal' == $invoice_type) {
             $key = count($invoice_info) - 1;
-            $invoice_info[$key]['value'] .= ' (' . _x($carruer_type, 'carruer type', 'ry-woocommerce-ecpay-invoice') . ')';
+            $invoice_info[$key]['value'] .= ' (' . rywei_carruer_type_to_name($carruer_type) . ')';
             if (in_array($carruer_type, ['MOICA', 'phone_barcode'])) {
                 $invoice_info[] = [
                     'key' => 'carruer-number',

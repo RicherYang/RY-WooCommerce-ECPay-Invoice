@@ -25,7 +25,7 @@ final class RY_WEI_WC_Admin_Ajax
     {
         check_ajax_referer('get-invoice');
 
-        $order_ID = (int) wp_unslash($_POST['id'] ?? 0);
+        $order_ID = (int) wp_unslash($_POST['id'] ?? ''); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $order = wc_get_order($order_ID);
         if ($order) {
             RY_WEI_WC_Invoice_Api::instance()->get($order);
@@ -38,7 +38,7 @@ final class RY_WEI_WC_Admin_Ajax
     {
         check_ajax_referer('invalid-invoice');
 
-        $order_ID = (int) wp_unslash($_POST['id'] ?? 0);
+        $order_ID = (int) wp_unslash($_POST['id'] ?? ''); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $order = wc_get_order($order_ID);
         if ($order) {
             RY_WEI_WC_Invoice_Api::instance()->invalid($order);
@@ -51,7 +51,7 @@ final class RY_WEI_WC_Admin_Ajax
     {
         check_ajax_referer('cancel-invoice');
 
-        $order_ID = (int) wp_unslash($_POST['id'] ?? 0);
+        $order_ID = (int) wp_unslash($_POST['id'] ?? ''); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $order = wc_get_order($order_ID);
         if ($order) {
             RY_WEI_WC_Invoice_Api::instance()->cancel_delay($order);

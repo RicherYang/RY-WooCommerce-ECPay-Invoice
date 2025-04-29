@@ -31,6 +31,7 @@ final class RY_WEI
     public function do_woo_init(): void
     {
         include_once RY_WEI_PLUGIN_DIR . 'woocommerce/abstracts/abstract-model.php';
+        include_once RY_WEI_PLUGIN_DIR . 'includes/functions.php';
 
         include_once RY_WEI_PLUGIN_DIR . 'woocommerce/admin/notes/license-auto-deactivate.php';
         include_once RY_WEI_PLUGIN_DIR . 'includes/license.php';
