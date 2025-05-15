@@ -91,8 +91,8 @@ final class RY_WEI_WC_Invoice_Basic
         $fields['invoice']['invoice_donate_no']['default'] = $donate_no;
 
         if (did_action('woocommerce_checkout_process')) {
-            $invoice_type = wp_unslash($_POST['invoice_type'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            $invoice_carruer_type = wp_unslash($_POST['invoice_carruer_type'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $invoice_type = strtolower(sanitize_locale_name($_POST['invoice_type'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            $invoice_carruer_type = strtolower(sanitize_locale_name($_POST['invoice_carruer_type'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
             switch ($invoice_type) {
                 case 'personal':

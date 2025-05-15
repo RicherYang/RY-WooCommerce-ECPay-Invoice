@@ -76,21 +76,21 @@ final class RY_WEI_WC_Admin_Invoice
         if ($order = wc_get_order($order_ID)) {
             if (isset($_POST['_invoice_type'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
                 remove_action('woocommerce_update_order', [$this, 'save_order_update']);
-                $order->update_meta_data('_invoice_type', wp_unslash($_POST['_invoice_type'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $order->update_meta_data('_invoice_carruer_type', wp_unslash($_POST['_invoice_carruer_type'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $order->update_meta_data('_invoice_carruer_no', wp_unslash($_POST['_invoice_carruer_no'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $order->update_meta_data('_invoice_no', wp_unslash($_POST['_invoice_no'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $order->update_meta_data('_invoice_donate_no', wp_unslash($_POST['_invoice_donate_no'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+                $order->update_meta_data('_invoice_type', strtolower(sanitize_locale_name($_POST['_invoice_type'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $order->update_meta_data('_invoice_carruer_type', strtolower(sanitize_locale_name($_POST['_invoice_carruer_type'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $order->update_meta_data('_invoice_carruer_no', strtoupper(sanitize_locale_name($_POST['_invoice_carruer_no'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $order->update_meta_data('_invoice_no', strtolower(sanitize_locale_name($_POST['_invoice_no'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $order->update_meta_data('_invoice_donate_no', strtolower(sanitize_locale_name($_POST['_invoice_donate_no'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
-                $invoice_number = wp_unslash($_POST['_invoice_number'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+                $invoice_number = strtoupper(sanitize_locale_name($_POST['_invoice_number'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                 if (!empty($invoice_number)) {
                     $order->update_meta_data('_invoice_number', $invoice_number);
-                    $order->update_meta_data('_invoice_random_number', wp_unslash($_POST['_invoice_random_number'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+                    $order->update_meta_data('_invoice_random_number', strtolower(sanitize_locale_name($_POST['_invoice_random_number'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
-                    $date = wp_unslash($_POST['_invoice_date'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                    $hour = (int) wp_unslash($_POST['_invoice_date_hour'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                    $minute = (int) wp_unslash($_POST['_invoice_date_minute'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                    $second = (int) wp_unslash($_POST['_invoice_date_second'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+                    $date = strtolower(sanitize_locale_name($_POST['_invoice_date'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                    $hour = intval($_POST['_invoice_date_hour'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                    $minute = intval($_POST['_invoice_date_minute'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                    $second = intval($_POST['_invoice_date_second'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                     $date = gmdate('Y-m-d H:i:s', strtotime($date . ' ' . $hour . ':' . $minute . ':' . $second));
                     $order->update_meta_data('_invoice_date', $date);
                 }
