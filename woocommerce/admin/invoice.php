@@ -78,7 +78,7 @@ final class RY_WEI_WC_Admin_Invoice
                 remove_action('woocommerce_update_order', [$this, 'save_order_update']);
                 $order->update_meta_data('_invoice_type', strtolower(sanitize_locale_name($_POST['_invoice_type'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                 $order->update_meta_data('_invoice_carruer_type', strtolower(sanitize_locale_name($_POST['_invoice_carruer_type'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                $order->update_meta_data('_invoice_carruer_no', strtoupper(sanitize_locale_name($_POST['_invoice_carruer_no'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $order->update_meta_data('_invoice_carruer_no', strtoupper(sanitize_text_field(wp_unslash($_POST['_invoice_carruer_no'] ?? '')))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                 $order->update_meta_data('_invoice_no', strtolower(sanitize_locale_name($_POST['_invoice_no'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                 $order->update_meta_data('_invoice_donate_no', strtolower(sanitize_locale_name($_POST['_invoice_donate_no'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
