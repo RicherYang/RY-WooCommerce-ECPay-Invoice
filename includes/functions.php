@@ -1,21 +1,5 @@
 <?php
 
-function rywei_link_error_to_msg($error)
-{
-    static $error_msg = [];
-    if (empty($error_msg)) {
-        $error_msg = [
-            'Unknown key' => __('Unknown key', 'ry-woocommerce-ecpay-invoice'),
-            'Locked key' => __('Locked key', 'ry-woocommerce-ecpay-invoice'),
-            'Unknown target url' => __('Unknown target url', 'ry-woocommerce-ecpay-invoice'),
-            'Used key' => __('Used key', 'ry-woocommerce-ecpay-invoice'),
-            'Is tried' => __('Is tried', 'ry-woocommerce-ecpay-invoice'),
-        ];
-    }
-
-    return $error_msg[$error] ?? $error;
-}
-
 function rywei_invoice_type_to_name($invoice_type)
 {
     static $type_name = [];

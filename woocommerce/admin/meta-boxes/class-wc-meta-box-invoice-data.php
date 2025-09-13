@@ -128,8 +128,8 @@ class WRY_WEI_MetaBox_Invoice_Data
             }
         } elseif ($order->is_paid()) {
             echo '<button id="get_ecpay_invoice" type="button" class="button" data-orderid="' . esc_attr($order->get_id()) . '">'
-                    . esc_html__('Issue invoice', 'ry-woocommerce-ecpay-invoice')
-                    . '</button>';
+                . esc_html__('Issue invoice', 'ry-woocommerce-ecpay-invoice')
+                . '</button>';
         }
     ?>
     </div>

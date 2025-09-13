@@ -90,9 +90,9 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
 
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
         if (0 === $delay_days) {
-            WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_get_invoice', [$order_ID], '');
+            WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_get_invoice', [$order_ID], '');
         } else {
-            WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_get_delay_invoice', [$order_ID], '');
+            WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_get_delay_invoice', [$order_ID], '');
         }
     }
 
@@ -108,9 +108,9 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
             if ('zero' == $invoice_number) {
             } elseif ('negative' == $invoice_number) {
             } elseif ('delay' == $invoice_number) {
-                WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_cancel_invoice', [$order_ID], '');
+                WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_cancel_invoice', [$order_ID], '');
             } else {
-                WC()->queue()->schedule_single(time() + 10, 'ry_wei_auto_invalid_invoice', [$order_ID], '');
+                WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_invalid_invoice', [$order_ID], '');
             }
         }
     }

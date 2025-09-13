@@ -16,11 +16,7 @@ class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
 
     public function get_sections()
     {
-        $sections = [
-            'ry_key' => __('License key', 'ry-woocommerce-ecpay-invoice'),
-        ];
-
-        return apply_filters('woocommerce_get_sections_' . $this->id, $sections);
+        return apply_filters('woocommerce_get_sections_' . $this->id, []);
     }
 
     public function output()
@@ -28,7 +24,7 @@ class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
         global $current_section;
 
         if (empty($current_section)) {
-            $current_section = 'ry_key';
+            $current_section = 'ecpay_invoice';
         }
 
         if (apply_filters('ry_setting_section_' . $current_section, true)) {
@@ -44,7 +40,7 @@ class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
         global $current_section;
 
         if (empty($current_section)) {
-            $current_section = 'ry_key';
+            $current_section = 'ecpay_invoice';
         }
 
         if (apply_filters('ry_setting_section_' . $current_section, true)) {
@@ -62,7 +58,7 @@ class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
         $settings = [];
 
         if (empty($current_section)) {
-            $current_section = 'ry_key';
+            $current_section = 'ecpay_invoice';
         }
 
         return apply_filters('woocommerce_get_settings_' . $this->id, $settings, $current_section);
