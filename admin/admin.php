@@ -30,7 +30,7 @@ final class RY_WEI_Admin extends RY_Abstract_Admin
 
     public function add_license($license_list): array
     {
-        $license_list[] = [
+        $license_list[RY_WEI_PLUGIN_BASENAME] = [
             'name' => $this->license::$main_class::PLUGIN_NAME,
             'license' => $this->license,
             'version' => RY_WEI_VERSION,
