@@ -27,8 +27,8 @@ final class RY_WEI_update
             RY_WEI::update_option('version', '2.0.1', true);
         }
 
-        if (version_compare($now_version, '2.1.3', '<')) {
-            RY_WEI::update_option('version', '2.1.3', true);
+        if (version_compare($now_version, '2.1.4', '<')) {
+            RY_WEI::update_option('version', '2.1.4', true);
         }
     }
 }

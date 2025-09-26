@@ -41,6 +41,9 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         if ($order->get_meta('_invoice_number')) {
             return false;
         }
+        if (empty($order->get_meta('_invoice_type'))) {
+            return false;
+        }
 
         list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
 

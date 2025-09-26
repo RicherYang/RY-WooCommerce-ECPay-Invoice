@@ -80,7 +80,7 @@ class WRY_WEI_MetaBox_Invoice_Data
     <?php esc_html_e('Invoice info', 'ry-woocommerce-ecpay-invoice'); ?>
 </h3>
 
-<?php if (!empty($invoice_type)) { ?>
+<?php if (!empty($invoice_type) || !empty($invoice_number)) { ?>
 <div class="ivoice <?php echo($invoice_number ? '' : 'address'); ?>">
     <div class="ivoice_data_column">
         <p>
