@@ -90,9 +90,13 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
 
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);
         if (0 === $delay_days) {
-            WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_get_invoice', [$order_ID], '');
+            $hook = RY_WEI::OPTION_PREFIX . 'auto_get_invoice';
         } else {
-            WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_get_delay_invoice', [$order_ID], '');
+            $hook = RY_WEI::OPTION_PREFIX . 'auto_get_delay_invoice';
+        }
+
+        if (! WC()->queue()->get_next($hook, [$order_ID], 'ry-invoice')) {
+            WC()->queue()->schedule_single(time() + MINUTE_IN_SECONDS * 2, $hook, [$order_ID], 'ry-invoice');
         }
     }
 
@@ -108,9 +112,9 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
             if ('zero' == $invoice_number) {
             } elseif ('negative' == $invoice_number) {
             } elseif ('delay' == $invoice_number) {
-                WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_cancel_invoice', [$order_ID], '');
+                WC()->queue()->schedule_single(time() + MINUTE_IN_SECONDS * 2, RY_WEI::OPTION_PREFIX . 'auto_cancel_invoice', [$order_ID], 'ry-invoice');
             } else {
-                WC()->queue()->schedule_single(time() + 10, RY_WEI::OPTION_PREFIX . 'auto_invalid_invoice', [$order_ID], '');
+                WC()->queue()->schedule_single(time() + MINUTE_IN_SECONDS * 2, RY_WEI::OPTION_PREFIX . 'auto_invalid_invoice', [$order_ID], 'ry-invoice');
             }
         }
     }
@@ -128,12 +132,15 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
 
     public function add_invoice_column($columns)
     {
-        $add_index = array_search('order-total', array_keys($columns)) + 1;
-        $pre_array = array_splice($columns, 0, $add_index);
-        $array = [
-            'invoice-number' => __('Invoice number', 'ry-woocommerce-ecpay-invoice'),
-        ];
-        return array_merge($pre_array, $array, $columns);
+        if (!isset($columns['invoice-number'])) {
+            $add_columns = [
+                'invoice-number' => __('Invoice number', 'ry-woocommerce-ecpay-invoice'),
+            ];
+            $pre_idx = array_search('order-total', array_keys($columns)) + 1;
+            $pre_array = array_splice($columns, 0, $pre_idx);
+            $columns = array_merge($pre_array, $add_columns, $columns);
+        }
+        return $columns;
     }
 
     public function show_invoice_column($order)

@@ -116,8 +116,7 @@ return [
         'type' => 'text',
         'default' => '0',
         'desc' => '如設定為 <strong>0</strong> 天表示立即開立。<br>'
-            . '將於達成自動開立的條件下連結至綠界的系統，並設定延遲 N 天後<strong>自動完成</strong>開立發票的相關動作。<br>'
-            . '受限於綠界 API 的限制，於設定自動開立到發票完成開立的這段期間中，只能至綠界的管理後台進行待開立發票的取消動作。',
+            . '將於達成自動開立的條件下連結至綠界的系統，並設定延遲 N 天後<strong>自動完成</strong>開立發票的相關動作。',
     ],
     [
         'title' => __('Invalid mode', 'ry-woocommerce-ecpay-invoice'),

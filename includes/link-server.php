@@ -21,6 +21,7 @@ final class RY_WEI_LinkServer extends RY_Abstract_Link_Server
     {
         return [
             'plugin' => RY_WEI_VERSION,
+            'php' => PHP_VERSION,
             'wp' => get_bloginfo('version'),
             'wc' => WC_VERSION,
         ];

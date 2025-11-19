@@ -64,13 +64,13 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         $args = $this->build_args($data, $MerchantID);
         do_action('ry_wei_get_invoice', $args, $order);
 
-        RY_WEI_WC_Invoice::instance()->log('Issue invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
-
         if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
             $post_url = $this->api_test_url['get'];
         } else {
             $post_url = $this->api_url['get'];
         }
+
+        RY_WEI_WC_Invoice::instance()->log('Issue invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
         $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
         if (null === $result) {
@@ -206,7 +206,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             'CarrierType' => '',
             'CarrierNum' => '',
             'TaxType' => '1',
-            'SalesAmount' => round($order->get_total() - $order->get_total_refunded(), 0),
+            'SalesAmount' => (string) round($order->get_total() - $order->get_total_refunded(), 0),
             'InvoiceRemark' => '#' . $order->get_order_number(),
             'Items' => [],
             'InvType' => '07',
@@ -344,9 +344,9 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         foreach ($data['Items'] as $key => $item) {
             $data['Items'][$key]['ItemSeq'] = $key + 1;
             $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 80);
-            $data['Items'][$key]['ItemAmount'] = round($data['Items'][$key]['ItemAmount'], 0);
-            $data['Items'][$key]['ItemCount'] = round($data['Items'][$key]['ItemCount'], 3);
-            $data['Items'][$key]['ItemPrice'] = round($data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount'], 2);
+            $data['Items'][$key]['ItemAmount'] = (string) round($data['Items'][$key]['ItemAmount'], 0);
+            $data['Items'][$key]['ItemCount'] = (string) round($data['Items'][$key]['ItemCount'], 3);
+            $data['Items'][$key]['ItemPrice'] = (string) round($data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount'], 2);
             $data['Items'][$key]['ItemWord'] = __('parcel', 'ry-woocommerce-ecpay-invoice');
         }
 
