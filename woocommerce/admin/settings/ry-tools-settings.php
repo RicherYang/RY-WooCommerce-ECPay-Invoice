@@ -1,7 +1,9 @@
 <?php
 
 if (class_exists('RY_WEI_WC_Admin_Settings', false)) {
-    return new RY_WEI_WC_Admin_Settings();
+    if (!has_action('woocommerce_sections_rytools')) {
+        return new RY_WEI_WC_Admin_Settings();
+    }
 }
 
 class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
@@ -65,4 +67,6 @@ class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
     }
 }
 
-return new RY_WEI_WC_Admin_Settings();
+if (!has_action('woocommerce_sections_rytools')) {
+    return new RY_WEI_WC_Admin_Settings();
+}

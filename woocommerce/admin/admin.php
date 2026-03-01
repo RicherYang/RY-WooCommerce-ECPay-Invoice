@@ -16,9 +16,7 @@ final class RY_WEI_WC_Admin
 
     protected function do_init()
     {
-        if (!defined('RY_WT_VERSION')) {
-            add_filter('woocommerce_get_settings_pages', [$this, 'get_settings_page']);
-        }
+        add_filter('woocommerce_get_settings_pages', [$this, 'get_settings_page']);
     }
 
     public function get_settings_page($settings)

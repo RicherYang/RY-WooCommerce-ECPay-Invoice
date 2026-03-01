@@ -35,6 +35,11 @@ final class RY_WEI_WC_Admin_Setting_Invoice
             $sections['tools'] = __('Tools', 'ry-woocommerce-ecpay-invoice');
         }
 
+        $enable_list = apply_filters('enable_ry_invoice', []);
+        if (count($enable_list) > 1) {
+            WC_Admin_Settings::add_error(__('Not recommended enable two invoice plugins at the same time!', 'ry-woocommerce-ecpay-invoice'));
+        }
+
         return $sections;
     }
 
@@ -53,15 +58,6 @@ final class RY_WEI_WC_Admin_Setting_Invoice
 
     public function check_option()
     {
-        $enable_list = apply_filters('enable_ry_invoice', []);
-        if (1 == count($enable_list)) {
-            if ($enable_list != ['ecpay']) {
-                WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
-            }
-        } elseif (1 < count($enable_list)) {
-            WC_Admin_Settings::add_error(__('Not recommended enable two invoice module/plugin at the same time!', 'ry-woocommerce-ecpay-invoice'));
-        }
-
         if (!RY_WEI_WC_Invoice::instance()->is_testmode()) {
             if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
                 WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));

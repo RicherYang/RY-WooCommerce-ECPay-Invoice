@@ -233,6 +233,11 @@ final class RY_WEI_WC_Invoice_Basic
                     'name' => __('Invoice random number', 'ry-woocommerce-ecpay-invoice'),
                     'value' => $order->get_meta('_invoice_random_number'),
                 ];
+                $invoice_info[] = [
+                    'key' => 'invoice-date',
+                    'name' => __('Invoice date', 'ry-woocommerce-ecpay-invoice'),
+                    'value' => $order->get_meta('_invoice_date'),
+                ];
             }
         }
 
