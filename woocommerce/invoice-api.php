@@ -73,7 +73,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         RY_WEI_WC_Invoice::instance()->log('Issue invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
         $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
-        if (null === $result) {
+        if ($result === null) {
             return;
         }
 
@@ -154,7 +154,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         }
         $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
-        if (null === $result) {
+        if ($result === null) {
             return;
         }
 
@@ -344,9 +344,9 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         foreach ($data['Items'] as $key => $item) {
             $data['Items'][$key]['ItemSeq'] = $key + 1;
             $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 80);
-            $data['Items'][$key]['ItemAmount'] = (string) round($data['Items'][$key]['ItemAmount'], 0);
-            $data['Items'][$key]['ItemCount'] = (string) round($data['Items'][$key]['ItemCount'], 3);
-            $data['Items'][$key]['ItemPrice'] = (string) round($data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount'], 2);
+            $data['Items'][$key]['ItemCount'] = round($data['Items'][$key]['ItemCount'], 3);
+            $data['Items'][$key]['ItemPrice'] = round($data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount'], 6);
+            $data['Items'][$key]['ItemAmount'] = round($data['Items'][$key]['ItemAmount'], 0);
             $data['Items'][$key]['ItemWord'] = __('parcel', 'ry-woocommerce-ecpay-invoice');
         }
 
@@ -387,7 +387,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         }
         $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
-        if (null === $result) {
+        if ($result === null) {
             return;
         }
 
@@ -452,7 +452,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         }
         $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
-        if (null === $result) {
+        if ($result === null) {
             return;
         }
 
@@ -500,7 +500,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
         $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
-        if (null === $result) {
+        if ($result === null) {
             return false;
         }
 
@@ -527,7 +527,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
         $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
 
-        if (null === $result) {
+        if ($result === null) {
             return false;
         }
 
