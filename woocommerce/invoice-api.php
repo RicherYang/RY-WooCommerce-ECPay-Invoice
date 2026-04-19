@@ -346,7 +346,9 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 80);
             $data['Items'][$key]['ItemCount'] = round($data['Items'][$key]['ItemCount'], 3);
             $data['Items'][$key]['ItemPrice'] = round($data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount'], 6);
-            $data['Items'][$key]['ItemAmount'] = round($data['Items'][$key]['ItemAmount'], 0);
+            $data['Items'][$key]['ItemAmount'] = (string) round($data['Items'][$key]['ItemCount'] * $data['Items'][$key]['ItemPrice'], 0);
+            $data['Items'][$key]['ItemCount'] = (string) $data['Items'][$key]['ItemCount'];
+            $data['Items'][$key]['ItemPrice'] = (string) $data['Items'][$key]['ItemPrice'];
             $data['Items'][$key]['ItemWord'] = __('parcel', 'ry-woocommerce-ecpay-invoice');
         }
 
