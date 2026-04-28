@@ -4,7 +4,7 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
 {
     protected static $_instance = null;
 
-    protected $model_type = 'ecpay_invoice';
+    protected string $model_type = 'ecpay_invoice';
 
     public static function instance(): RY_WEI_WC_Invoice
     {

@@ -14,7 +14,7 @@ final class RY_WEI_WC_Admin_Ajax
         return self::$_instance;
     }
 
-    protected function do_init()
+    protected function do_init(): void
     {
         add_action('wp_ajax_RY_WEI_get', [$this, 'get_invoice']);
         add_action('wp_ajax_RY_WEI_invalid', [$this, 'invalid_invoice']);

@@ -4,7 +4,7 @@ include_once RY_WEI_PLUGIN_DIR . 'includes/ry-global/abstract-license.php';
 
 final class RY_WEI_License extends RY_Abstract_License
 {
-    public static $main_class = RY_WEI::class;
+    public static string $main_class = RY_WEI::class;
 
     protected static $_instance = null;
 

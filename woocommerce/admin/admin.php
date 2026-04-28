@@ -14,7 +14,7 @@ final class RY_WEI_WC_Admin
         return self::$_instance;
     }
 
-    protected function do_init()
+    protected function do_init(): void
     {
         add_filter('woocommerce_get_settings_pages', [$this, 'get_settings_page']);
     }

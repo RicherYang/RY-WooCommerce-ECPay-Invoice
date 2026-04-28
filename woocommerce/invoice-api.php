@@ -4,7 +4,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 {
     protected static $_instance = null;
 
-    protected $api_test_url = [
+    protected array $api_test_url = [
         'get' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/Issue',
         'getDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/DelayIssue',
         'cancelDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CancelDelayIssue',
@@ -13,7 +13,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         'checkDonate' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckLoveCode',
     ];
 
-    protected $api_url = [
+    protected array $api_url = [
         'get' => 'https://einvoice.ecpay.com.tw/B2CInvoice/Issue',
         'getDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/DelayIssue',
         'cancelDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CancelDelayIssue',

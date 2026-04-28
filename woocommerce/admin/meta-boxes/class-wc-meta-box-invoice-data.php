@@ -1,7 +1,7 @@
 <?php
 class WRY_WEI_MetaBox_Invoice_Data
 {
-    protected static $fields;
+    private static array $fields;
 
     protected static function init_fields($order)
     {

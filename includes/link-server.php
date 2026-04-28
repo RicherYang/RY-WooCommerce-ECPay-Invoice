@@ -6,7 +6,7 @@ final class RY_WEI_LinkServer extends RY_Abstract_Link_Server
 {
     protected static $_instance = null;
 
-    protected $plugin_slug = 'ry-woocommerce-ecpay-invoice';
+    protected string $plugin_slug = 'ry-woocommerce-ecpay-invoice';
 
     public static function instance(): RY_WEI_LinkServer
     {

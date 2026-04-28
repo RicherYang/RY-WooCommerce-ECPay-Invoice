@@ -16,7 +16,7 @@ final class RY_WEI_WC_Admin_Invoice
         return self::$_instance;
     }
 
-    protected function do_init()
+    protected function do_init(): void
     {
         include_once RY_WEI_PLUGIN_DIR . 'woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php';
         include_once RY_WEI_PLUGIN_DIR . 'woocommerce/admin/settings/invoice.php';

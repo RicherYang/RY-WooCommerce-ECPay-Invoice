@@ -14,7 +14,7 @@ final class RY_WEI_WC_Admin_Setting_Invoice
         return self::$_instance;
     }
 
-    protected function do_init()
+    protected function do_init(): void
     {
         add_filter('woocommerce_get_sections_rytools', [$this, 'add_sections'], 11);
         add_filter('woocommerce_get_settings_rytools', [$this, 'add_setting'], 10, 2);
