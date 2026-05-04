@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 abstract class RY_WEI_EcPay
 {
     protected const Encrypt_Method = 'aes-128-cbc';

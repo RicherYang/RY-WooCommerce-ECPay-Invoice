@@ -1,8 +1,10 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 final class RY_WEI_WC_Invoice extends RY_WEI_Model
 {
-    protected static $_instance = null;
+    protected static ?self $_instance = null;
 
     protected string $model_type = 'ecpay_invoice';
 

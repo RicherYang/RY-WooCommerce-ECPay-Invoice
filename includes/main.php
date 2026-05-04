@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 include_once RY_WEI_PLUGIN_DIR . 'includes/ry-global/abstract-basic.php';
 
 final class RY_WEI extends RY_Abstract_Basic
@@ -8,7 +10,7 @@ final class RY_WEI extends RY_Abstract_Basic
 
     public const PLUGIN_NAME = 'RY ECPay Invoice for WooCommerce';
 
-    protected static $_instance = null;
+    protected static ?self $_instance = null;
 
     public RY_WEI_Admin $admin;
 

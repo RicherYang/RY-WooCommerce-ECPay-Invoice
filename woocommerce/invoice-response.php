@@ -1,8 +1,10 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
 {
-    protected static $_instance = null;
+    protected static ?self $_instance = null;
 
     public static function instance(): RY_WEI_WC_Invoice_Response
     {

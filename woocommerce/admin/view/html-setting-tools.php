@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') or exit; ?>
+
 <h2>
     RY ECPay Invoice for WooCommerce <?php esc_html_e('Tools', 'ry-woocommerce-ecpay-invoice'); ?>
 </h2>

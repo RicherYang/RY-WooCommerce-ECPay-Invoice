@@ -1,8 +1,10 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 {
-    protected static $_instance = null;
+    protected static ?self $_instance = null;
 
     protected array $api_test_url = [
         'get' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/Issue',

@@ -1,4 +1,7 @@
 <?php
+
+defined('ABSPATH') or exit;
+
 class WRY_WEI_MetaBox_Invoice_Data
 {
     private static array $fields;

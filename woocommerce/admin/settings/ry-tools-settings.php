@@ -1,12 +1,14 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 if (class_exists('RY_WEI_WC_Admin_Settings', false)) {
     if (!has_action('woocommerce_sections_rytools')) {
         return new RY_WEI_WC_Admin_Settings();
     }
 }
 
-class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
+final class RY_WEI_WC_Admin_Settings extends WC_Settings_Page
 {
     public function __construct()
     {
