@@ -51,7 +51,7 @@ msgstr "發票資訊"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:13
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:102
 #: woocommerce/invoice-basic.php:35
-#: woocommerce/invoice-basic.php:248
+#: woocommerce/invoice-basic.php:264
 msgid "Invoice type"
 msgstr "發票類型"
 
@@ -118,21 +118,21 @@ msgstr "手機條碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:36
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:107
 #: woocommerce/invoice-basic.php:59
-#: woocommerce/invoice-basic.php:258
+#: woocommerce/invoice-basic.php:274
 msgid "Carruer number"
 msgstr "載具編號"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:41
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:112
 #: woocommerce/invoice-basic.php:64
-#: woocommerce/invoice-basic.php:265
+#: woocommerce/invoice-basic.php:281
 msgid "Tax ID number"
 msgstr "統一編號"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:46
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:116
 #: woocommerce/invoice-basic.php:69
-#: woocommerce/invoice-basic.php:271
+#: woocommerce/invoice-basic.php:287
 msgid "Donate number"
 msgstr "捐贈愛心碼"
 
@@ -143,7 +143,7 @@ msgstr "捐贈愛心碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:95
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:97
 #: woocommerce/invoice-api.php:93
-#: woocommerce/invoice-basic.php:230
+#: woocommerce/invoice-basic.php:246
 #: woocommerce/invoice-response.php:70
 #: woocommerce/invoice.php:139
 msgid "Invoice number"
@@ -152,14 +152,14 @@ msgstr "發票號碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:63
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:98
 #: woocommerce/invoice-api.php:94
-#: woocommerce/invoice-basic.php:235
+#: woocommerce/invoice-basic.php:251
 #: woocommerce/invoice-response.php:71
 msgid "Invoice random number"
 msgstr "發票隨機碼"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:69
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:99
-#: woocommerce/invoice-basic.php:240
+#: woocommerce/invoice-basic.php:256
 msgid "Invoice date"
 msgstr "發票開立時間"
 
@@ -218,13 +218,13 @@ msgstr "資料刪除"
 
 #: woocommerce/invoice-api.php:56
 #: woocommerce/invoice-api.php:130
-#: woocommerce/invoice-basic.php:218
+#: woocommerce/invoice-basic.php:234
 msgid "Zero total fee without invoice"
 msgstr "總額零元不開立發票"
 
 #: woocommerce/invoice-api.php:62
 #: woocommerce/invoice-api.php:136
-#: woocommerce/invoice-basic.php:224
+#: woocommerce/invoice-basic.php:240
 msgid "Negative total fee can't invoice"
 msgstr "總額負數不開立發票"
 
@@ -284,12 +284,12 @@ msgstr "公司名稱"
 msgid "Invalid carruer number"
 msgstr "無效的載具編號"
 
-#: woocommerce/invoice-basic.php:176
+#: woocommerce/invoice-basic.php:192
 msgid "Invalid tax ID number"
 msgstr "無效的統一編號"
 
-#: woocommerce/invoice-basic.php:182
-#: woocommerce/invoice-basic.php:185
+#: woocommerce/invoice-basic.php:198
+#: woocommerce/invoice-basic.php:201
 msgid "Invalid donate number"
 msgstr "無效的愛心碼"
 
