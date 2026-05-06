@@ -39,7 +39,7 @@ abstract class RY_WEI_EcPay
         );
     }
 
-    protected function link_server($post_url, $args, $HashKey, $HashIV)
+    protected function link_server(string $url, array $args, string $HashKey, string $HashIV, int $timeout = 30)
     {
         wc_set_time_limit(40);
 
@@ -47,8 +47,8 @@ abstract class RY_WEI_EcPay
 
         $args['Data'] = openssl_encrypt($args['Data'], self::Encrypt_Method, $HashKey, 0, $HashIV);
 
-        $response = wp_remote_post($post_url, [
-            'timeout' => 20,
+        $response = wp_remote_post($url, [
+            'timeout' => $timeout,
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
@@ -62,14 +62,14 @@ abstract class RY_WEI_EcPay
         }
 
         if (wp_remote_retrieve_response_code($response) != '200') {
-            RY_WEI_WC_Invoice::instance()->log('Link HTTP status error', WC_Log_Levels::ERROR, ['info' => $response->get_error_messages()]);
+            RY_WEI_WC_Invoice::instance()->log('Link HTTP status error', WC_Log_Levels::ERROR, ['info' => 'HTTP status ' . wp_remote_retrieve_response_code($response)]);
             return;
         }
 
-        $result = @json_decode($response['body']);
+        $result = @json_decode(wp_remote_retrieve_body($response));
 
         if (!is_object($result)) {
-            RY_WEI_WC_Invoice::instance()->log('Link response parse failed', WC_Log_Levels::ERROR, ['info' => $response->get_error_messages()]);
+            RY_WEI_WC_Invoice::instance()->log('Link response parse failed', WC_Log_Levels::ERROR, ['info' => 'Response body: ' . wp_remote_retrieve_body($response)]);
             return;
         }
 

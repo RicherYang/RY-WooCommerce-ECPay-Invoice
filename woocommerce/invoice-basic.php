@@ -172,7 +172,23 @@ final class RY_WEI_WC_Invoice_Basic
 
             // 統一編號
         } elseif ('company' == $data['invoice_type']) {
-            if (!preg_match('/^[0-9]{8}$/', $data['invoice_no'])) {
+            $valid = preg_match('/^[0-9]{8}$/', $data['invoice_no']);
+            if ($valid) {
+                $sum = 0;
+                $weights = [1, 2, 1, 2, 1, 2, 4, 1];
+                for ($i = 0; $i < 8; ++$i) {
+                    $product = ((int) $data['invoice_no'][$i]) * $weights[$i];
+                    $sum += intdiv($product, 10) + ($product % 10);
+                }
+                if ($sum % 5 === 0) {
+                    $valid = true;
+                } elseif ($data['invoice_no'][6] === '7' && ($sum - 9) % 5 === 0) {
+                    $valid = true;
+                } else {
+                    $valid = false;
+                }
+            }
+            if (!$valid) {
                 $errors->add('validation', __('Invalid tax ID number', 'ry-woocommerce-ecpay-invoice'));
             }
 

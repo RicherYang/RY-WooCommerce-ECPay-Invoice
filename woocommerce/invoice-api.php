@@ -502,10 +502,10 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             $post_url = $this->api_url['checkMobile'];
         }
 
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV, 3);
 
         if ($result === null) {
-            return false;
+            return true;
         }
 
         return $this->get_no_check_status($result);
@@ -529,10 +529,10 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             $post_url = $this->api_url['checkDonate'];
         }
 
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $HashKey, $HashIV, 3);
 
         if ($result === null) {
-            return false;
+            return true;
         }
 
         return $this->get_no_check_status($result);
@@ -548,6 +548,6 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             return true;
         }
 
-        return false;
+        return true;
     }
 }
