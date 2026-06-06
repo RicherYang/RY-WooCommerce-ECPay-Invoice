@@ -4,7 +4,7 @@ defined('ABSPATH') or exit;
 
 abstract class RY_WEI_EcPay
 {
-    protected const Encrypt_Method = 'aes-128-cbc';
+    protected const ENCRYPT_METHOD = 'aes-128-cbc';
 
     protected function generate_trade_no($order_ID, $order_prefix = '')
     {
@@ -45,7 +45,7 @@ abstract class RY_WEI_EcPay
 
         $args['Data'] = $this->urlencode($args['Data']);
 
-        $args['Data'] = openssl_encrypt($args['Data'], self::Encrypt_Method, $HashKey, 0, $HashIV);
+        $args['Data'] = openssl_encrypt($args['Data'], self::ENCRYPT_METHOD, $HashKey, 0, $HashIV);
 
         $response = wp_remote_post($url, [
             'timeout' => $timeout,
@@ -78,7 +78,7 @@ abstract class RY_WEI_EcPay
             return;
         }
 
-        $result->Data = openssl_decrypt($result->Data, self::Encrypt_Method, $HashKey, 0, $HashIV);
+        $result->Data = openssl_decrypt($result->Data, self::ENCRYPT_METHOD, $HashKey, 0, $HashIV);
         $result->Data = urldecode($result->Data);
         $result->Data = @json_decode($result->Data);
 
