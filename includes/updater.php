@@ -29,14 +29,7 @@ final class RY_WEI_Updater
             return $update;
         }
 
-        $update = RY_WEI_LinkServer::instance()->check_version();
-        if (is_array($update)) {
-            $update['id'] = 'https://ry-plugin.com/ry-woocommerce-ecpay-invoice';
-            $update['url'] = 'https://ry-plugin.com/ry-woocommerce-ecpay-invoice';
-            $update['slug'] = 'ry-woocommerce-ecpay-invoice';
-        }
-
-        return $update;
+        return RY_WEI_LinkServer::instance()->check_version();
     }
 
     public static function modify_plugin_details($result, $action, $args)
