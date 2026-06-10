@@ -84,19 +84,19 @@ final class RY_WEI_WC_Admin_Setting_Invoice
 
         $hide_save_button = true;
 
-        if ('ecpay_official_invoice_transfer' === ($_POST['ecpay_official_invoice_transfer'] ?? '')) { // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.MissingUnslash , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        if ('ecpay_official_invoice_transfer' === ($_POST['ecpay_official_invoice_transfer'] ?? '')) {
             $this->official_invoice_transfer();
 
             echo '<div class="updated inline"><p>' . esc_html__('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
-        if ('ecpay_official_invoice_transfer_delete' === ($_POST['ecpay_official_invoice_transfer_delete'] ?? '')) { // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.MissingUnslash , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        if ('ecpay_official_invoice_transfer_delete' === ($_POST['ecpay_official_invoice_transfer_delete'] ?? '')) {
             $this->official_invoice_transfer_delete();
 
             echo '<div class="updated inline"><p>' . esc_html__('Data transfer complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
         }
 
-        if ('ecpay_official_invoice_delete' === ($_POST['ecpay_official_invoice_delete'] ?? '')) { // phpcs:ignore WordPress.Security.NonceVerification.Missing , WordPress.Security.ValidatedSanitizedInput.MissingUnslash , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        if ('ecpay_official_invoice_delete' === ($_POST['ecpay_official_invoice_delete'] ?? '')) {
             $this->official_invoice_delete();
 
             echo '<div class="updated inline"><p>' . esc_html__('Data delete complated.', 'ry-woocommerce-ecpay-invoice') . '</p></div>';
@@ -109,40 +109,36 @@ final class RY_WEI_WC_Admin_Setting_Invoice
     {
         global $wpdb;
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_type', 'personal' FROM $wpdb->postmeta WHERE meta_key = '_billing_invoice_type' AND meta_value = 'p'");
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_type', 'company' FROM $wpdb->postmeta WHERE meta_key = '_billing_invoice_type' AND meta_value = 'c'");
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_type', 'donate' FROM $wpdb->postmeta WHERE meta_key = '_billing_invoice_type' AND meta_value = 'd'");
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'none' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '0'");
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'ecpay_host' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '1'");
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'MOICA' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '2'");
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_type', 'phone_barcode' FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_type' AND meta_value = '3'");
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_carruer_no', meta_value FROM $wpdb->postmeta WHERE meta_key = '_billing_carruer_num'");
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_no', meta_value FROM $wpdb->postmeta WHERE meta_key = '_billing_customer_identifier'");
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_donate_no', meta_value FROM $wpdb->postmeta WHERE meta_key = '_billing_love_code'");
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query("INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
             SELECT post_id, '_invoice_number', meta_value FROM $wpdb->postmeta WHERE `meta_key` = '_ecpay_invoice_number' and `meta_value` != ''
                 and post_id in (SELECT post_id FROM $wpdb->postmeta WHERE `meta_key` = '_ecpay_invoice_status' and `meta_value` = '1')");
@@ -161,21 +157,20 @@ final class RY_WEI_WC_Admin_Setting_Invoice
             '_ecpay_invoice_number' => '_invoice_number',
         ];
         foreach ($key_transfer as $from => $to) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
             $wpdb->update($wpdb->postmeta, [
-                'meta_key' => $to, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+                'meta_key' => $to,
             ], [
-                'meta_key' => $from, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+                'meta_key' => $from,
             ]);
         }
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->delete($wpdb->postmeta, [
-            'meta_key' => '_ecpay_invoice_status', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+            'meta_key' => '_ecpay_invoice_status',
         ]);
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
+
         $wpdb->delete($wpdb->postmeta, [
-            'meta_key' => '_invoice_number', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-            'meta_value' => '', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+            'meta_key' => '_invoice_number',
+            'meta_value' => '',
         ]);
 
         $type_transfer = [
@@ -184,12 +179,11 @@ final class RY_WEI_WC_Admin_Setting_Invoice
             'd' => 'donate',
         ];
         foreach ($type_transfer as $from => $to) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
             $wpdb->update($wpdb->postmeta, [
-                'meta_value' => $to, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+                'meta_value' => $to,
             ], [
-                'meta_key' => '_invoice_type', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-                'meta_value' => $from, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+                'meta_key' => '_invoice_type',
+                'meta_value' => $from,
             ]);
         }
 
@@ -200,12 +194,11 @@ final class RY_WEI_WC_Admin_Setting_Invoice
             '3' => 'phone_barcode',
         ];
         foreach ($carruer_type_transfer as $from => $to) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
             $wpdb->update($wpdb->postmeta, [
-                'meta_value' => $to, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+                'meta_value' => $to,
             ], [
-                'meta_key' => '_invoice_carruer_type', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-                'meta_value' => $from, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+                'meta_key' => '_invoice_carruer_type',
+                'meta_value' => $from,
             ]);
         }
     }
@@ -224,9 +217,8 @@ final class RY_WEI_WC_Admin_Setting_Invoice
             '_ecpay_invoice_status',
         ];
         foreach ($keys as $key) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching
             $wpdb->delete($wpdb->postmeta, [
-                'meta_key' => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+                'meta_key' => $key,
             ]);
         }
     }

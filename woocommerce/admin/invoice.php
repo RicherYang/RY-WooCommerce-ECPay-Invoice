@@ -32,7 +32,7 @@ final class RY_WEI_WC_Admin_Invoice
 
         add_action('admin_notices', [$this, 'bulk_action_notices']);
         if (class_exists('Automattic\WooCommerce\Utilities\OrderUtil') && OrderUtil::custom_orders_table_usage_is_enabled()) {
-            if ('edit' !== ($_GET['action'] ?? '')) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended , WordPress.Security.ValidatedSanitizedInput.MissingUnslash , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            if ('edit' !== ($_GET['action'] ?? '')) {
                 add_filter('manage_woocommerce_page_wc-orders_columns', [$this, 'add_invoice_column'], 11);
                 add_action('manage_woocommerce_page_wc-orders_custom_column', [$this, 'show_invoice_column'], 11, 2);
 
@@ -83,23 +83,23 @@ final class RY_WEI_WC_Admin_Invoice
     public function save_order_update($order_ID)
     {
         if ($order = wc_get_order($order_ID)) {
-            if (isset($_POST['_invoice_type'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            if (isset($_POST['_invoice_type'])) {
                 remove_action('woocommerce_update_order', [$this, 'save_order_update']);
-                $order->update_meta_data('_invoice_type', sanitize_locale_name($_POST['_invoice_type'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                $order->update_meta_data('_invoice_carruer_type', sanitize_locale_name($_POST['_invoice_carruer_type'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                $order->update_meta_data('_invoice_carruer_no', strtoupper(sanitize_text_field(wp_unslash($_POST['_invoice_carruer_no'] ?? '')))); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                $order->update_meta_data('_invoice_no', sanitize_key($_POST['_invoice_no'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                $order->update_meta_data('_invoice_donate_no', sanitize_key($_POST['_invoice_donate_no'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $order->update_meta_data('_invoice_type', sanitize_locale_name($_POST['_invoice_type'] ?? ''));
+                $order->update_meta_data('_invoice_carruer_type', sanitize_locale_name($_POST['_invoice_carruer_type'] ?? ''));
+                $order->update_meta_data('_invoice_carruer_no', strtoupper(sanitize_text_field(wp_unslash($_POST['_invoice_carruer_no'] ?? ''))));
+                $order->update_meta_data('_invoice_no', sanitize_key($_POST['_invoice_no'] ?? ''));
+                $order->update_meta_data('_invoice_donate_no', sanitize_key($_POST['_invoice_donate_no'] ?? ''));
 
-                $invoice_number = strtoupper(sanitize_locale_name($_POST['_invoice_number'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $invoice_number = strtoupper(sanitize_locale_name($_POST['_invoice_number'] ?? ''));
                 if (!empty($invoice_number)) {
                     $order->update_meta_data('_invoice_number', $invoice_number);
-                    $order->update_meta_data('_invoice_random_number', sanitize_key($_POST['_invoice_random_number'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                    $order->update_meta_data('_invoice_random_number', sanitize_key($_POST['_invoice_random_number'] ?? ''));
 
-                    $date = sanitize_key($_POST['_invoice_date'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                    $hour = intval($_POST['_invoice_date_hour'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                    $minute = intval($_POST['_invoice_date_minute'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                    $second = intval($_POST['_invoice_date_second'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                    $date = sanitize_key($_POST['_invoice_date'] ?? '');
+                    $hour = intval($_POST['_invoice_date_hour'] ?? '');
+                    $minute = intval($_POST['_invoice_date_minute'] ?? '');
+                    $second = intval($_POST['_invoice_date_second'] ?? '');
                     $date = gmdate('Y-m-d H:i:s', strtotime($date . ' ' . $hour . ':' . $minute . ':' . $second));
                     $order->update_meta_data('_invoice_date', $date);
                 }
@@ -111,10 +111,10 @@ final class RY_WEI_WC_Admin_Invoice
 
     public function bulk_action_notices()
     {
-        $bulk_action = wp_unslash($_GET['bulk_action'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Recommended , WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $bulk_action = wp_unslash($_GET['bulk_action'] ?? '');
 
         if ('ry_get_invoice' === $bulk_action) {
-            $number = intval($_GET['ry_geted'] ?? ''); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $number = intval($_GET['ry_geted'] ?? '');
 
             /* translators: %s: count */
             $message = sprintf(_n('%s order issue invoice.', '%s orders issue invoice.', $number, 'ry-woocommerce-ecpay-invoice'), number_format_i18n($number));

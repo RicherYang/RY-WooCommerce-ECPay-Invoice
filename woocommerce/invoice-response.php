@@ -25,8 +25,8 @@ class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
 
     public function check_callback()
     {
-        if (!empty($_POST)) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            $ipn_info = wp_unslash($_POST); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if (is_array($_POST) && !empty($_POST)) {
+            $ipn_info = wp_unslash($_POST);
             if ($this->ipn_request_is_valid($ipn_info)) {
                 do_action('valid_wei_callback_request', $ipn_info);
             } else {
@@ -37,7 +37,7 @@ class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
         }
     }
 
-    protected function ipn_request_is_valid($ipn_info)
+    protected function ipn_request_is_valid(array $ipn_info): bool
     {
         if (isset($ipn_info['inv_mer_id'])) {
             RY_WEI_WC_Invoice::instance()->log('IPN request', WC_Log_Levels::INFO, ['data' => $ipn_info]);
@@ -49,6 +49,7 @@ class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
                 RY_WT_WC_ECPay_Gateway::instance()->log('IPN request check failed', WC_Log_Levels::ERROR, []);
             }
         }
+
         return false;
     }
 

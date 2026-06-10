@@ -19,7 +19,7 @@ abstract class RY_WEI_EcPay
         $args = [
             'MerchantID' => $MerchantID,
             'RqHeader' => [
-                'Timestamp' => new DateTime('', new DateTimeZone('Asia/Taipei')),
+                'Timestamp' => new DateTime('now', new DateTimeZone('Asia/Taipei')),
                 'RqID' => wc_rand_hash(),
                 'Revision' => '3.0.0',
             ],
