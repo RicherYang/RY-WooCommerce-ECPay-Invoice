@@ -47,9 +47,9 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
+        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
 
-        $data = $this->make_get_data($order, $MerchantID);
+        $data = $this->make_get_data($order, $api_info['MerchantID']);
         if ($data['SalesAmount'] == 0) {
             $order->update_meta_data('_invoice_number', 'zero');
             $order->save();
@@ -63,7 +63,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             return;
         }
 
-        $args = $this->build_args($data, $MerchantID);
+        $args = $this->build_args($data, $api_info['MerchantID']);
         do_action('ry_wei_get_invoice', $args, $order);
 
         if (RY_WEI_WC_Invoice::instance()->is_testmode()) {
@@ -73,7 +73,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         }
 
         RY_WEI_WC_Invoice::instance()->log('Issue invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV']);
 
         if ($result === null) {
             return;
@@ -121,9 +121,9 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
+        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
 
-        $data = $this->make_get_data($order, $MerchantID);
+        $data = $this->make_get_data($order, $api_info['MerchantID']);
         if ($data['SalesAmount'] == 0) {
             $order->update_meta_data('_invoice_number', 'zero');
             $order->save();
@@ -144,7 +144,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         $data['PayAct'] = 'ECPAY';
         $data['NotifyURL'] = WC()->api_request_url('ry_wei_delay_callback', true);
 
-        $args = $this->build_args($data, $MerchantID);
+        $args = $this->build_args($data, $api_info['MerchantID']);
         do_action('ry_wei_get_invoice', $args, $order);
 
         RY_WEI_WC_Invoice::instance()->log('Issue delay invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
@@ -154,7 +154,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         } else {
             $post_url = $this->api_url['getDelay'];
         }
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV']);
 
         if ($result === null) {
             return;
@@ -373,13 +373,13 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
+        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
         $data = [
-            'MerchantID' => $MerchantID,
+            'MerchantID' => $api_info['MerchantID'],
             'Tsr' => $ecpay_RelateNumber,
         ];
 
-        $args = $this->build_args($data, $MerchantID);
+        $args = $this->build_args($data, $api_info['MerchantID']);
         do_action('ry_wei_cancel_delay_invoice', $args, $order);
 
         RY_WEI_WC_Invoice::instance()->log('Invalid delay invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
@@ -389,7 +389,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         } else {
             $post_url = $this->api_url['cancelDelay'];
         }
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV']);
 
         if ($result === null) {
             return;
@@ -436,15 +436,15 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             return false;
         }
 
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
+        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
         $data = [
-            'MerchantID' => $MerchantID,
+            'MerchantID' => $api_info['MerchantID'],
             'InvoiceNo' => $invoice_number,
             'InvoiceDate' => $order->get_meta('_invoice_date'),
             'Reason' => __('Order cancel', 'ry-woocommerce-ecpay-invoice'),
         ];
 
-        $args = $this->build_args($data, $MerchantID);
+        $args = $this->build_args($data, $api_info['MerchantID']);
         do_action('ry_wei_invalid_invoice', $args, $order);
 
         RY_WEI_WC_Invoice::instance()->log('Invalid invoice for #' . $order->get_id(), WC_Log_Levels::INFO, ['data' => $args]);
@@ -454,7 +454,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         } else {
             $post_url = $this->api_url['invalid'];
         }
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV);
+        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV']);
 
         if ($result === null) {
             return;
@@ -486,13 +486,13 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
     public function check_mobile_code($code)
     {
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
+        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
 
         $data = [
-            'MerchantID' => $MerchantID,
+            'MerchantID' => $api_info['MerchantID'],
             'BarCode' => $code,
         ];
-        $args = $this->build_args($data, $MerchantID);
+        $args = $this->build_args($data, $api_info['MerchantID']);
 
         RY_WEI_WC_Invoice::instance()->log('Check mobile', WC_Log_Levels::INFO, ['data' => $args]);
 
@@ -502,7 +502,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             $post_url = $this->api_url['checkMobile'];
         }
 
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV, 3);
+        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV'], 3);
 
         if ($result === null) {
             return true;
@@ -513,13 +513,13 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
 
     public function check_donate_no($code)
     {
-        list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
+        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
 
         $data = [
-            'MerchantID' => $MerchantID,
+            'MerchantID' => $api_info['MerchantID'],
             'LoveCode' => $code,
         ];
-        $args = $this->build_args($data, $MerchantID);
+        $args = $this->build_args($data, $api_info['MerchantID']);
 
         RY_WEI_WC_Invoice::instance()->log('Check donate', WC_Log_Levels::INFO, ['data' => $args]);
 
@@ -529,7 +529,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             $post_url = $this->api_url['checkDonate'];
         }
 
-        $result = $this->link_server($post_url, $args, $HashKey, $HashIV, 3);
+        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV'], 3);
 
         if ($result === null) {
             return true;

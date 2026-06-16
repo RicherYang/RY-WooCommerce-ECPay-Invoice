@@ -90,33 +90,6 @@ abstract class RY_WEI_EcPay
         return $result->Data;
     }
 
-    protected function generate_check_value($args, $HashKey, $HashIV, $hash_algo, $skip_args = [])
-    {
-        $skip_args[] = 'CheckMacValue';
-        foreach ($skip_args as $key) {
-            unset($args[$key]);
-        }
-
-        ksort($args, SORT_STRING | SORT_FLAG_CASE);
-
-        $args_string = [];
-        $args_string[] = 'HashKey=' . $HashKey;
-        foreach ($args as $key => $value) {
-            $args_string[] = $key . '=' . $value;
-        }
-        $args_string[] = 'HashIV=' . $HashIV;
-
-        $args_string = $this->urlencode(implode('&', $args_string));
-        $check_value = hash($hash_algo, strtolower($args_string));
-        return strtoupper($check_value);
-    }
-
-    protected function add_check_value($args, $HashKey, $HashIV, $hash_algo, $skip_args = [])
-    {
-        $args['CheckMacValue'] = $this->generate_check_value($args, $HashKey, $HashIV, $hash_algo, $skip_args);
-        return $args;
-    }
-
     protected function get_order_id($ipn_info, $order_prefix = '')
     {
         if (isset($ipn_info['od_sob'])) {
