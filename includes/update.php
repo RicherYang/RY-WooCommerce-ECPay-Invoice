@@ -58,6 +58,7 @@ final class RY_WEI_update
             }
             RY_WEI::delete_option('invoice_log');
             RY_WEI::delete_option('ecpay_testmode');
+            RY_WEI::delete_option('check_number_with_api');
 
             RY_WEI::update_option('version', '2.2.6', true);
         }

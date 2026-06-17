@@ -11,8 +11,6 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         'getDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/DelayIssue',
         'cancelDelay' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CancelDelayIssue',
         'invalid' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/Invalid',
-        'checkMobile' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckBarcode',
-        'checkDonate' => 'https://einvoice-stage.ecpay.com.tw/B2CInvoice/CheckLoveCode',
     ];
 
     protected array $api_url = [
@@ -20,8 +18,6 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         'getDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/DelayIssue',
         'cancelDelay' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CancelDelayIssue',
         'invalid' => 'https://einvoice.ecpay.com.tw/B2CInvoice/Invalid',
-        'checkMobile' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CheckBarcode',
-        'checkDonate' => 'https://einvoice.ecpay.com.tw/B2CInvoice/CheckLoveCode',
     ];
 
     public static function instance(): RY_WEI_WC_Invoice_Api
@@ -481,72 +477,5 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         $order->save();
 
         do_action('ry_wei_invalid_invoice_response', $result, $order);
-    }
-
-    public function check_mobile_code($code)
-    {
-        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
-
-        $data = [
-            'MerchantID' => $api_info['MerchantID'],
-            'BarCode' => $code,
-        ];
-        $args = $this->build_args($data, $api_info['MerchantID']);
-
-        RY_WEI_WC_Invoice::instance()->log('Check mobile', WC_Log_Levels::INFO, ['data' => $args]);
-
-        if ($api_info['testmode']) {
-            $post_url = $this->api_test_url['checkMobile'];
-        } else {
-            $post_url = $this->api_url['checkMobile'];
-        }
-
-        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV'], 3);
-
-        if ($result === null) {
-            return true;
-        }
-
-        return $this->get_no_check_status($result);
-    }
-
-    public function check_donate_no($code)
-    {
-        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
-
-        $data = [
-            'MerchantID' => $api_info['MerchantID'],
-            'LoveCode' => $code,
-        ];
-        $args = $this->build_args($data, $api_info['MerchantID']);
-
-        RY_WEI_WC_Invoice::instance()->log('Check donate', WC_Log_Levels::INFO, ['data' => $args]);
-
-        if ($api_info['testmode']) {
-            $post_url = $this->api_test_url['checkDonate'];
-        } else {
-            $post_url = $this->api_url['checkDonate'];
-        }
-
-        $result = $this->link_server($post_url, $args, $api_info['HashKey'], $api_info['HashIV'], 3);
-
-        if ($result === null) {
-            return true;
-        }
-
-        return $this->get_no_check_status($result);
-    }
-
-    protected function get_no_check_status($result)
-    {
-        if (1 == $result->RtnCode) {
-            return 'Y' == $result->IsExist;
-        }
-
-        if (9000001 == $result->RtnCode) {
-            return true;
-        }
-
-        return true;
     }
 }

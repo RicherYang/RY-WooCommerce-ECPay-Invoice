@@ -78,13 +78,6 @@ return [
         'autoload' => false,
     ],
     [
-        'title' => __('Check number with api', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::OPTION_PREFIX . 'check_number_with_api',
-        'type' => 'checkbox',
-        'default' => 'yes',
-        'desc' => __('Use ECPay API to check the carruer number or donate number is right. (Default is correct)', 'ry-woocommerce-ecpay-invoice'),
-    ],
-    [
         'title' => __('User SKU as product name', 'ry-woocommerce-ecpay-invoice'),
         'id' => RY_WEI::OPTION_PREFIX . 'apiinfo[use_sku]',
         'type' => 'checkbox',
