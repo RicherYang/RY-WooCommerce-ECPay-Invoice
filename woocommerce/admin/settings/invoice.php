@@ -60,15 +60,13 @@ final class RY_WEI_WC_Admin_Setting_Invoice
 
     public function check_option()
     {
-        if (!RY_WEI_WC_Invoice::instance()->is_testmode()) {
-            if (empty(RY_WEI::get_option('ecpay_MerchantID')) || empty(RY_WEI::get_option('ecpay_HashKey')) || empty(RY_WEI::get_option('ecpay_HashIV'))) {
-                WC_Admin_Settings::add_error(__('ECPay invoice method failed to enable!', 'ry-woocommerce-ecpay-invoice'));
+        $api_info = RY_WEI::get_option('apiinfo', []);
+        if (is_array($api_info) && isset($api_info['prefix'])) {
+            if (!preg_match('/^[a-z0-9]*$/i', $api_info['prefix'])) {
+                WC_Admin_Settings::add_error(__('Order no prefix only letters and numbers allowed', 'ry-woocommerce-ecpay-invoice'));
+                $api_info['prefix'] = '';
+                RY_WEI::update_option('apiinfo', $api_info, false);
             }
-        }
-
-        if (!preg_match('/^[a-z0-9]*$/i', RY_WEI::get_option('order_prefix', ''))) {
-            WC_Admin_Settings::add_error(__('Order no prefix only letters and numbers allowed', 'ry-woocommerce-ecpay-invoice'));
-            RY_WEI::update_option('order_prefix', '');
         }
 
         $delay_days = (int) RY_WEI::get_option('get_delay_days', 0);

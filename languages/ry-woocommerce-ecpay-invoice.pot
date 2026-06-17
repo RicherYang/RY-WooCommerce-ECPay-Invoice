@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: RY ECPay Invoice for WooCommerce 2.2.5\n"
+"Project-Id-Version: RY ECPay Invoice for WooCommerce 2.2.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ry-woocommerce-ecpay-invoice\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-06T12:21:56+08:00\n"
+"POT-Creation-Date: 2026-06-17T15:06:31+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ry-woocommerce-ecpay-invoice\n"
@@ -127,7 +127,7 @@ msgstr[1] ""
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:97
 #: woocommerce/invoice-api.php:93
 #: woocommerce/invoice-basic.php:246
-#: woocommerce/invoice-response.php:70
+#: woocommerce/invoice-response.php:71
 #: woocommerce/invoice.php:139
 msgid "Invoice number"
 msgstr ""
@@ -190,7 +190,7 @@ msgstr ""
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:98
 #: woocommerce/invoice-api.php:94
 #: woocommerce/invoice-basic.php:251
-#: woocommerce/invoice-response.php:71
+#: woocommerce/invoice-response.php:72
 msgid "Invoice random number"
 msgstr ""
 
@@ -205,7 +205,7 @@ msgid "Cancel invoice"
 msgstr ""
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:129
-#: woocommerce/invoice-api.php:474
+#: woocommerce/invoice-api.php:473
 msgid "Invalid invoice"
 msgstr ""
 
@@ -239,24 +239,20 @@ msgstr ""
 msgid "Required PHP function `openssl_encrypt` and `openssl_decrypt`."
 msgstr ""
 
-#: woocommerce/admin/settings/invoice.php:65
-msgid "ECPay invoice method failed to enable!"
-msgstr ""
-
-#: woocommerce/admin/settings/invoice.php:70
+#: woocommerce/admin/settings/invoice.php:66
 msgid "Order no prefix only letters and numbers allowed"
 msgstr ""
 
-#: woocommerce/admin/settings/invoice.php:76
+#: woocommerce/admin/settings/invoice.php:74
 msgid "Delay day only can between 1 and 15 days."
 msgstr ""
 
-#: woocommerce/admin/settings/invoice.php:90
-#: woocommerce/admin/settings/invoice.php:96
+#: woocommerce/admin/settings/invoice.php:88
+#: woocommerce/admin/settings/invoice.php:94
 msgid "Data transfer complated."
 msgstr ""
 
-#: woocommerce/admin/settings/invoice.php:102
+#: woocommerce/admin/settings/invoice.php:100
 msgid "Data delete complated."
 msgstr ""
 
@@ -294,172 +290,172 @@ msgstr ""
 msgid "The prefix string of order no. Only letters and numbers allowed."
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:39
+#: woocommerce/admin/settings/settings-invoice.php:40
 msgid "Show invoice number"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:43
+#: woocommerce/admin/settings/settings-invoice.php:44
 msgid "Show invoice number in Frontend order list"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:46
+#: woocommerce/admin/settings/settings-invoice.php:47
 msgid "Move billing company"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:50
+#: woocommerce/admin/settings/settings-invoice.php:51
 msgid "Move billing company to invoice area"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:57
+#: woocommerce/admin/settings/settings-invoice.php:58
 msgid "Invoice options"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:62
+#: woocommerce/admin/settings/settings-invoice.php:63
 msgid "Support paper type (B2C)"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:66
+#: woocommerce/admin/settings/settings-invoice.php:67
 msgid "You need print invoice and seed to orderer."
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:69
+#: woocommerce/admin/settings/settings-invoice.php:70
 msgid "Company invoice carruer mode (B2B2C)"
-msgstr ""
-
-#: woocommerce/admin/settings/settings-invoice.php:74
-msgctxt "company mode"
-msgid "Cloud host (ecpay carruer)"
 msgstr ""
 
 #: woocommerce/admin/settings/settings-invoice.php:75
 msgctxt "company mode"
+msgid "Cloud host (ecpay carruer)"
+msgstr ""
+
+#: woocommerce/admin/settings/settings-invoice.php:76
+msgctxt "company mode"
 msgid "Print"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:79
+#: woocommerce/admin/settings/settings-invoice.php:81
 msgid "Check number with api"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:83
+#: woocommerce/admin/settings/settings-invoice.php:85
 msgid "Use ECPay API to check the carruer number or donate number is right. (Default is correct)"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:86
+#: woocommerce/admin/settings/settings-invoice.php:88
 msgid "User SKU as product name"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:90
+#: woocommerce/admin/settings/settings-invoice.php:92
 msgid "If product no SKU, back to use product name"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:93
+#: woocommerce/admin/settings/settings-invoice.php:96
 msgid "Get mode"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:98
+#: woocommerce/admin/settings/settings-invoice.php:101
 msgctxt "get mode"
 msgid "Manual"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:99
+#: woocommerce/admin/settings/settings-invoice.php:102
 msgctxt "get mode"
 msgid "Auto ( when order paid )"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:100
+#: woocommerce/admin/settings/settings-invoice.php:103
 msgctxt "get mode"
 msgid "Auto ( when order completed )"
 msgstr ""
 
 #. translators: %s: paid status
-#: woocommerce/admin/settings/settings-invoice.php:104
+#: woocommerce/admin/settings/settings-invoice.php:107
 #, php-format
 msgid "Order paid status: %s"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:109
+#: woocommerce/admin/settings/settings-invoice.php:112
 msgid "Skip foreign orders"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:113
+#: woocommerce/admin/settings/settings-invoice.php:116
 msgid "Disable auto get invoice for order billing country and shipping country are not in Taiwan."
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:116
+#: woocommerce/admin/settings/settings-invoice.php:120
 msgid "Delay get days"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:124
+#: woocommerce/admin/settings/settings-invoice.php:129
 msgid "Invalid mode"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:129
+#: woocommerce/admin/settings/settings-invoice.php:134
 msgctxt "invalid mode"
 msgid "Manual"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:130
+#: woocommerce/admin/settings/settings-invoice.php:135
 msgctxt "invalid mode"
 msgid "Auto ( when order status cancelled OR refunded )"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:134
+#: woocommerce/admin/settings/settings-invoice.php:139
 msgid "Amount abnormal mode"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:139
+#: woocommerce/admin/settings/settings-invoice.php:144
 msgctxt "amount abnormal mode"
 msgid "No action"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:140
+#: woocommerce/admin/settings/settings-invoice.php:145
 msgctxt "amount abnormal mode"
 msgid "Add one product to match order amount"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:141
+#: woocommerce/admin/settings/settings-invoice.php:146
 msgctxt "amount abnormal mode"
 msgid "Change order total amount"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:145
+#: woocommerce/admin/settings/settings-invoice.php:151
 msgid "Fix amount product name"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:148
-#: woocommerce/invoice-api.php:333
+#: woocommerce/admin/settings/settings-invoice.php:154
+#: woocommerce/invoice.php:166
 msgid "Discount"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:151
+#: woocommerce/admin/settings/settings-invoice.php:158
 msgid "Custom track code"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:161
+#: woocommerce/admin/settings/settings-invoice.php:169
 msgid "API credentials"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:166
+#: woocommerce/admin/settings/settings-invoice.php:174
 msgid "ECPay invoice sandbox"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:170
+#: woocommerce/admin/settings/settings-invoice.php:178
 msgid "Enable ECPay invoice sandbox"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:171
+#: woocommerce/admin/settings/settings-invoice.php:179
 msgid "Note: Recommend using this for development purposes only."
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:174
+#: woocommerce/admin/settings/settings-invoice.php:182
 msgid "MerchantID"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:180
+#: woocommerce/admin/settings/settings-invoice.php:189
 msgid "HashKey"
 msgstr ""
 
-#: woocommerce/admin/settings/settings-invoice.php:186
+#: woocommerce/admin/settings/settings-invoice.php:196
 msgid "HashIV"
 msgstr ""
 
@@ -489,13 +485,13 @@ msgstr ""
 
 #. translators: %s Error messade
 #: woocommerce/invoice-api.php:85
-#: woocommerce/invoice-response.php:62
+#: woocommerce/invoice-response.php:63
 #, php-format
 msgid "Issue invoice error: %s"
 msgstr ""
 
 #: woocommerce/invoice-api.php:95
-#: woocommerce/invoice-response.php:72
+#: woocommerce/invoice-response.php:73
 msgid "Invoice create time"
 msgstr ""
 
@@ -509,34 +505,34 @@ msgstr ""
 msgid "Issue delay invoice"
 msgstr ""
 
-#: woocommerce/invoice-api.php:314
+#: woocommerce/invoice-api.php:313
 msgid "shipping fee"
 msgstr ""
 
-#: woocommerce/invoice-api.php:322
+#: woocommerce/invoice-api.php:321
 msgid "return fee"
 msgstr ""
 
-#: woocommerce/invoice-api.php:354
+#: woocommerce/invoice-api.php:353
 msgid "parcel"
 msgstr ""
 
 #. translators: %s Error messade
-#: woocommerce/invoice-api.php:401
+#: woocommerce/invoice-api.php:400
 #, php-format
 msgid "Cancel delay invoice error: %s"
 msgstr ""
 
-#: woocommerce/invoice-api.php:409
+#: woocommerce/invoice-api.php:408
 msgid "Cancel delay invoice"
 msgstr ""
 
-#: woocommerce/invoice-api.php:444
+#: woocommerce/invoice-api.php:443
 msgid "Order cancel"
 msgstr ""
 
 #. translators: %s Error messade
-#: woocommerce/invoice-api.php:466
+#: woocommerce/invoice-api.php:465
 #, php-format
 msgid "Invalid invoice error: %s"
 msgstr ""
