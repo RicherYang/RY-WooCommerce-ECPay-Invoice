@@ -12,7 +12,7 @@ abstract class RY_WEI_Model
 
     public function is_testmode(): bool
     {
-        return 'yes' === RY_WEI::get_option('testmode', 'no');
+        return 'yes' === RY_WEI::get_option($this->model_type . '_testmode', 'no');
     }
 
     public function log($message, $level = WC_Log_Levels::INFO, $context = [])

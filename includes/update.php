@@ -6,8 +6,11 @@ final class RY_WEI_update
 {
     public static function update()
     {
-        $now_version = RY_WEI::get_option('version', '0.0.0');
+        $now_version = RY_WEI::get_option('version');
 
+        if (false === $now_version) {
+            $now_version = '0.0.0';
+        }
         if (RY_WEI_VERSION === $now_version) {
             return;
         }
@@ -27,21 +30,6 @@ final class RY_WEI_update
         }
 
         if (version_compare($now_version, '2.2.5', '<')) {
-            if (RY_WEI::get_option('ecpay_MerchantID') !== false) {
-                RY_WEI::update_option('apikey', [
-                    'MerchantID' => RY_WEI::get_option('ecpay_MerchantID'),
-                    'HashKey' => RY_WEI::get_option('ecpay_HashKey'),
-                    'HashIV' => RY_WEI::get_option('ecpay_HashIV'),
-                ], false);
-                RY_WEI::delete_option('ecpay_MerchantID');
-                RY_WEI::delete_option('ecpay_HashKey');
-                RY_WEI::delete_option('ecpay_HashIV');
-            }
-            if (RY_WEI::get_option('ecpay_invoice_testmode') !== false) {
-                RY_WEI::update_option('testmode', RY_WEI::get_option('ecpay_invoice_testmode'));
-                RY_WEI::delete_option('ecpay_invoice_testmode');
-            }
-
             RY_WEI::update_option('version', '2.2.5', true);
         }
     }

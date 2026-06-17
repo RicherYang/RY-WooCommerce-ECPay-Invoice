@@ -163,33 +163,30 @@ return [
         'type' => 'title',
     ],
     [
-        'title' => __('Sandbox', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::OPTION_PREFIX . 'testmode',
+        'title' => __('ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice'),
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_invoice_testmode',
         'type' => 'checkbox',
         'default' => 'no',
-        'desc' => __('Enable sandbox', 'ry-woocommerce-ecpay-invoice')
+        'desc' => __('Enable ECPay invoice sandbox', 'ry-woocommerce-ecpay-invoice')
             . '<p class="description" style="margin-bottom:2px">' . __('Note: Recommend using this for development purposes only.', 'ry-woocommerce-ecpay-invoice') . '<p>',
     ],
     [
         'title' => __('MerchantID', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::OPTION_PREFIX . 'apikey[MerchantID]',
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_MerchantID',
         'type' => 'text',
         'default' => '',
-        'autoload' => false,
     ],
     [
         'title' => __('HashKey', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::OPTION_PREFIX . 'apikey[HashKey]',
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_HashKey',
         'type' => 'text',
         'default' => '',
-        'autoload' => false,
     ],
     [
         'title' => __('HashIV', 'ry-woocommerce-ecpay-invoice'),
-        'id' => RY_WEI::OPTION_PREFIX . 'apikey[HashIV]',
+        'id' => RY_WEI::OPTION_PREFIX . 'ecpay_HashIV',
         'type' => 'text',
         'default' => '',
-        'autoload' => false,
     ],
     [
         'id' => 'api_options',

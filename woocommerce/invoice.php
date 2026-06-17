@@ -156,17 +156,15 @@ final class RY_WEI_WC_Invoice extends RY_WEI_Model
     public function get_api_info()
     {
         if ($this->is_testmode()) {
-            return [
-                'MerchantID' => '2000132',
-                'HashKey' => 'ejCk326UnaZWKisg',
-                'HashIV' => 'q9jcZX8Ib9LM8wYk',
-            ];
+            $MerchantID = '2000132';
+            $HashKey = 'ejCk326UnaZWKisg';
+            $HashIV = 'q9jcZX8Ib9LM8wYk';
+        } else {
+            $MerchantID = RY_WEI::get_option('ecpay_MerchantID');
+            $HashKey = RY_WEI::get_option('ecpay_HashKey');
+            $HashIV = RY_WEI::get_option('ecpay_HashIV');
         }
 
-        return RY_WEI::get_option('apikey', [
-            'MerchantID' => '',
-            'HashKey' => '',
-            'HashIV' => '',
-        ]);
+        return [$MerchantID, $HashKey, $HashIV];
     }
 }

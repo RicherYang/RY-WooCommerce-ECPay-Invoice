@@ -38,6 +38,10 @@ msgstr "Richer Yang"
 msgid "https://richer.tw/"
 msgstr "https://richer.tw/"
 
+#: woocommerce/admin/settings/invoice.php:65
+msgid "ECPay invoice method failed to enable!"
+msgstr "綠界發票模組啟用失敗！"
+
 #: templates/checkout/form-invoice.php:19
 #: templates/order/order-invoice-info.php:18
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:83
@@ -140,7 +144,7 @@ msgstr "捐贈愛心碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:97
 #: woocommerce/invoice-api.php:93
 #: woocommerce/invoice-basic.php:246
-#: woocommerce/invoice-response.php:71
+#: woocommerce/invoice-response.php:70
 #: woocommerce/invoice.php:139
 msgid "Invoice number"
 msgstr "發票號碼"
@@ -149,7 +153,7 @@ msgstr "發票號碼"
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:98
 #: woocommerce/invoice-api.php:94
 #: woocommerce/invoice-basic.php:251
-#: woocommerce/invoice-response.php:72
+#: woocommerce/invoice-response.php:71
 msgid "Invoice random number"
 msgstr "發票隨機碼"
 
@@ -225,7 +229,7 @@ msgid "Negative total fee can't invoice"
 msgstr "總額負數不開立發票"
 
 #: woocommerce/invoice-api.php:95
-#: woocommerce/invoice-response.php:73
+#: woocommerce/invoice-response.php:72
 msgid "Invoice create time"
 msgstr "發票建立時間"
 
@@ -306,20 +310,20 @@ msgstr "RY Tools"
 msgid "ECPay invoice"
 msgstr "綠界電子發票"
 
-#: woocommerce/admin/settings/invoice.php:64
+#: woocommerce/admin/settings/invoice.php:70
 msgid "Order no prefix only letters and numbers allowed"
 msgstr "訂單編號前綴只允許使用英文字母與數字"
 
-#: woocommerce/admin/settings/invoice.php:70
+#: woocommerce/admin/settings/invoice.php:76
 msgid "Delay day only can between 1 and 15 days."
 msgstr "延遲天數只可以在 1 到 15 天。"
 
-#: woocommerce/admin/settings/invoice.php:84
 #: woocommerce/admin/settings/invoice.php:90
+#: woocommerce/admin/settings/invoice.php:96
 msgid "Data transfer complated."
 msgstr "完成資料轉移。"
 
-#: woocommerce/admin/settings/invoice.php:96
+#: woocommerce/admin/settings/invoice.php:102
 msgid "Data delete complated."
 msgstr "完成資料刪除。"
 
@@ -469,6 +473,14 @@ msgstr "修改訂單總金額"
 msgid "API credentials"
 msgstr "API 憑證"
 
+#: woocommerce/admin/settings/settings-invoice.php:166
+msgid "ECPay invoice sandbox"
+msgstr "綠界電子發票測試模式"
+
+#: woocommerce/admin/settings/settings-invoice.php:170
+msgid "Enable ECPay invoice sandbox"
+msgstr "啟用綠界電子發票測試模式"
+
 #: woocommerce/admin/settings/settings-invoice.php:171
 msgid "Note: Recommend using this for development purposes only."
 msgstr "注意：僅建議基於開發需求使用本功能。"
@@ -477,17 +489,17 @@ msgstr "注意：僅建議基於開發需求使用本功能。"
 msgid "MerchantID"
 msgstr "商店代號"
 
-#: woocommerce/admin/settings/settings-invoice.php:181
+#: woocommerce/admin/settings/settings-invoice.php:180
 msgid "HashKey"
 msgstr "HashKey"
 
-#: woocommerce/admin/settings/settings-invoice.php:188
+#: woocommerce/admin/settings/settings-invoice.php:186
 msgid "HashIV"
 msgstr "HashIV"
 
 #. translators: %s Error messade
 #: woocommerce/invoice-api.php:85
-#: woocommerce/invoice-response.php:63
+#: woocommerce/invoice-response.php:62
 #, php-format
 msgid "Issue invoice error: %s"
 msgstr "開立發票失敗：%s"
@@ -554,11 +566,3 @@ msgstr "不建議同時啟用兩個發票外掛！"
 #: woocommerce/admin/settings/settings-invoice.php:83
 msgid "Use ECPay API to check the carruer number or donate number is right. (Default is correct)"
 msgstr "呼叫綠界 API 確認載具編號或捐贈愛心碼輸入正確 (預設為正確)。"
-
-#: woocommerce/admin/settings/settings-invoice.php:166
-msgid "Sandbox"
-msgstr ""
-
-#: woocommerce/admin/settings/settings-invoice.php:170
-msgid "Enable sandbox"
-msgstr ""
