@@ -175,7 +175,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         $order->update_meta_data('_invoice_ecpay_RelateNumber', $data['RelateNumber']);
         $order->save();
 
-        do_action('ry_wei_get_dalay_invoice_response', $result, $order);
+        do_action('ry_wei_get_delay_invoice_response', $result, $order);
     }
 
     protected function make_get_data($order, $api_info)
