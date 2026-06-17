@@ -41,9 +41,9 @@ class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
     {
         if (isset($ipn_info['inv_mer_id'])) {
             RY_WEI_WC_Invoice::instance()->log('IPN request', WC_Log_Levels::INFO, ['data' => $ipn_info]);
-            list($MerchantID, $HashKey, $HashIV) = RY_WEI_WC_Invoice::instance()->get_api_info();
+            $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
 
-            if ($ipn_info['inv_mer_id'] == $MerchantID) {
+            if ($ipn_info['inv_mer_id'] == $api_info['MerchantID']) {
                 return true;
             } else {
                 RY_WT_WC_ECPay_Gateway::instance()->log('IPN request check failed', WC_Log_Levels::ERROR, []);
@@ -55,6 +55,7 @@ class RY_WEI_WC_Invoice_Response extends RY_WEI_EcPay
 
     public function doing_callback($ipn_info)
     {
+        $api_info = RY_WEI_WC_Invoice::instance()->get_api_info();
         $order_ID = $this->get_order_id($ipn_info, $api_info['prefix']);
         if ($order = wc_get_order($order_ID)) {
             if (isset($ipn_info['inv_error']) && !empty($ipn_info['inv_error'])) {
