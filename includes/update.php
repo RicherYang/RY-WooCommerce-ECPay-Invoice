@@ -29,7 +29,7 @@ final class RY_WEI_update
             RY_WEI::update_option('version', '2.0.1', true);
         }
 
-        if (version_compare($now_version, '2.2.6', '<')) {
+        if (version_compare($now_version, '2.3.0', '<')) {
             if (RY_WEI::get_option('ecpay_MerchantID') !== false) {
                 RY_WEI::update_option('apiinfo', [
                     'prefix' => RY_WEI::get_option('order_prefix'),
@@ -60,7 +60,7 @@ final class RY_WEI_update
             RY_WEI::delete_option('ecpay_testmode');
             RY_WEI::delete_option('check_number_with_api');
 
-            RY_WEI::update_option('version', '2.2.6', true);
+            RY_WEI::update_option('version', '2.3.0', true);
         }
     }
 }
