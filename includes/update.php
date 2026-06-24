@@ -6,12 +6,14 @@ final class RY_WEI_update
 {
     public static function update()
     {
-        $now_version = RY_WEI::get_option('version');
+        $now_version = RY_WEI::get_option('version', '0.0.0');
 
-        if (false === $now_version) {
-            $now_version = '0.0.0';
-        }
         if (RY_WEI_VERSION === $now_version) {
+            return;
+        }
+
+        if ($now_version === '0.0.0') {
+            RY_WEI::update_option('version', RY_WEI_VERSION, true);
             return;
         }
 
