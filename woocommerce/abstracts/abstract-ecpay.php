@@ -45,7 +45,7 @@ abstract class RY_WEI_EcPay
 
         $args['Data'] = $this->urlencode($args['Data']);
 
-        $args['Data'] = openssl_encrypt($args['Data'], self::ENCRYPT_METHOD, $HashKey, 0, $HashIV);
+        $args['Data'] = @openssl_encrypt($args['Data'], self::ENCRYPT_METHOD, $HashKey, 0, $HashIV);
 
         $response = wp_remote_post($url, [
             'timeout' => $timeout,
