@@ -22,6 +22,8 @@ function rywei_carruer_type_to_name($carruer_type)
     if (empty($type_name)) {
         $type_name = [
             'none' => _x('none', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
+            'amego_host' => _x('amego_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
+            'ezpay_host' => _x('ezpay_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
             'ecpay_host' => _x('ecpay_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
             'smilepay_host' => _x('smilepay_host', 'carruer type', 'ry-woocommerce-ecpay-invoice'),
             'MOICA' => _x('MOICA', 'carruer type', 'ry-woocommerce-ecpay-invoice'),

@@ -194,8 +194,8 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
             'RelateNumber' => $this->generate_trade_no($order->get_id(), $api_info['prefix']),
             'CustomerID' => '',
             'CustomerIdentifier' => '',
-            'CustomerName' => $order->get_billing_last_name() . $order->get_billing_first_name(),
-            'CustomerAddr' => $full_country . $full_state . $order->get_billing_city() . $order->get_billing_address_1() . $order->get_billing_address_2(),
+            'CustomerName' => __('Customer', 'ry-woocommerce-ecpay-invoice'),
+            'CustomerAddr' => $full_country,
             'CustomerPhone' => '',
             'CustomerEmail' => $order->get_billing_email(),
             'Print' => '0',
@@ -239,9 +239,9 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                     $data['CarrierType'] = '1';
                 }
                 $data['CustomerIdentifier'] = $order->get_meta('_invoice_no');
-                $company = $order->get_billing_company();
-                if ($company) {
-                    $data['CustomerName'] = $company;
+                $data['CustomerName'] = $order->get_billing_company();
+                if (empty($data['CustomerName'])) {
+                    $data['CustomerName'] = $data['CustomerIdentifier'];
                 }
                 break;
             case 'donate':
@@ -273,6 +273,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                     'ItemName' => '',
                     'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
                     'ItemAmount' => $item_total,
+                    'ItemTaxType' => '1',
                 ];
                 if ($api_info['use_sku'] && method_exists($order_item, 'get_product')) {
                     $data_item['ItemName'] = $order_item->get_product()->get_sku();
@@ -297,6 +298,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                     'ItemName' => $fee_item->get_name(),
                     'ItemCount' => $item_qty == 0 ? 1 : $item_qty,
                     'ItemAmount' => $item_total,
+                    'ItemTaxType' => '1',
                 ];
                 $data['Items'][] = $data_item;
             }
@@ -309,6 +311,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                 'ItemName' => __('shipping fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
                 'ItemAmount' => round($shipping_fee, wc_get_price_decimals()),
+                'ItemTaxType' => '1',
             ];
         }
 
@@ -317,6 +320,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                 'ItemName' => __('return fee', 'ry-woocommerce-ecpay-invoice'),
                 'ItemCount' => 1,
                 'ItemAmount' => round(-$total_refunded, wc_get_price_decimals()),
+                'ItemTaxType' => '1',
             ];
         }
 
@@ -328,6 +332,7 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
                         'ItemName' => $api_info['abnormal_product'],
                         'ItemCount' => 1,
                         'ItemAmount' => round($data['SalesAmount'] - $total_amount, wc_get_price_decimals()),
+                        'ItemTaxType' => '1',
                     ];
                     break;
                 case 'order':
@@ -339,18 +344,19 @@ class RY_WEI_WC_Invoice_Api extends RY_WEI_EcPay
         }
 
         foreach ($data['Items'] as $key => $item) {
-            $data['Items'][$key]['ItemSeq'] = $key + 1;
-            $data['Items'][$key]['ItemName'] = mb_substr($item['ItemName'], 0, 80);
-            $data['Items'][$key]['ItemCount'] = round($data['Items'][$key]['ItemCount'], 3);
-            $data['Items'][$key]['ItemPrice'] = round($data['Items'][$key]['ItemAmount'] / $data['Items'][$key]['ItemCount'], 6);
-            $data['Items'][$key]['ItemAmount'] = (string) round($data['Items'][$key]['ItemCount'] * $data['Items'][$key]['ItemPrice'], 0);
-            $data['Items'][$key]['ItemCount'] = (string) $data['Items'][$key]['ItemCount'];
-            $data['Items'][$key]['ItemPrice'] = (string) $data['Items'][$key]['ItemPrice'];
-            $data['Items'][$key]['ItemWord'] = __('parcel', 'ry-woocommerce-ecpay-invoice');
+            $item['ItemSeq'] = $key + 1;
+            $item['ItemName'] = mb_strimwidth(str_replace('|', '', $item['ItemName']), 0, 80, '');
+            $item['ItemCount'] = round($item['ItemCount'], 3);
+            $item['ItemPrice'] = round($item['ItemAmount'] / $item['ItemCount'], 6);
+            $item['ItemAmount'] = (string) round($item['ItemCount'] * $item['ItemPrice'], 0);
+            $item['ItemCount'] = (string) $item['ItemCount'];
+            $item['ItemPrice'] = (string) $item['ItemPrice'];
+            $item['ItemWord'] = __('parcel', 'ry-woocommerce-ecpay-invoice');
+            $data['Items'][$key] = $item;
         }
 
         $data['InvoiceRemark'] = apply_filters('ry_wei_invoice_remark', $data['InvoiceRemark'], $data, $order);
-        $data['InvoiceRemark'] = mb_substr($data['InvoiceRemark'], 0, 100);
+        $data['InvoiceRemark'] = mb_strimwidth($data['InvoiceRemark'], 0, 200, '');
 
         return $data;
     }

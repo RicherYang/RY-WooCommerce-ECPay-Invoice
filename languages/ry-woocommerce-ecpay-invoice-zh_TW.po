@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-03-02T11:52:45+08:00\n"
-"PO-Revision-Date: 2026-06-19 13:55+0800\n"
+"PO-Revision-Date: 2026-06-25 09:53+0800\n"
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
@@ -85,26 +85,26 @@ msgctxt "carruer type"
 msgid "none"
 msgstr "紙本發票"
 
-#: includes/functions.php:25
+#: includes/functions.php:27
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:30
 #: woocommerce/invoice-basic.php:50
 msgctxt "carruer type"
 msgid "ecpay_host"
 msgstr "雲端發票"
 
-#: includes/functions.php:26
+#: includes/functions.php:28
 msgctxt "carruer type"
 msgid "smilepay_host"
-msgstr "雲端發票 (速買配載具)"
+msgstr "雲端發票 (速買配)"
 
-#: includes/functions.php:27
+#: includes/functions.php:29
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:31
 #: woocommerce/invoice-basic.php:51
 msgctxt "carruer type"
 msgid "MOICA"
 msgstr "自然人憑證"
 
-#: includes/functions.php:28
+#: includes/functions.php:30
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:32
 #: woocommerce/invoice-basic.php:52
 msgctxt "carruer type"
@@ -179,7 +179,7 @@ msgid "Cancel invoice"
 msgstr "取消發票"
 
 #: woocommerce/admin/meta-boxes/class-wc-meta-box-invoice-data.php:129
-#: woocommerce/invoice-api.php:469
+#: woocommerce/invoice-api.php:475
 msgid "Invalid invoice"
 msgstr "作廢發票"
 
@@ -229,15 +229,15 @@ msgstr "總額負數不開立發票"
 msgid "Invoice create time"
 msgstr "發票建立時間"
 
-#: woocommerce/invoice-api.php:349
+#: woocommerce/invoice-api.php:354
 msgid "parcel"
 msgstr "批"
 
-#: woocommerce/invoice-api.php:309
+#: woocommerce/invoice-api.php:311
 msgid "shipping fee"
 msgstr "運費"
 
-#: woocommerce/invoice-api.php:317
+#: woocommerce/invoice-api.php:320
 msgid "return fee"
 msgstr "退款"
 
@@ -247,21 +247,21 @@ msgid "Discount"
 msgstr "折價"
 
 #. translators: %s Error messade
-#: woocommerce/invoice-api.php:396
+#: woocommerce/invoice-api.php:402
 #, php-format
 msgid "Cancel delay invoice error: %s"
 msgstr "取消延遲開立發票失敗：%s"
 
-#: woocommerce/invoice-api.php:404
+#: woocommerce/invoice-api.php:410
 msgid "Cancel delay invoice"
 msgstr "取消延遲開立"
 
-#: woocommerce/invoice-api.php:439
+#: woocommerce/invoice-api.php:445
 msgid "Order cancel"
 msgstr "訂單取消"
 
 #. translators: %s Error messade
-#: woocommerce/invoice-api.php:461
+#: woocommerce/invoice-api.php:467
 #, php-format
 msgid "Invalid invoice error: %s"
 msgstr "作廢發票號碼失敗：%s"
@@ -552,3 +552,17 @@ msgstr "不建議同時啟用兩個發票外掛！"
 #: woocommerce/admin/settings/invoice.php:66
 msgid "Order no prefix only letters and numbers allowed, and maximum length is 3 characters."
 msgstr "訂單編號前綴只允許使用英文字母與數字，且不得超過 3 個字元。"
+
+#: includes/functions.php:25
+msgctxt "carruer type"
+msgid "amego_host"
+msgstr "雲端發票 (光貿)"
+
+#: includes/functions.php:26
+msgctxt "carruer type"
+msgid "ezpay_host"
+msgstr "雲端發票 (ezPay)"
+
+#: woocommerce/invoice-api.php:197
+msgid "Customer"
+msgstr "消費者"
